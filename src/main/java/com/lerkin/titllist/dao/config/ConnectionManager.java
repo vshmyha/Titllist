@@ -17,23 +17,28 @@ public class ConnectionManager {
         }
     }
 
-    public static void close(Connection connection, Statement statement, ResultSet resultSet) throws SQLException {
-        if (resultSet != null) {
-            resultSet.close();
+    public static void close(Connection connection, Statement statement, ResultSet resultSet)  {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e){
+            throw new RuntimeException(e.getMessage(), e);
         }
-        if (statement != null) {
-            statement.close();
-        }
-        if (connection != null) {
-            connection.close();
-        }
+
     }
 
-    public static void close(Connection connection, Statement statement) throws SQLException {
+    public static void close(Connection connection, Statement statement)  {
         close(connection, statement, null);
     }
 
-    public static void close(Connection connection) throws SQLException {
+    public static void close(Connection connection)  {
         close(connection, null, null);
     }
 }

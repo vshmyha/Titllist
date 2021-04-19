@@ -1,13 +1,13 @@
 package com.lerkin.titllist.dao;
 
-import com.lerkin.titllist.dao.login.LoginDao;
-import com.lerkin.titllist.dao.login.LoginDaoImpl;
+import com.lerkin.titllist.dao.user.UserDao;
+import com.lerkin.titllist.dao.user.UserDaoImpl;
 
 public class DaoFactory {
 
-    private static final LoginDao LOGIN_DAO = new LoginDaoImpl();
+    private static final UserDao USER_DAO = new UserDaoImpl();
 
-    public static LoginDao getLoginDao() {
-        return LOGIN_DAO;
+    public static UserDao getUserDao() {
+        return USER_DAO;
     }
 }

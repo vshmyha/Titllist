@@ -1,13 +1,13 @@
 package com.lerkin.titllist.service;
 
-import com.lerkin.titllist.service.login.LoginService;
-import com.lerkin.titllist.service.login.LoginServiceImpl;
+import com.lerkin.titllist.service.login.UserService;
+import com.lerkin.titllist.service.login.UserServiceImpl;
 
 public class ServiceFactory {
 
-    private static final LoginService LOGIN_SERVICE = new LoginServiceImpl();
+    private static final UserService LOGIN_SERVICE = new UserServiceImpl();
 
-    public static LoginService getLoginService() {
+    public static UserService getLoginService() {
         return LOGIN_SERVICE;
     }
 }

@@ -13,16 +13,16 @@ public class Controller extends HttpServlet {
     private static final String COMMAND = "command";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String command = req.getParameter(COMMAND);
-            TaskManager.impl(command, req, resp);
+            String command = request.getParameter(COMMAND);
+            TaskManager.impl(command, request, response);
         } catch (UserFriendlyException e) {
-            //message for user
+            request.setAttribute("response", "body to die for");
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        PrintWriter writer = resp.getWriter();
+//        PrintWriter writer = response.getWriter();
 //        if ("someBody".equals(command)) {
 //            writer.write("body once told me");
 //        } else {
