@@ -25,9 +25,9 @@ public class LoginCommand implements Command {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("username", user.getUserName());
-            ForwardUtil.forwardGoToMainPage(request, response);
+            ForwardUtil.forwardToMainPage(request, response);
         } else {
-            request.setAttribute("response", "Login Failed");
+            request.setAttribute("response", "Wrong login or password");
             ForwardUtil.forwardToStartPage(request, response);
         }
     }

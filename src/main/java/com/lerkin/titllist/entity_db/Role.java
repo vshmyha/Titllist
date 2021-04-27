@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public enum Role {
 
-    BLOCKED(0), SIMPLE(1), ADMIN(2), SUPER_ADMIN(3);
+    BLOCKED("Blocked"), SIMPLE("Simple"), ADMIN("Admin"), SUPER_ADMIN("Super Admin");
 
-    private int role;
+    private String roleName;
 
-    Role(int role) {
-        this.role = role;
+    Role(String roleName) {
+        this.roleName = roleName;
     }
 }

@@ -6,5 +6,7 @@ public interface UserDao {
 
     User selectUser(String username, String password);
 
-    void registration(User user);
+    boolean isUserExist(String username);
+
+    void addUser(User user);
 }

@@ -1,5 +1,9 @@
 package com.lerkin.titllist.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lerkin.titllist.controller.response.CustomResponse;
+import com.lerkin.titllist.controller.response.ResponseType;
+import com.lerkin.titllist.controller.response.ResponseUtil;
 import com.lerkin.titllist.exception.UserFriendlyException;
 
 import javax.servlet.ServletException;
@@ -7,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Controller extends HttpServlet {
 
@@ -18,16 +23,13 @@ public class Controller extends HttpServlet {
             String command = request.getParameter(COMMAND);
             TaskManager.impl(command, request, response);
         } catch (UserFriendlyException e) {
-            request.setAttribute("response", "body to die for");
-        } catch (Exception e) {
-            e.printStackTrace();
+            String jsonResponse = ResponseUtil.createJSONResponse(e);
+            ResponseUtil.sendResponse(response, jsonResponse);
+        } catch (Throwable e) {
+            CustomResponse customResponse = new CustomResponse(ResponseType.ERROR, "Server Error");
+            String jsonResponse = ResponseUtil.createJSONResponse(customResponse);
+            ResponseUtil.sendResponse(response, jsonResponse);
         }
-//        PrintWriter writer = response.getWriter();
-//        if ("someBody".equals(command)) {
-//            writer.write("body once told me");
-//        } else {
-//            writer.write("body to die for");
-//        }
     }
 
     @Override

@@ -1,0 +1,70 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: cursive;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.form{
+    width: 350px;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #40407ab0;
+    text-align: center;
+    border-radius: 24px;
+    box-shadow: 0px 3px 30px -7px;
+}
+
+.form h1{
+    color: #dfe4ea;
+    font-size: 30px;
+}
+
+.form input[type = "text"], .form input[type = "password"]{
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 3px solid #2bd0d4;
+    background-color: #7dece45c;
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: black;
+    font-family: cursive;
+    font-weight: bold;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+
+.form input[type = "text"]:focus, .form input[type = "password"]:focus{
+    width: 280px;
+    border-color: #33d9b2;
+}
+
+.form input[type = "submit"], .form input[type = "button"]{
+    background: none;
+    margin: 20px auto;
+    text-align: center;
+    border: 3px solid #33d9b2;
+    padding: 8px 15px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.form input[type = "submit"]:hover, .form input[type = "button"]:hover{
+    background: #33d9b2;
+}
+
+::placeholder {
+    color: black;
+    font-weight: bold;
+    font-family: cursive;
+}
+

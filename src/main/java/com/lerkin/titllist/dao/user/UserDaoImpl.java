@@ -3,14 +3,13 @@ package com.lerkin.titllist.dao.user;
 import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.entity_db.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDaoImpl implements UserDao {
 
     private static final String SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT * FROM users WHERE username=? AND password=?";
+    private static final String SELECT_USER_BY_USERNAME = "SELECT * FROM users WHERE username=?";
+    private static final String INSERT_NEW_USER = "INSERT users (username, password, role_id) VALUES (?, ?, (SELECT id FROM roles WHERE role_name=?))";
 
     @Override
     public User selectUser(String username, String password) {
@@ -37,7 +36,43 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void registration(User user) {
+    public boolean isUserExist(String username) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        boolean isUserExist;
+        try {
+            connection = ConnectionManager.takeConnection();
+            preparedStatement = connection.prepareStatement(SELECT_USER_BY_USERNAME);
+            preparedStatement.setString(1, username);
+            resultSet = preparedStatement.executeQuery();
+            isUserExist = resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            ConnectionManager.close(connection, preparedStatement, resultSet);
+        }
+        return isUserExist;
+    }
 
+    @Override
+    public void addUser(User user) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionManager.takeConnection();
+            preparedStatement = connection.prepareStatement(INSERT_NEW_USER);
+            String userName = user.getUserName();
+            preparedStatement.setString(1, userName);
+            String password = user.getPassword();
+            preparedStatement.setString(2, password);
+            String role = user.getRole().getRoleName();
+            preparedStatement.setString(3, role);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            ConnectionManager.close(connection, preparedStatement);
+        }
     }
 }
