@@ -10,6 +10,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT * FROM users WHERE username=? AND password=?";
     private static final String SELECT_USER_BY_USERNAME = "SELECT * FROM users WHERE username=?";
     private static final String INSERT_NEW_USER = "INSERT users (username, password, role_id) VALUES (?, ?, (SELECT id FROM roles WHERE role_name=?))";
+    private static final String UPDATE_NEW_PASSWORD = "UPDATE users SET password = ? where username = ?";
 
     @Override
     public User selectUser(String username, String password) {
@@ -68,6 +69,25 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, password);
             String role = user.getRole().getRoleName();
             preparedStatement.setString(3, role);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            ConnectionManager.close(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public void changePassword(User user) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String username = user.getUserName();
+        String password = user.getPassword();
+        try {
+            connection = ConnectionManager.takeConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_NEW_PASSWORD);
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, username);
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);

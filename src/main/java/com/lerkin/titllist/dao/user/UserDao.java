@@ -9,4 +9,6 @@ public interface UserDao {
     boolean isUserExist(String username);
 
     void addUser(User user);
+
+    void changePassword(User user);
 }

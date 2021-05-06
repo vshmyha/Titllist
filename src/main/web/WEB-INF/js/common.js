@@ -1,5 +1,4 @@
-let images = ['https://images5.alphacoders.com/670/670920.jpg',
-    'https://images6.alphacoders.com/106/1065657.png',
+let images = ['https://images6.alphacoders.com/106/1065657.png',
     'https://nmbimg.fastmirror.org/image/2020-08-05/5f29edcc16151.jpg',
     'https://i.imgur.com/bKEDU7f.png',
     'https://w.wallhaven.cc/full/r2/wallhaven-r2my1m.png',

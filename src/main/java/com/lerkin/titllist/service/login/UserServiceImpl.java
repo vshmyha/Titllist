@@ -33,4 +33,21 @@ public class UserServiceImpl implements UserService {
             throw new UserFriendlyException("User with this name already exist");
         }
     }
+
+    @Override
+    public void changePassword(User user) {
+        String encodedPassword = EncryptionUtil.encodePassword(user);
+        user.setPassword(encodedPassword);
+        userDao.changePassword(user);
+    }
+
+    @Override
+    public void checkCurrentPassword(User user) {
+        user = getUserByNameAndPass(user);
+        if(user == null){
+            throw new UserFriendlyException("Wrong current password");
+        }
+    }
+
+
 }

@@ -15,20 +15,20 @@ public class LoginCommand implements Command {
     private final UserService userService = ServiceFactory.getLoginService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) {
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
         User user = new User(username, password, null);
         user = userService.getUserByNameAndPass(user);
 
         if (user != null) {
-            HttpSession session = request.getSession();
+            HttpSession session = req.getSession();
             session.setAttribute("username", user.getUserName());
-            ForwardUtil.forwardToMainPage(request, response);
+            ForwardUtil.forwardToMainPage(req, resp);
         } else {
-            request.setAttribute("response", "Wrong login or password");
-            ForwardUtil.forwardToStartPage(request, response);
+            req.setAttribute("response", "Wrong login or password");
+            ForwardUtil.forwardToStartPage(req, resp);
         }
     }
 }

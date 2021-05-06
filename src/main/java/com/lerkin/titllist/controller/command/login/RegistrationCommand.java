@@ -1,10 +1,9 @@
 package com.lerkin.titllist.controller.command.login;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lerkin.titllist.controller.CommandNames;
 import com.lerkin.titllist.controller.command.Command;
 
-import com.lerkin.titllist.controller.response.CustomResponse;
+import com.lerkin.titllist.controller.response.ResponseEntity;
 import com.lerkin.titllist.controller.response.ResponseType;
 import com.lerkin.titllist.controller.response.ResponseUtil;
 import com.lerkin.titllist.controller.tool.ForwardUtil;
@@ -28,14 +27,8 @@ public class RegistrationCommand implements Command {
         userService.registration(user);
         HttpSession session = request.getSession();
         session.setAttribute("username", user.getUserName());
-        String command = CommandNames.GO_TO_MAIN_PAGE;
-        String url = ForwardUtil.createCommandPath(command, null);
-        CustomResponse customResponse = new CustomResponse(ResponseType.NEW_PAGE, url);
-        try {
-            String jsonResponse = ResponseUtil.createJSONResponse(customResponse);
-            ResponseUtil.sendResponse(response, jsonResponse);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        String url = ForwardUtil.createCommandPath(CommandNames.GO_TO_MAIN_PAGE, null);
+        ResponseEntity customResponse = new ResponseEntity(ResponseType.NEW_PAGE, url);
+        ResponseUtil.sendResponse(response, customResponse);
     }
 }

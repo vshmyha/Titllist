@@ -3,15 +3,19 @@ package com.lerkin.titllist.controller.response;
 import lombok.Data;
 
 @Data
-public class CustomResponse {
+public class ResponseEntity {
     private ResponseType status;
     private Object value;
 
-    public CustomResponse(ResponseType status, Object value) {
+    public ResponseEntity(ResponseType status, Object value) {
         this.status = status;
         this.value = value;
     }
 
-    public CustomResponse() {
+    public ResponseEntity(ResponseType status){
+        this.status = status;
+    }
+
+    public ResponseEntity() {
     }
 }

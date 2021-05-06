@@ -7,4 +7,8 @@ public interface UserService {
     User getUserByNameAndPass(User user);
 
     void registration(User user);
+
+    void changePassword(User user);
+
+    void checkCurrentPassword(User user);
 }
