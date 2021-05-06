@@ -3,23 +3,57 @@ let typeBtn = $('#typeBtn');
 let typeDropdown = $('#type-dropdown');
 
 typeBtn.mouseenter(function () {
-        $('#types').html('');
-        $('#types').show();
-        $.getJSON('controller?command=getAllTypesCommand', function (result) {
-            let status = result.status;
+    $('#types').html('');
+    $('#types').show();
+    $.getJSON('controller?command=getAllTypesCommand', function (result) {
+        let status = result.status;
 
-            if (status != null) {
-                if (status === 'OK') {
-                    $.each(result.value, function (i, field) {
-                        console.log(i);
-                        let id = field;
-                        types.append("<button type='button' class='typeButton' name='command' id='" + id + "'>" + field + "</button>");
-                    });
-                }
+        if (status != null) {
+            if (status === 'OK') {
+                $.each(result.value, function (i, field) {
+                    let id = field.id;
+                    let typeName = field.typeName;
+                    types.append("<button type='button' class='typeButton' name='command' id='" + id + "'>" + typeName + "</button>");
+                });
             }
+        }
+        $(".typeButton").each(function () {
+            $(this).click(function () {
+                let id = $(this).attr('id');
+
+                $.getJSON('controller?command=getByTypesCommand&id=' + id, function (result) {
+                    let status = result.status;
+                    let byTypeDiv = $('#animeByTeg');
+                    if (status != null) {
+                        if (status === 'OK') {
+
+                            $.each(result.value, function (i, field) {
+                                let type = field.type.typeName;
+                                let rusName = field.rusName;
+                                let japName = field.japName;
+                                let episodsCount = field.episodesCount;
+                                let duration = field.duration;
+                                let releaseDate = field.releaseDate;
+                                let genresArray = field.genres;
+                                byTypeDiv.append("<div> Name: " + rusName + "/" + japName +
+                                    "Type: " + type +
+                                    "Episodse: " + episodsCount +
+                                    "Duration: " + duration +
+                                    "Release date: " + releaseDate +
+                                    "Genres:" +"</div>");
+                                $.each(genresArray, function (i, field) {
+                                    let genre = field.genreName;
+                                    byTypeDiv.append(genre + ", ").after("Genres: ");
+                                })
+                            })
+                        }
+
+                    }
+                });
+            });
         });
-    }
-);
+    });
+});
 
 typeDropdown.mouseleave(function () {
     $('#types').hide();
@@ -38,10 +72,46 @@ genreBtn.mouseenter(function () {
         if (status != null) {
             if (status === 'OK') {
                 $.each(result.value, function (i, field) {
-                    genres.append("<button>" + field + "</button>");
+                    console.log(field);
+                    let id = field.id;
+                    let genreName = field.genreName;
+                    genres.append("<button type='button' class='genreButton' name='command' id='" + id + "'>" + genreName + "</button>");
                 });
             }
         }
+        $(".genreButton").each(function () {
+            $(this).click(function () {
+                let id = $(this).attr('id');
+
+                $.getJSON('controller?command=getByGenresCommand&id=' + id, function (result) {
+                    let status = result.status;
+                    let byGenreDiv = $('#animeByTeg');
+                    if (status != null) {
+                        if (status === 'OK') {
+
+                            $.each(result.value, function (i, field) {
+                                let type = field.type.typeName;
+                                let rusName = field.rusName;
+                                let japName = field.japName;
+                                let episodsCount = field.episodesCount;
+                                let duration = field.duration;
+                                let releaseDate = field.releaseDate;
+                                let genresArray = field.genres;
+                                byGenreDiv.append("<div> Name: " + rusName + "/" + japName +
+                                    "Type: " + type +
+                                    "Episodse: " + episodsCount +
+                                    "Duration: " + duration +
+                                    "Release date: " + releaseDate + "</div>");
+                                $.each(genresArray, function (i, field) {
+                                    let genre = field.genreName;
+                                    byGenreDiv.append(genre + ", ").after("Genres: ");
+                                })
+                            })
+                        }
+                    }
+                });
+            });
+        });
     });
 });
 

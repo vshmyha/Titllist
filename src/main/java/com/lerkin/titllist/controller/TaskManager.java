@@ -6,10 +6,7 @@ import com.lerkin.titllist.controller.command.login.ChangePasswordCommand;
 import com.lerkin.titllist.controller.command.login.LoginCommand;
 import com.lerkin.titllist.controller.command.login.LogoutCommand;
 import com.lerkin.titllist.controller.command.login.RegistrationCommand;
-import com.lerkin.titllist.controller.command.query.GetAllGenresCommand;
-import com.lerkin.titllist.controller.command.query.GetAllReleaseDateSCommand;
-import com.lerkin.titllist.controller.command.query.GetAllTypesCommand;
-import com.lerkin.titllist.controller.command.query.type.*;
+import com.lerkin.titllist.controller.command.query.*;
 import com.lerkin.titllist.controller.command.redirect.GoToMainPage;
 import com.lerkin.titllist.controller.command.redirect.GoToRegistrationPage;
 import com.lerkin.titllist.controller.command.redirect.GoToStartPage;
@@ -34,11 +31,9 @@ class TaskManager {
         COMMAND_MAP.put(CommandNames.GET_ALL_TYPES_COMMAND, new GetAllTypesCommand());
         COMMAND_MAP.put(CommandNames.GET_ALL_GENRES_COMMAND, new GetAllGenresCommand());
         COMMAND_MAP.put(CommandNames.GET_ALL_RELEASE_DATES_COMMAND, new GetAllReleaseDateSCommand());
-        COMMAND_MAP.put(CommandNames.GET_ALL_ANIME_FILM_COMMAND, new GetAllAnimeFilmCommand());
-        COMMAND_MAP.put(CommandNames.GET_ALL_ANIME_ONA_COMMAND, new GetAllAnimeONACommand());
-        COMMAND_MAP.put(CommandNames.GET_ALL_ANIME_OVA_COMMAND, new GetAllAnimeOVACommand());
-        COMMAND_MAP.put(CommandNames.GET_ALL_ANIME_SPESHL_COMMAND, new GetAllAnimeSpeshlCommand());
-        COMMAND_MAP.put(CommandNames.GET_ALL_ANIME_TV_SERIAL_COMMAND, new GetAllAnimeTVSerialCommand());
+        COMMAND_MAP.put(CommandNames.CHANGE_PASSWORD_COMMAND, new ChangePasswordCommand());
+        COMMAND_MAP.put(CommandNames.GET_BY_TYPES_COMMAND, new GetByTypesCommand());
+        COMMAND_MAP.put(CommandNames.GET_BY_GENRES_COMMAND, new GetByGenresCommand());
     }
 
     static void impl(String commandName, HttpServletRequest request, HttpServletResponse response) {

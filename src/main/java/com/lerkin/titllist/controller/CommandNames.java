@@ -11,9 +11,6 @@ public interface CommandNames {
     String GET_ALL_GENRES_COMMAND = "getAllGenresCommand";
     String GET_ALL_RELEASE_DATES_COMMAND = "getAllReleaseDateCommand";
     String CHANGE_PASSWORD_COMMAND = "changePasswordCommand";
-    String GET_ALL_ANIME_FILM_COMMAND = "getAllAnimeFilmCommand";
-    String GET_ALL_ANIME_ONA_COMMAND = "getAllAnimeONACommand";
-    String GET_ALL_ANIME_OVA_COMMAND = "getAllAnimeOVACommand";
-    String GET_ALL_ANIME_SPESHL_COMMAND = "getAllAnimeSpeshlCommand";
-    String GET_ALL_ANIME_TV_SERIAL_COMMAND = "getAllAnimeTVSerialCommand";
+    String GET_BY_TYPES_COMMAND = "getByTypesCommand";
+    String GET_BY_GENRES_COMMAND = "getByGenresCommand";
 }

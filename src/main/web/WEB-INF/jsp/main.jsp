@@ -95,11 +95,11 @@
         </div>
     </div>
 </div>
-<div class="vertical-container">
-<div id="speshl">
+
+<div class="vertical-container "id="animeByTeg">
 
 </div>
-</div>
+
 <footer>
 </footer>
 </body>
@@ -113,9 +113,6 @@
 </script>
 <script>
     <%@include file="../js/modal_setting.js"%>
-</script>
-<script>
-    <%@include file="../js/get_by_tags.js"%>
 </script>
 <style>
     <%@include file="../css/base.css"%>

@@ -16,7 +16,8 @@ public class Anime extends DBEntity{
     private Type type;
     private Integer episodesCount;
     private Integer duration;
-    private Short release_date;
-    private List<String> genres;
+    private Short releaseDate;
+    private List<Genre> genres;
+
 
 }

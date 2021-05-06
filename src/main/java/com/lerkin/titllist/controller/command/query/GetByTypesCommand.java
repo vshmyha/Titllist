@@ -1,4 +1,4 @@
-package com.lerkin.titllist.controller.command.query.type;
+package com.lerkin.titllist.controller.command.query;
 
 import com.lerkin.titllist.controller.command.Command;
 import com.lerkin.titllist.controller.response.ResponseEntity;
@@ -12,14 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class GetAllAnimeOVACommand implements Command {
-
+public class GetByTypesCommand implements Command {
     private final TypeService typeService = ServiceFactory.getTypeService();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
-        List<Anime> anime = typeService.getAnimeOVA();
-        ResponseEntity responseEntity = new ResponseEntity(ResponseType.OK, anime);
+        String query = req.getQueryString();
+        String idType = query.substring(query.lastIndexOf('=') + 1);
+        Integer id = Integer.parseInt(idType);
+        List<Anime> animeByTypes = typeService.getByTypes(id);
+        ResponseEntity responseEntity = new ResponseEntity(ResponseType.OK, animeByTypes);
         ResponseUtil.sendResponse(resp, responseEntity);
     }
 }

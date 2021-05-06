@@ -1,20 +1,16 @@
 package com.lerkin.titllist.service.query.type;
 
 import com.lerkin.titllist.entity_db.Anime;
+import com.lerkin.titllist.entity_db.Type;
 
 import java.util.List;
 
 public interface TypeService {
 
-    List<String> getTypes();
+    List<Type> getTypes();
 
-    List<Anime> getAnimeOVA();
+    List<Anime> getByTypes(Integer id);
 
-    List<Anime> getAnimeONA();
+    Type getTypeByAnimeId(Integer id);
 
-    List<Anime> getAnimeFilm();
-
-    List<Anime> getAnimeTVSerial();
-
-    List<Anime> getAnimeSpeshl();
 }

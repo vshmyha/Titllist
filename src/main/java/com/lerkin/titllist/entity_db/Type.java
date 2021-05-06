@@ -1,15 +1,11 @@
 package com.lerkin.titllist.entity_db;
 
-import lombok.Getter;
+import lombok.*;
 
-@Getter
-public enum Type {
-
-    FILM("Film"), ONA("ONA"), OVA("OVA"), TV_SERIAL("TV Serial"), SPESHL("Speshl");
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Type extends DBEntity {
 
     private String typeName;
-
-    Type(String typeName){
-        this.typeName = typeName;
-    }
 }

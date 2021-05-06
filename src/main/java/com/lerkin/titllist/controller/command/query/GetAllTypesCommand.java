@@ -4,6 +4,7 @@ import com.lerkin.titllist.controller.command.Command;
 import com.lerkin.titllist.controller.response.ResponseEntity;
 import com.lerkin.titllist.controller.response.ResponseType;
 import com.lerkin.titllist.controller.response.ResponseUtil;
+import com.lerkin.titllist.entity_db.Type;
 import com.lerkin.titllist.service.ServiceFactory;
 import com.lerkin.titllist.service.query.type.TypeService;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ public class GetAllTypesCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
-        List<String> types = typeService.getTypes();
+        List<Type> types = typeService.getTypes();
         ResponseEntity responseEntity = new ResponseEntity(ResponseType.OK, types);
         ResponseUtil.sendResponse(resp, responseEntity);
     }

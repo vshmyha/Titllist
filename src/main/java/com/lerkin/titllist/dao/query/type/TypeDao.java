@@ -1,20 +1,16 @@
 package com.lerkin.titllist.dao.query.type;
 
 import com.lerkin.titllist.entity_db.Anime;
+import com.lerkin.titllist.entity_db.Type;
 
 import java.util.List;
 
 public interface TypeDao {
 
-    List<String> selectTypes();
+    List<Type> selectTypes();
 
-    List<Anime> selectAnimeOVA();
+    List<Anime> selectByTypes(Integer id);
 
-    List<Anime> selectAnimeONA();
+    Type selectTypeByAnimeId(Integer id);
 
-    List<Anime> selectAnimeFilm();
-
-    List<Anime> selectAnimeTVSerial();
-
-    List<Anime> selectAnimeSpeshl();
 }
