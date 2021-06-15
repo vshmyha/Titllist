@@ -165,6 +165,10 @@ button:hover{
 	color:#ffdd59;
 }
 
+.adminSetting{
+	text-align: left;
+}
+
 content{
 	margin: auto;
 	width: 900px;
@@ -177,17 +181,48 @@ content{
 
 }
 
-.dropdown-content_genres, .dropdown-content_releaseDate{
+ .dropdown-content_releaseDate{
 	width: 300px;
+}
+
+.dropdown-content_genres{
+	width: 320px;
 }
 
 .dropdown-content_types {
 	width: 100px;
 }
 
-
+::-webkit-scrollbar {
+	display: none;
+}
 .vertical-container {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 	overflow-y: auto;
 	height: 100%;
+	width: 900px;
+	background: black;
+}
+
+.anime {
+	border-width: 3px;
+	border-color: #ffdd59;
+	padding: 5px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	float: left;
+	width: 300px;
+	height: 300px;
+	align-items: center;
+}
+
+.anime p {
+	line-height: 1.5;
+}
+
+.addAnime{
 }
 

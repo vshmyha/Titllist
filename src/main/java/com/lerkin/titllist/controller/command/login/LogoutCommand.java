@@ -14,4 +14,8 @@ public class LogoutCommand implements Command {
         session.invalidate();
         ForwardUtil.forwardToStartPage(req, resp);
     }
+    @Override
+    public boolean roleUpdateRequired() {
+        return false;
+    }
 }

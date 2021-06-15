@@ -1,6 +1,9 @@
 package com.lerkin.titllist.dao.user;
 
+
 import com.lerkin.titllist.entity_db.User;
+
+import java.util.List;
 
 public interface UserDao {
 
@@ -11,4 +14,6 @@ public interface UserDao {
     void addUser(User user);
 
     void changePassword(User user);
+
+    List<User> selectUsersAndRoles();
 }

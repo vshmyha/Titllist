@@ -1,11 +1,15 @@
 package com.lerkin.titllist.dao;
 
-import com.lerkin.titllist.dao.query.genre.GenreDao;
-import com.lerkin.titllist.dao.query.genre.GenreDaoImpl;
-import com.lerkin.titllist.dao.query.release_date.ReleaseDateDao;
-import com.lerkin.titllist.dao.query.release_date.ReleaseDateDaoImpl;
-import com.lerkin.titllist.dao.query.type.TypeDao;
-import com.lerkin.titllist.dao.query.type.TypeDaoImpl;
+import com.lerkin.titllist.dao.anime.AnimeDao;
+import com.lerkin.titllist.dao.anime.AnimeDaoImpl;
+import com.lerkin.titllist.dao.authority.AuthorityDao;
+import com.lerkin.titllist.dao.authority.AuthorityDaoImpl;
+import com.lerkin.titllist.dao.genre.GenreDao;
+import com.lerkin.titllist.dao.genre.GenreDaoImpl;
+import com.lerkin.titllist.dao.release_date.ReleaseDateDao;
+import com.lerkin.titllist.dao.release_date.ReleaseDateDaoImpl;
+import com.lerkin.titllist.dao.type.TypeDao;
+import com.lerkin.titllist.dao.type.TypeDaoImpl;
 import com.lerkin.titllist.dao.user.UserDao;
 import com.lerkin.titllist.dao.user.UserDaoImpl;
 
@@ -15,6 +19,8 @@ public class DaoFactory {
     private static final TypeDao TYPE_DAO = new TypeDaoImpl();
     private static final GenreDao GENRE_DAO = new GenreDaoImpl();
     private static final ReleaseDateDao RELEASE_DATE_DAO = new ReleaseDateDaoImpl();
+    private static final AnimeDao ANIME_DAO = new AnimeDaoImpl();
+    private static final AuthorityDao AUTHORITY_DAO = new AuthorityDaoImpl();
 
     public static UserDao getUserDao() { return USER_DAO;}
 
@@ -23,4 +29,10 @@ public class DaoFactory {
     public static GenreDao getGenreDao() {return GENRE_DAO;}
 
     public static ReleaseDateDao getReleaseDateDao() {return RELEASE_DATE_DAO;}
+
+    public static AnimeDao getAnimeDao() {return ANIME_DAO;}
+
+    public static AuthorityDao getAuthorityDao() {
+        return AUTHORITY_DAO;
+    }
 }

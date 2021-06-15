@@ -9,8 +9,14 @@ public interface CommandNames {
     String LOGOUT = "logout";
     String GET_ALL_TYPES_COMMAND = "getAllTypesCommand";
     String GET_ALL_GENRES_COMMAND = "getAllGenresCommand";
-    String GET_ALL_RELEASE_DATES_COMMAND = "getAllReleaseDateCommand";
+    String GET_ALL_RELEASE_DATES_COMMAND = "getAllReleaseDatesCommand";
     String CHANGE_PASSWORD_COMMAND = "changePasswordCommand";
-    String GET_BY_TYPES_COMMAND = "getByTypesCommand";
-    String GET_BY_GENRES_COMMAND = "getByGenresCommand";
+    String GET_BY_TYPE_COMMAND = "getByTypeCommand";
+    String GET_BY_GENRE_COMMAND = "getByGenreCommand";
+    String GET_BY_RELEASE_DATE_COMMAND =  "getByReleaseDateCommand";
+    String GET_ALL_ANIME = "getAllAnime";
+    String ADD_NEW_ANIME = "addNewAnime";
+    String REFRESH_AUTHORITIES = "refreshAuth";
+    String GO_TO_BLOCKED_PAGE = "goToBlockedPage";
+    String GET_USERS_AND_ROLES = "getUsersAndRoles";
 }

@@ -3,9 +3,11 @@ package com.lerkin.titllist.controller;
 import com.lerkin.titllist.controller.response.ResponseEntity;
 import com.lerkin.titllist.controller.response.ResponseType;
 import com.lerkin.titllist.controller.response.ResponseUtil;
+import com.lerkin.titllist.controller.tool.ForwardUtil;
+import com.lerkin.titllist.exception.SessionInvalidException;
 import com.lerkin.titllist.exception.UserFriendlyException;
+import com.lerkin.titllist.exception.UserIsBlockedException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +24,16 @@ public class Controller extends HttpServlet {
             response.setContentType("application/json; charset=utf-8");
             String command = request.getParameter(COMMAND);
             TaskManager.impl(command, request, response);
+        } catch (UserIsBlockedException e) {
+            String url = ForwardUtil.createCommandPath(CommandNames.GO_TO_BLOCKED_PAGE, null);
+            ResponseEntity responseEntity = new ResponseEntity(ResponseType.NEW_PAGE, url);
+            ResponseUtil.sendResponse(response, responseEntity);
         } catch (UserFriendlyException e) {
             ResponseUtil.sendResponse(response, e);
+        } catch (SessionInvalidException e) {
+            String url = ForwardUtil.createCommandPath(CommandNames.GO_TO_START_PAGE, null);
+            ResponseEntity responseEntity = new ResponseEntity(ResponseType.NEW_PAGE, url);
+            ResponseUtil.sendResponse(response, responseEntity);
         } catch (Throwable e) {
             ResponseEntity responseEntity = new ResponseEntity(ResponseType.ERROR, "Server Error");
             ResponseUtil.sendResponse(response, responseEntity);

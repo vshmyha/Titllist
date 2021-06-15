@@ -64,10 +64,11 @@
         <ul>
             <div class="dropdown">
                 <i class="far fa-user-circle"></i>
-                <li class="user">${sessionScope.username}</li>
+                <li class="user">${sessionScope.user.userName}</li>
                 <div class="dropdown-content">
                     <a href="#">My Titllist</a>
-                    <button id="setting" type="button" class="setting">Setting</button>
+                    <button id="setting" type="button" class="setting">Settings</button>
+                    <button type="button" class="adminSetting" id="adminSetting">Admin settings</button>
                     <button class="logout" name="command" onclick="location.href='controller?command=logout';">Log Out
                     </button>
                 </div>
@@ -75,6 +76,7 @@
         </ul>
     </nav>
 </header>
+
 <div id="modal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -88,7 +90,8 @@
                 <h2 class="sett_title" align="center">Change password</h2>
                 <input id="currentPasswordField" type="password" name="currentPassword" placeholder="Current password"/>
                 <input id="newPasswordField" type="password" name="newPassword" placeholder="New password"/>
-                <input id="repeatNewPasswordField" type="password" name="repeatNewPassword" placeholder="Repeat new password"/>
+                <input id="repeatNewPasswordField" type="password" name="repeatNewPassword"
+                       placeholder="Repeat new password"/>
                 <input type="hidden" name="command" value="changePasswordCommand">
                 <input type="submit" value="Chang password"/>
             </form>
@@ -96,11 +99,77 @@
     </div>
 </div>
 
-<div class="vertical-container "id="animeByTeg">
 
+<div id="adminModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="closeWindow">&times;</span>
+            <h2 align="center">Admin settings</h2>
+        </div>
+        <div class="modal-body">
+            <p id="errorMessagePlace">
+            </p>
+            <button id="addAnime">Add new anime</button>
+            <button id="users">Users</button>
+            <div id="usersBody" class="usersBody">
+                <table id="userTable">
+                    <tr>
+                        <td>User</td>
+                        <td>Role</td>
+                    </tr>
+                    <tr id="superAdmin">
+                        <td>Lerkin</td>
+                        <td>Super Admin</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="addAnimeBody" class="addAnimeBody">
+                <form id="addNewAnime" class="newAnime" action="controller" method="get">
+                    <h2 class="sett_title" align="center">Add New Anime</h2>
+
+                    <label>RusName: <input required class="animeField" name="rusName" type="text"/></label>
+
+                    <label>JapName: <input required class="animeField" name="japName" type="text"/></label>
+
+                    <label>Type:
+                        <select form="addNewAnime" style="color: black" required id="typeSelection" name="type">
+                        </select>
+                    </label>
+
+                    <label>Duration:
+                        <input required class="animeField" name="duration" type="text"/>
+                    </label>
+
+                    <label>Episodes:
+                        <input required class="animeField" name="episodes" type="text"/>
+                    </label>
+
+                    <label>Release Date:
+                        <input required class="animeField" name="releaseDate" type="text"/>
+                    </label>
+
+                    <label>Genre:
+                        <select form="addNewAnime" size="6" required id="genreSelection" multiple="multiple"
+                                name="genre">
+
+                        </select>
+                    </label>
+
+                    <input type="hidden" name="command" value="addNewAnime">
+                    <input type="submit" value="Add"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="scroll">
+    <div class="vertical-container" id="animeByTeg">
+    </div>
 </div>
 
 <footer>
+
 </footer>
 </body>
 <script defer src="http://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>

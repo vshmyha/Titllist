@@ -30,11 +30,21 @@ let images = ['https://images6.alphacoders.com/106/1065657.png',
     'https://avatars.mds.yandex.net/get-zen_doc/2746214/pub_5efd9690b84d394691ce74b2_5efda914145e72165cc94478/scale_1200'
 ];
 
-window.onload = function () {
-    randomBackgroundImage();
-};
+window.onload = randomBackgroundImage();
 
 function randomBackgroundImage() {
     let image = Math.floor(Math.random() * images.length) + 1;
-    document.body.style.backgroundImage = 'url("'+ images[image] + '")';
+    document.body.style.backgroundImage = 'url("' + images[image] + '")';
 }
+
+$(document).ajaxComplete(function (e, xhr, settings) {
+    let responseText = xhr.responseText;
+    let result = JSON.parse(responseText);
+    let status = result.status;
+    if (status != null) {
+        if (result.status === 'NEW_PAGE') {
+            document.location.href = result.value;
+            e.preventDefault();
+        }
+    }
+});

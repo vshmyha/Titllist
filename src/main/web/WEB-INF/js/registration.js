@@ -28,9 +28,7 @@ registrationForm.submit(function (event) {
             success: function (data) {
                 let status = data.status;
                 if (status != null) {
-                    if (status === 'NEW_PAGE') {
-                        document.location.href = data.value;
-                    } else if (status === 'ERROR') {
+                    if (status === 'ERROR') {
                         $('#errorMessage').html(data.value);
                     }
                 } else {

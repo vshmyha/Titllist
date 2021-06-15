@@ -11,6 +11,7 @@ public class ForwardUtil {
     private static final String START_PAGE = "WEB-INF/jsp/start.jsp";
     private static final String MAIN_PAGE = "WEB-INF/jsp/main.jsp";
     private static final String REGISTRATION_PAGE = "WEB-INF/jsp/registration.jsp";
+    private static final String BLOCKED_PAGE = "WEB-INF/jsp/blocked_page.jsp";
 
     public static void sendRedirect(HttpServletResponse response, String command, String attributes) {
         String url = createCommandPath(command, attributes);
@@ -44,6 +45,10 @@ public class ForwardUtil {
 
     public static void forwardToMainPage(ServletRequest request, ServletResponse response) {
         forward(request, response, MAIN_PAGE);
+    }
+
+    public static void forwardToBlockedPage(ServletRequest request, ServletResponse response){
+        forward(request, response, BLOCKED_PAGE);
     }
 
     private static void forward(ServletRequest request, ServletResponse response, String page) {

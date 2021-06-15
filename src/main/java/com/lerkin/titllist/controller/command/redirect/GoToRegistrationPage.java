@@ -11,4 +11,9 @@ public class GoToRegistrationPage implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
         ForwardUtil.forwardToRegistrationPage(req, resp);
     }
+
+    @Override
+    public boolean roleUpdateRequired() {
+        return false;
+    }
 }

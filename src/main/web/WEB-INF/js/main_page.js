@@ -1,59 +1,116 @@
+window.addEventListener('load', (event) => {
+    $.getJSON('controller?command=getAllAnime', function (result) {
+        let status = result.status;
+        let byTypeDiv = $('#animeByTeg');
+        if (status != null) {
+            if (status === 'OK') {
+                $.each(result.value, function (i, field) {
+                    let animeId = field.id;
+                    let type = field.type.typeName;
+                    let rusName = field.rusName;
+                    let japName = field.japName;
+                    let episodesCount = field.episodesCount;
+                    let duration = field.duration;
+                    let releaseDate = field.releaseDate;
+                    let genresArray = field.genres;
+                    let genres = "Genres: ";
+                    $.each(genresArray, function (i, field) {
+                        let genre = field.genreName;
+                        genres = genres.concat(genre, ', ');
+                    })
+                    byTypeDiv.append("<div class='anime' id='" + animeId + "'> <p> Name: " + rusName + "/" + japName + "</p>" +
+                        "<p> Type: " + type + "</p>" +
+                        "<p> Episodes: " + episodesCount + "</p>" +
+                        "<p> Duration: " + duration + "</p>" +
+                        "<p> Release date: " + releaseDate + "</p>" +
+                        "<p>" + genres + "</p></div>");
+                })
+            } else if (status === 'ERROR') {
+                $('#errorMessage').html(data.value);
+            } else {
+                alert('Unknown response');
+            }
+        }
+    });
+})
+
 let types = $('#types');
 let typeBtn = $('#typeBtn');
 let typeDropdown = $('#type-dropdown');
 
-typeBtn.mouseenter(function () {
-    $('#types').html('');
-    $('#types').show();
-    $.getJSON('controller?command=getAllTypesCommand', function (result) {
+function getAnimesByTag(commandName, dataId) {
+    $.getJSON('controller?command=' + commandName + '&id=' + dataId, function (result) {
         let status = result.status;
-
+        let byTypeDiv = $('#animeByTeg');
+        byTypeDiv.html('');
         if (status != null) {
             if (status === 'OK') {
                 $.each(result.value, function (i, field) {
-                    let id = field.id;
-                    let typeName = field.typeName;
-                    types.append("<button type='button' class='typeButton' name='command' id='" + id + "'>" + typeName + "</button>");
-                });
+                    let animeId = field.id;
+                    let type = field.type.typeName;
+                    let rusName = field.rusName;
+                    let japName = field.japName;
+                    let episodesCount = field.episodesCount;
+                    let duration = field.duration;
+                    let releaseDate = field.releaseDate;
+                    let genresArray = field.genres;
+                    let genres = "Genres: ";
+                    $.each(genresArray, function (i, field) {
+                        let genre = field.genreName;
+                        genres = genres.concat(genre, ', ');
+                    })
+                    byTypeDiv.append("<div class='anime' id='" + animeId + "'> <p> Name: " + rusName + "/" + japName + "</p>" +
+                        "<p> Type: " + type + "</p>" +
+                        "<p> Episodes: " + episodesCount + "</p>" +
+                        "<p> Duration: " + duration + "</p>" +
+                        "<p> Release date: " + releaseDate + "</p>" +
+                        "<p>" + genres + "</p></div>");
+                })
+            } else if (status === 'ERROR') {
+                $('#errorMessage').html(data.value);
+            } else {
+                alert('Unknown response');
             }
         }
-        $(".typeButton").each(function () {
-            $(this).click(function () {
-                let id = $(this).attr('id');
+    });
+}
 
-                $.getJSON('controller?command=getByTypesCommand&id=' + id, function (result) {
-                    let status = result.status;
-                    let byTypeDiv = $('#animeByTeg');
-                    if (status != null) {
-                        if (status === 'OK') {
 
-                            $.each(result.value, function (i, field) {
-                                let type = field.type.typeName;
-                                let rusName = field.rusName;
-                                let japName = field.japName;
-                                let episodsCount = field.episodesCount;
-                                let duration = field.duration;
-                                let releaseDate = field.releaseDate;
-                                let genresArray = field.genres;
-                                byTypeDiv.append("<div> Name: " + rusName + "/" + japName +
-                                    "Type: " + type +
-                                    "Episodse: " + episodsCount +
-                                    "Duration: " + duration +
-                                    "Release date: " + releaseDate +
-                                    "Genres:" +"</div>");
-                                $.each(genresArray, function (i, field) {
-                                    let genre = field.genreName;
-                                    byTypeDiv.append(genre + ", ").after("Genres: ");
-                                })
-                            })
-                        }
-
-                    }
+function configurePropertyButton(button, content, getPropertiesCommand, getByPropertyCommand, attributeClassName, extractProperty) {
+    button.mouseenter(function () {
+        content.html('');
+        content.show();
+        $.getJSON('controller?command=' + getPropertiesCommand, function (result) {
+            let status = result.status;
+            if (status != null) {
+                if (status === 'OK') {
+                    $.each(result.value, function (i, field) {
+                        let id = field.id;
+                        let property = extractProperty(field);
+                        types.append("<button type='button' class='" + attributeClassName + "' data_id='" + id + "'>" + property + "</button>");
+                    });
+                }
+            }
+            $(".typeButton").each(function () {
+                $(this).click(function () {
+                    getAnimesByTag(getByPropertyCommand, $(this).attr('data_id'))
                 });
             });
         });
     });
-});
+}
+
+
+configurePropertyButton(
+    typeBtn,
+    types,
+    'getAllTypesCommand',
+    'getByTypeCommand',
+    'typeButton',
+    function (field) {
+        return field.typeName;
+    }
+);
 
 typeDropdown.mouseleave(function () {
     $('#types').hide();
@@ -65,51 +122,22 @@ let genreBtn = $('#genreBtn');
 let genreDropdown = $('#genre-dropdown');
 
 genreBtn.mouseenter(function () {
-    $('#genres').html('');
-    $('#genres').show();
+    genres.html('');
+    genres.show();
     $.getJSON('controller?command=getAllGenresCommand', function (result) {
         let status = result.status;
         if (status != null) {
             if (status === 'OK') {
                 $.each(result.value, function (i, field) {
-                    console.log(field);
                     let id = field.id;
                     let genreName = field.genreName;
-                    genres.append("<button type='button' class='genreButton' name='command' id='" + id + "'>" + genreName + "</button>");
+                    genres.append("<button type='button' class='genreButton' name='command' data_id='" + id + "'>" + genreName + "</button>");
                 });
             }
         }
         $(".genreButton").each(function () {
             $(this).click(function () {
-                let id = $(this).attr('id');
-
-                $.getJSON('controller?command=getByGenresCommand&id=' + id, function (result) {
-                    let status = result.status;
-                    let byGenreDiv = $('#animeByTeg');
-                    if (status != null) {
-                        if (status === 'OK') {
-
-                            $.each(result.value, function (i, field) {
-                                let type = field.type.typeName;
-                                let rusName = field.rusName;
-                                let japName = field.japName;
-                                let episodsCount = field.episodesCount;
-                                let duration = field.duration;
-                                let releaseDate = field.releaseDate;
-                                let genresArray = field.genres;
-                                byGenreDiv.append("<div> Name: " + rusName + "/" + japName +
-                                    "Type: " + type +
-                                    "Episodse: " + episodsCount +
-                                    "Duration: " + duration +
-                                    "Release date: " + releaseDate + "</div>");
-                                $.each(genresArray, function (i, field) {
-                                    let genre = field.genreName;
-                                    byGenreDiv.append(genre + ", ").after("Genres: ");
-                                })
-                            })
-                        }
-                    }
-                });
+                getAnimesByTag('getByGenreCommand', $(this).attr('data_id'));
             });
         });
     });
@@ -125,20 +153,27 @@ let releaseDateBtn = $('#releaseDateBtn');
 let releaseDateDropdown = $('#releaseDate-dropdown');
 
 releaseDateBtn.mouseenter(function () {
-    $('#releaseDates').html('');
-    $('#releaseDates').show();
-    $.getJSON('controller?command=getAllReleaseDateCommand', function (result) {
+    releaseDates.html('');
+    releaseDates.show();
+    $.getJSON('controller?command=getAllReleaseDatesCommand', function (result) {
         let status = result.status;
         if (status != null) {
             if (status === 'OK') {
                 $.each(result.value, function (i, field) {
-                    releaseDates.append("<button>" + field + "</button>");
+                    releaseDates.append("<button type='button' class='releaseDateButton' name='command' data_id='" + field + " '>" + field + "</button>");
                 });
             }
         }
+        $(".releaseDateButton").each(function () {
+            $(this).click(function () {
+                getAnimesByTag('getByReleaseDateCommand', $(this).attr('data_id'));
+            });
+        });
     });
 });
 
 releaseDateDropdown.mouseleave(function () {
     $('#releaseDates').hide();
 });
+
+

@@ -8,14 +8,14 @@ import com.lerkin.titllist.controller.response.ResponseUtil;
 import com.lerkin.titllist.controller.tool.ForwardUtil;
 import com.lerkin.titllist.entity_db.User;
 import com.lerkin.titllist.service.ServiceFactory;
-import com.lerkin.titllist.service.login.UserService;
+import com.lerkin.titllist.service.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ChangePasswordCommand implements Command {
-    private final UserService userService = ServiceFactory.getLoginService();
+    private final UserService userService = ServiceFactory.getUserService();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {

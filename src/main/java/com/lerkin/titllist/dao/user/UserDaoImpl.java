@@ -1,16 +1,19 @@
 package com.lerkin.titllist.dao.user;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
+import com.lerkin.titllist.entity_db.Role;
 import com.lerkin.titllist.entity_db.User;
 
 import java.sql.*;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
-    private static final String SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT * FROM users WHERE username=? AND password=?";
+    private static final String SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT * FROM users LEFT JOIN roles ON users.role_id = roles.id WHERE username=? AND password=?";
     private static final String SELECT_USER_BY_USERNAME = "SELECT * FROM users WHERE username=?";
     private static final String INSERT_NEW_USER = "INSERT users (username, password, role_id) VALUES (?, ?, (SELECT id FROM roles WHERE role_name=?))";
     private static final String UPDATE_NEW_PASSWORD = "UPDATE users SET password = ? where username = ?";
+    private static final String SELECT_USERS_AND_ROLES = "SELECT u.id, u.username, r.role_name FROM users u LEFT JOIN roles r ON u.role_id = r.id WHERE r.role_name <> 'Super Admin' ORDER BY r.id";
 
     @Override
     public User selectUser(String username, String password) {
@@ -24,16 +27,18 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
-            boolean next = resultSet.next();
-            if (next) {
+            if (resultSet.next()) {
                 user = UserParser.parse(resultSet);
+                Role role = RoleParser.parse(resultSet);
+                user.setRole(role);
             }
+            return user;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
         } finally {
             ConnectionManager.close(connection, preparedStatement, resultSet);
         }
-        return user;
+
     }
 
     @Override
@@ -48,12 +53,12 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, username);
             resultSet = preparedStatement.executeQuery();
             isUserExist = resultSet.next();
+            return isUserExist;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
         } finally {
             ConnectionManager.close(connection, preparedStatement, resultSet);
         }
-        return isUserExist;
     }
 
     @Override
@@ -93,6 +98,23 @@ public class UserDaoImpl implements UserDao {
             throw new RuntimeException(e.getMessage(), e);
         } finally {
             ConnectionManager.close(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public List<User> selectUsersAndRoles() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionManager.takeConnection();
+            preparedStatement = connection.prepareStatement(SELECT_USERS_AND_ROLES);
+            resultSet = preparedStatement.executeQuery();
+            return UserParser.listParse(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionManager.close(connection, preparedStatement, resultSet);
         }
     }
 }

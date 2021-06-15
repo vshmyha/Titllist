@@ -11,4 +11,9 @@ public class GoToStartPage implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
         ForwardUtil.forwardToStartPage(req, resp);
     }
+
+    @Override
+    public boolean roleUpdateRequired() {
+        return false;
+    }
 }
