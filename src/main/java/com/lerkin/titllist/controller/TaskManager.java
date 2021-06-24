@@ -43,6 +43,7 @@ class TaskManager {
         COMMAND_MAP.put(CommandNames.REFRESH_AUTHORITIES, AUTH_REFRESH_COMMAND);
         COMMAND_MAP.put(CommandNames.GO_TO_BLOCKED_PAGE, new GoToBlockedPage());
         COMMAND_MAP.put(CommandNames.GET_USERS_AND_ROLES, new GetUsersAndRolesCommand());
+        COMMAND_MAP.put(CommandNames.GET_ROLES_COMMAND, new GetRolesCommand());
     }
 
     static void impl(String commandName, HttpServletRequest request, HttpServletResponse response) {

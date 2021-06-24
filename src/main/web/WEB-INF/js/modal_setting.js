@@ -64,7 +64,11 @@ $.getJSON('controller?command=getUsersAndRoles', function (result) {
                 let id = field.id;
                 let role = field.role;
                 let userName = field.userName;
-                tableUsers.append("<tr> <td id='" + id + "'>" + userName + "</td> <td>" + role + "</td> <td><button class='roleChanger' id='" + id + "'>Change Role</button></td></tr> ");
+                let roleContainerId = "admin_table_role_" + role + i;
+                tableUsers.append("<tr> <td id='admin_table_username_" + userName + "'>" + userName + "</td> " +
+                    "<td id='" + roleContainerId + "'>" + role + "</td> " +
+                    "<td><button onclick='showRoleSelectionForUser(" + roleContainerId + ", " + id + ")' " +
+                    "class='roleChanger'>Change Role</button></td></tr> ");
             });
         } else if (status === 'NEW_PAGE') {
             alert("Your rights were changed by the administrator, now you will be redirected to the login page.");
@@ -76,7 +80,24 @@ $.getJSON('controller?command=getUsersAndRoles', function (result) {
     }
 });
 
-
+function showRoleSelectionForUser(roleContainerStr, userId) {
+    let roleContainer = $(roleContainerStr);
+    roleContainer.html('');
+    $('#saveRole').show();
+    $.getJSON('controller?command=getRolesCommand', function (result) {
+        if (status != null) {
+            if (status === 'OK') {
+                roleContainer.append("<select form='changeRole' style='color: black'  id='selection'></select>")
+                $.each(result.value, function (i) {
+                    let role = result.value[i];
+                    $('#selection').append("<option class='option'>" + role + "</option>")
+                })
+            } else if (status === 'ERROR') {
+                $('#errorMessagePlace').html(result.value);
+            }
+        }
+    });
+};
 
 
 function changeDivStyle(div) {

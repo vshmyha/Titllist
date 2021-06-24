@@ -8,6 +8,8 @@ import com.lerkin.titllist.dao.genre.GenreDao;
 import com.lerkin.titllist.dao.genre.GenreDaoImpl;
 import com.lerkin.titllist.dao.release_date.ReleaseDateDao;
 import com.lerkin.titllist.dao.release_date.ReleaseDateDaoImpl;
+import com.lerkin.titllist.dao.role.RoleDao;
+import com.lerkin.titllist.dao.role.RoleDaoImpl;
 import com.lerkin.titllist.dao.type.TypeDao;
 import com.lerkin.titllist.dao.type.TypeDaoImpl;
 import com.lerkin.titllist.dao.user.UserDao;
@@ -21,6 +23,7 @@ public class DaoFactory {
     private static final ReleaseDateDao RELEASE_DATE_DAO = new ReleaseDateDaoImpl();
     private static final AnimeDao ANIME_DAO = new AnimeDaoImpl();
     private static final AuthorityDao AUTHORITY_DAO = new AuthorityDaoImpl();
+    private static final RoleDao ROLE_DAO = new RoleDaoImpl();
 
     public static UserDao getUserDao() { return USER_DAO;}
 
@@ -35,4 +38,6 @@ public class DaoFactory {
     public static AuthorityDao getAuthorityDao() {
         return AUTHORITY_DAO;
     }
+
+    public static RoleDao getRoleDao() { return ROLE_DAO; }
 }

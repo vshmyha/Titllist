@@ -129,10 +129,13 @@ form.changePassword input[type = "submit"]:hover, form.newAnime input[type = "su
 
 .sett_title{
     font-size: 18px;
-
 }
 
 @keyframes animatetop {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
+}
+
+#saveRole{
+    display: none;
 }

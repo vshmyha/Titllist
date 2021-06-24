@@ -122,6 +122,10 @@
                         <td>Super Admin</td>
                     </tr>
                 </table>
+                <form id='changeRole' action='controller' method='post'>
+                    <input type="hidden" name="command" value="changeRole">
+                    <input type="submit" id="saveRole" value="Save"/>
+                </form>
             </div>
             <div id="addAnimeBody" class="addAnimeBody">
                 <form id="addNewAnime" class="newAnime" action="controller" method="get">

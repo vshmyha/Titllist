@@ -4,6 +4,8 @@ import com.lerkin.titllist.service.anime.AnimeService;
 import com.lerkin.titllist.service.anime.AnimeServiceImpl;
 import com.lerkin.titllist.service.authority.AuthorityService;
 import com.lerkin.titllist.service.authority.AuthorityServiceImpl;
+import com.lerkin.titllist.service.role.RoleService;
+import com.lerkin.titllist.service.role.RoleServiceImpl;
 import com.lerkin.titllist.service.user.UserService;
 import com.lerkin.titllist.service.user.UserServiceImpl;
 import com.lerkin.titllist.service.genre.GenreService;
@@ -21,6 +23,7 @@ public class ServiceFactory {
     private static final ReleaseDateService RELEASE_DATE_SERVICE = new ReleaseDateServiceImp();
     private static final AnimeService ANIME_SERVICE = new AnimeServiceImpl();
     private static final AuthorityService AUTHORITY_SERVICE = new AuthorityServiceImpl();
+    private static final RoleService ROLE_SERVICE = new RoleServiceImpl();
 
     public static UserService getUserService() {
         return USER_SERVICE;
@@ -34,9 +37,19 @@ public class ServiceFactory {
         return GENRE_SERVICE;
     }
 
-    public static ReleaseDateService getReleaseDateService(){ return RELEASE_DATE_SERVICE;}
+    public static ReleaseDateService getReleaseDateService() {
+        return RELEASE_DATE_SERVICE;
+    }
 
-    public static AnimeService getAnimeService() {return ANIME_SERVICE;}
+    public static AnimeService getAnimeService() {
+        return ANIME_SERVICE;
+    }
 
-    public static AuthorityService getAuthorityService() {return AUTHORITY_SERVICE;}
+    public static AuthorityService getAuthorityService() {
+        return AUTHORITY_SERVICE;
+    }
+
+    public static RoleService getRoleService() {
+        return ROLE_SERVICE;
+    }
 }

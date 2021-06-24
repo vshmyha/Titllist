@@ -15,8 +15,8 @@
 <body>
 <form id="loginForm" class="form" action="controller" method="post">
     <h1>Login</h1>
-    <input id="loginField" type="text" name="username" value="" placeholder="Username"/>
-    <input id="passwordField" type="password" name="password" value="" placeholder="Password"/>
+    <input autocomplete='off' id="loginField" type="text" name="username" value="" placeholder="Username"/>
+    <input autocomplete='off' id="passwordField" type="password" name="password" value="" placeholder="Password"/>
     <input id="submitLoginBtn" type="submit" value="Log In"/>
     <input type="hidden" name="command" value="login"/>
     <input type="button" onclick="location.href='controller?command=goToRegistrationPage';" value="Sign Up"/>

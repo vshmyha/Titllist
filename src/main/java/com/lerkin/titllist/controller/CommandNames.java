@@ -19,4 +19,5 @@ public interface CommandNames {
     String REFRESH_AUTHORITIES = "refreshAuth";
     String GO_TO_BLOCKED_PAGE = "goToBlockedPage";
     String GET_USERS_AND_ROLES = "getUsersAndRoles";
+    String GET_ROLES_COMMAND = "getRolesCommand";
 }

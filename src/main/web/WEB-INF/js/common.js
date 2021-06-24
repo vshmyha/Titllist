@@ -42,8 +42,12 @@ $(document).ajaxComplete(function (e, xhr, settings) {
     let result = JSON.parse(responseText);
     let status = result.status;
     if (status != null) {
-        if (result.status === 'NEW_PAGE') {
+        if (status === 'NEW_PAGE') {
             document.location.href = result.value;
+            e.preventDefault();
+        } else if (status !== 'ERROR' && status !== 'OK') {
+            alert('Unknown Response');
+            console.log(result);
             e.preventDefault();
         }
     }
