@@ -34,4 +34,9 @@ public class AnimeServiceImpl implements AnimeService{
     public void addNewAnime(Anime anime) {
         animeDao.insertNewAnime(anime);
     }
+
+    @Override
+    public Anime getAnimeById(Integer animeId) {
+        return animeDao.selectAnimeById(animeId);
+    }
 }

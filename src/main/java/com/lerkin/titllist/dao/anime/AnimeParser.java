@@ -10,9 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnimeParser {
-    public static List<Anime> parse(ResultSet resultSet) throws SQLException {
+    public static List<Anime> listParse(ResultSet resultSet) throws SQLException {
         List<Anime> animes = new ArrayList<>();
-        while (resultSet.next()){
+        while (resultSet.next()) {
+            String rusName = resultSet.getString("rus_name");
+            String japName = resultSet.getString("jap_name");
+            Integer idAnime = resultSet.getInt("id_anime");
+            Anime anime = new Anime(rusName, japName);
+            anime.setId(idAnime);
+            animes.add(anime);
+        }
+        return animes;
+    }
+
+    public static Anime parser(ResultSet resultSet) throws SQLException {
+        Anime anime = new Anime();
+        while (resultSet.next()) {
             String rusName = resultSet.getString("rus_name");
             String japName = resultSet.getString("jap_name");
             Integer episodesCount = resultSet.getInt("episods");
@@ -21,10 +34,8 @@ public class AnimeParser {
             Integer idAnime = resultSet.getInt("id_anime");
             Type type = ServiceFactory.getTypeService().getTypeByAnimeId(idAnime);
             List<Genre> genres = ServiceFactory.getGenreService().getGenresByAnimeId(idAnime);
-            Anime anime = new Anime(rusName, japName, type, episodesCount, duration, releaseDate, genres);
-            anime.setId(idAnime);
-            animes.add(anime);
+            anime = new Anime(rusName, japName, type, episodesCount, duration, releaseDate, genres);
         }
-        return animes;
+        return anime;
     }
 }

@@ -7,11 +7,9 @@ import com.lerkin.titllist.controller.command.login.LoginCommand;
 import com.lerkin.titllist.controller.command.login.LogoutCommand;
 import com.lerkin.titllist.controller.command.login.RegistrationCommand;
 import com.lerkin.titllist.controller.command.read.*;
-import com.lerkin.titllist.controller.command.redirect.GoToBlockedPage;
-import com.lerkin.titllist.controller.command.redirect.GoToMainPage;
-import com.lerkin.titllist.controller.command.redirect.GoToRegistrationPage;
-import com.lerkin.titllist.controller.command.redirect.GoToStartPage;
+import com.lerkin.titllist.controller.command.redirect.*;
 import com.lerkin.titllist.controller.command.update.AddNewAnime;
+import com.lerkin.titllist.controller.command.update.ChangeRoleCommand;
 import com.lerkin.titllist.exception.UserFriendlyException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +42,9 @@ class TaskManager {
         COMMAND_MAP.put(CommandNames.GO_TO_BLOCKED_PAGE, new GoToBlockedPage());
         COMMAND_MAP.put(CommandNames.GET_USERS_AND_ROLES, new GetUsersAndRolesCommand());
         COMMAND_MAP.put(CommandNames.GET_ROLES_COMMAND, new GetRolesCommand());
+        COMMAND_MAP.put(CommandNames.CHANGE_ROLE_COMMAND, new ChangeRoleCommand());
+        COMMAND_MAP.put(CommandNames.GET_AVAILABLE_ROLES, new GetAvailableRoles());
+        COMMAND_MAP.put(CommandNames.GET_ANIME_BY_ID_COMMAND, new GetAnimeByIdCommand());
     }
 
     static void impl(String commandName, HttpServletRequest request, HttpServletResponse response) {

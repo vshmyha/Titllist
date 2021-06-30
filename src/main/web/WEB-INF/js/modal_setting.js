@@ -56,42 +56,80 @@ let users = document.getElementById("users");
 let usersBody = document.getElementById("usersBody");
 let tableUsers = $('#userTable');
 
-$.getJSON('controller?command=getUsersAndRoles', function (result) {
-    status = result.status;
-    if (status != null) {
-        if (status === 'OK') {
-            $.each(result.value, function (i, field) {
-                let id = field.id;
-                let role = field.role;
-                let userName = field.userName;
-                let roleContainerId = "admin_table_role_" + role + i;
-                tableUsers.append("<tr> <td id='admin_table_username_" + userName + "'>" + userName + "</td> " +
-                    "<td id='" + roleContainerId + "'>" + role + "</td> " +
-                    "<td><button onclick='showRoleSelectionForUser(" + roleContainerId + ", " + id + ")' " +
-                    "class='roleChanger'>Change Role</button></td></tr> ");
-            });
-        } else if (status === 'NEW_PAGE') {
-            alert("Your rights were changed by the administrator, now you will be redirected to the login page.");
-        } else if (status === 'ERROR') {
-            $('#errorMessagePlace').html(result.value);
-        } else {
-            alert("Unknown response");
+function refreshUsersAndRoles() {
+    tableUsers.html("");
+    $.getJSON('controller?command=getUsersAndRoles', function (users) {
+        status = users.status;
+        if (status != null) {
+            if (status === 'OK') {
+                let availableRoles = [];
+                $.getJSON('controller?command=getAvailableRoles', function (roles) {
+                    let resultStatus = roles.status;
+                    if (resultStatus != null) {
+                        if (resultStatus === 'OK') {
+                            $.each(roles.value, function (i) {
+                                let role = roles.value[i];
+                                availableRoles.push(role);
+                            })
+                        }
+                        tableUsers.append("<tr><td>User</td>" +
+                            "<td>Role</td></tr>" +
+                            "<tr id='supperAdmin'><td>Lerkin</td>" +
+                            "<td>SUPER ADMIN</td></tr>");
+                        $.each(users.value, function (i, field) {
+                            let id = field.id;
+                            let role = field.role;
+                            let userName = field.userName;
+                            let roleContainerId = "admin_table_role_" + role + i;
+                            let buttonId = "changeRoleButton" + userName;
+                            let trId = 'tr' + userName;
+                            tableUsers.append("<tr id='" + trId + "'> <td id='admin_table_username_" + userName + "'>" + userName + "</td> " +
+                                "<td id='" + roleContainerId + "'>" + role + "</td></tr>");
+                            $.each(availableRoles, function (index) {
+                                console.log(availableRoles)
+                                let availableRole = availableRoles[index];
+                                if (availableRole === role) {
+                                    $('#userTable tr:last').append("<td><button class='changeRoleButton' id='" + buttonId + "' onclick='showRoleSelectionForUser(" + roleContainerId + ", " + id + "," + buttonId + ")' " +
+                                        ">Change Role</button></td>")
+                                }
+                            });
+                        });
+                    }
+                });
+            } else if (status === 'NEW_PAGE') {
+                alert("Your rights were changed by the administrator, now you will be redirected to the login page.");
+            } else if (status === 'ERROR') {
+                $('#errorMessagePlace').html(users.value);
+            } else {
+                alert("Unknown response");
+            }
         }
-    }
-});
+    });
+};
 
-function showRoleSelectionForUser(roleContainerStr, userId) {
+
+function showRoleSelectionForUser(roleContainerStr, userId, buttonId) {
     let roleContainer = $(roleContainerStr);
     roleContainer.html('');
-    $('#saveRole').show();
     $.getJSON('controller?command=getRolesCommand', function (result) {
         if (status != null) {
             if (status === 'OK') {
-                roleContainer.append("<select form='changeRole' style='color: black'  id='selection'></select>")
+                let changeRoleButton = buttonId.id;
+                let butt = document.getElementById(changeRoleButton);
+                butt.style.display = "none";
+                roleContainer.append("<form id='changeRole' action='controller' method='post'>" +
+                    "<select name='role' form='changeRole' style='color: black'  id='selection" + userId + "'></select>" +
+                    "<input type='hidden' name='command' value='changeRoleCommand'>" +
+                    "<input type='hidden' name='userId' value='" + userId + "'>" +
+                    "<input form='changeRole' type='submit'>Save</input></form>")
+                let selectionId = "selection" + userId;
+                let selection = $('#' + selectionId);
+                console.log(selection);
                 $.each(result.value, function (i) {
                     let role = result.value[i];
-                    $('#selection').append("<option class='option'>" + role + "</option>")
+                    selection.append("<option class='option' value='" + role + "'>" + role + "</option>")
                 })
+                addChangeRoleHandler();
             } else if (status === 'ERROR') {
                 $('#errorMessagePlace').html(result.value);
             }
@@ -99,9 +137,40 @@ function showRoleSelectionForUser(roleContainerStr, userId) {
     });
 };
 
+function addChangeRoleHandler() {
+    let changeRoleForm = $('#changeRole');
+    changeRoleForm.submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: changeRoleForm.attr('action'),
+            type: 'post',
+            dataType: 'json',
+            data: changeRoleForm.serialize(),
+            success: function (data) {
+                refreshUsersAndRoles();
+                let status = data.status;
+                if (status != null) {
+                    if (status === 'OK') {
+
+                    } else if (status === 'ERROR') {
+                        $('#errorMessage').html(data.value);
+                    }
+                } else {
+                    alert('Unknown response');
+                }
+            }
+        });
+    });
+}
+
+let refreshUserAndRoleButton = document.getElementById("refreshUserAndRole");
+
+refreshUserAndRoleButton.onclick = function () {
+    refreshUsersAndRoles();
+}
 
 function changeDivStyle(div) {
-    if (div.style.display === "none") {
+    if (getComputedStyle(div, null).display === "none") {
         div.style.display = "block";
     } else {
         div.style.display = "none";
@@ -116,6 +185,7 @@ addAnime.onclick = function () {
 };
 
 users.onclick = function () {
+    refreshUsersAndRoles();
     if (addAnimeBody.style.display === "block") {
         changeDivStyle(addAnimeBody);
     }

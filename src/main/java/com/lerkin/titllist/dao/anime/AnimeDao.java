@@ -15,4 +15,6 @@ public interface AnimeDao {
     List<Anime> selectAllAnime();
 
     void insertNewAnime(Anime anime);
+
+    Anime selectAnimeById(Integer animeId);
 }

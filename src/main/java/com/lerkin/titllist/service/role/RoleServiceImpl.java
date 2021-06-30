@@ -3,6 +3,7 @@ package com.lerkin.titllist.service.role;
 import com.lerkin.titllist.dao.DaoFactory;
 import com.lerkin.titllist.dao.role.RoleDao;
 import com.lerkin.titllist.entity_db.Role;
+import com.lerkin.titllist.entity_db.User;
 
 import java.util.List;
 
@@ -17,5 +18,15 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> getRolesForSuperAdmin() {
         return roleDao.selectRolesForSuperAdmin();
+    }
+
+    @Override
+    public void changeRole(User user) {
+        roleDao.updateRole(user);
+    }
+
+    @Override
+    public List<Role> getAvailableRoles(Role role) {
+        return roleDao.selectAvailableRoles(role);
     }
 }

@@ -21,5 +21,9 @@ public class Anime extends DBEntity{
     private Short releaseDate;
     private List<Genre> genres;
 
+    public Anime(String rusName, String japName){
+        this.rusName = rusName;
+        this.japName = japName;
+    }
 
 }

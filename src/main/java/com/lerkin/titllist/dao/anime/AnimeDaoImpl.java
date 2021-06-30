@@ -3,13 +3,11 @@ package com.lerkin.titllist.dao.anime;
 import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.entity_db.Anime;
 import com.lerkin.titllist.entity_db.Genre;
-import com.lerkin.titllist.entity_db.Type;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AnimeDaoImpl implements AnimeDao {
@@ -17,7 +15,8 @@ public class AnimeDaoImpl implements AnimeDao {
     private static final String SELECT_ANIME_BY_GENRE = "SELECT a.id_anime, a.rus_name, a.jap_name, a.episods, a.duration, a.release_date FROM anime_base AS a JOIN anime_genre ag ON a.id_anime = ag.id_anime WHERE id_genre=?";
     private static final String SELECT_ANIME_BY_TYPE = "SELECT id_anime, rus_name, jap_name, episods, duration, release_date FROM anime_base WHERE type_id = ?";
     private static final String SELECT_ANIME_BY_RELEASE_DATE = "SELECT id_anime, rus_name, jap_name, episods, duration, release_date FROM anime_base WHERE release_date = ?";
-    private static final String SELECT_ALL_ANIME = "SELECT id_anime, rus_name, jap_name, episods, duration, release_date FROM anime_base";
+    private static final String SELECT_ALL_ANIME = "SELECT id_anime, rus_name, jap_name FROM anime_base";
+    private static final String SELECT_ANIME_BY_ID = "SELECT id_anime, rus_name, jap_name, episods, duration, release_date FROM anime_base WHERE id_anime = ?";
     private static final String INSERT_NEW_ANIME = "INSERT anime_base(rus_name, jap_name, type_id, episods, duration, release_date) VALUE (?, ?, ?, ?, ?, ?)";
     private static final String INSERT_ANIME_GENRE = "INSERT anime_genre(id_anime, id_genre) VALUE(?, ?)";
 
@@ -32,7 +31,7 @@ public class AnimeDaoImpl implements AnimeDao {
             preparedStatement = connection.prepareStatement(SELECT_ANIME_BY_GENRE);
             preparedStatement.setInt(1, idGenre);
             resultSet = preparedStatement.executeQuery();
-            anime = AnimeParser.parse(resultSet);
+            anime = AnimeParser.listParse(resultSet);
             return anime;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
@@ -52,7 +51,7 @@ public class AnimeDaoImpl implements AnimeDao {
             preparedStatement = connection.prepareStatement(SELECT_ANIME_BY_TYPE);
             preparedStatement.setInt(1, idType);
             resultSet = preparedStatement.executeQuery();
-            animes = AnimeParser.parse(resultSet);
+            animes = AnimeParser.listParse(resultSet);
             return animes;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
@@ -73,7 +72,7 @@ public class AnimeDaoImpl implements AnimeDao {
             preparedStatement = connection.prepareStatement(SELECT_ANIME_BY_RELEASE_DATE);
             preparedStatement.setInt(1, releaseDate);
             resultSet = preparedStatement.executeQuery();
-            animes = AnimeParser.parse(resultSet);
+            animes = AnimeParser.listParse(resultSet);
             return animes;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
@@ -92,7 +91,7 @@ public class AnimeDaoImpl implements AnimeDao {
             connection = ConnectionManager.takeConnection();
             preparedStatement = connection.prepareStatement(SELECT_ALL_ANIME);
             resultSet = preparedStatement.executeQuery();
-            animes = AnimeParser.parse(resultSet);
+            animes = AnimeParser.listParse(resultSet);
             return animes;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
@@ -143,5 +142,25 @@ public class AnimeDaoImpl implements AnimeDao {
             ConnectionManager.close(connection, preparedStatement, resultSet);
         }
 
+    }
+
+    @Override
+    public Anime selectAnimeById(Integer animeId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Anime anime;
+        try {
+            connection = ConnectionManager.takeConnection();
+            preparedStatement = connection.prepareStatement(SELECT_ANIME_BY_ID);
+            preparedStatement.setInt(1, animeId);
+            resultSet = preparedStatement.executeQuery();
+            anime = AnimeParser.parser(resultSet);
+            return anime;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            ConnectionManager.close(connection, preparedStatement, resultSet);
+        }
     }
 }

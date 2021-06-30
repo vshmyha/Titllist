@@ -20,4 +20,7 @@ public interface CommandNames {
     String GO_TO_BLOCKED_PAGE = "goToBlockedPage";
     String GET_USERS_AND_ROLES = "getUsersAndRoles";
     String GET_ROLES_COMMAND = "getRolesCommand";
+    String CHANGE_ROLE_COMMAND = "changeRoleCommand";
+    String GET_AVAILABLE_ROLES = "getAvailableRoles";
+    String GET_ANIME_BY_ID_COMMAND = "getAnimeByIdCommand";
 }

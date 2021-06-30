@@ -66,7 +66,8 @@
                 <i class="far fa-user-circle"></i>
                 <li class="user">${sessionScope.user.userName}</li>
                 <div class="dropdown-content">
-                    <a href="#">My Titllist</a>
+                    <button class="myTitllist" name="command" onclick="location.href='controller?command=goToMyTitllistPage';">My Titllist
+                    </button>
                     <button id="setting" type="button" class="setting">Settings</button>
                     <button type="button" class="adminSetting" id="adminSetting">Admin settings</button>
                     <button class="logout" name="command" onclick="location.href='controller?command=logout';">Log Out
@@ -112,20 +113,12 @@
             <button id="addAnime">Add new anime</button>
             <button id="users">Users</button>
             <div id="usersBody" class="usersBody">
+                <button id="refreshUserAndRole"><i class="fas fa-redo-alt"></i></button>
                 <table id="userTable">
                     <tr>
-                        <td>User</td>
-                        <td>Role</td>
-                    </tr>
-                    <tr id="superAdmin">
-                        <td>Lerkin</td>
-                        <td>Super Admin</td>
+                        <td></td>
                     </tr>
                 </table>
-                <form id='changeRole' action='controller' method='post'>
-                    <input type="hidden" name="command" value="changeRole">
-                    <input type="submit" id="saveRole" value="Save"/>
-                </form>
             </div>
             <div id="addAnimeBody" class="addAnimeBody">
                 <form id="addNewAnime" class="newAnime" action="controller" method="get">
@@ -166,7 +159,6 @@
         </div>
     </div>
 </div>
-
 <div class="scroll">
     <div class="vertical-container" id="animeByTeg">
     </div>

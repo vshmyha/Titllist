@@ -15,4 +15,6 @@ public interface AnimeService {
     List<Anime> getAllAnime();
 
     void addNewAnime(Anime anime);
+
+    Anime getAnimeById(Integer animeId);
 }

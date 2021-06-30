@@ -50,7 +50,6 @@
             <version>${tomcat.version}</version>
         </dependency>
         <dependency>
-            <!--            jar must be placed in tomcat folder or imported to the project-->
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.24</version>

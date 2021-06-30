@@ -4,8 +4,9 @@ $('#loginForm').submit(function () {
     let passwordValue = document.getElementById("passwordField").value;
 
     let anyEmpty = loginValue === '' || passwordValue === '';
-    if(anyEmpty) {
+    if (anyEmpty) {
         alert("All fields must be filled in");
     }
     return !anyEmpty;
 });
+

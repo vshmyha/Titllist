@@ -13,6 +13,7 @@ public class ForwardUtil {
     private static final String REGISTRATION_PAGE = "WEB-INF/jsp/registration.jsp";
     private static final String BLOCKED_PAGE = "WEB-INF/jsp/blocked_page.jsp";
 
+
     public static void sendRedirect(HttpServletResponse response, String command, String attributes) {
         String url = createCommandPath(command, attributes);
         try {

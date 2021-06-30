@@ -23,7 +23,8 @@ window.addEventListener('load', (event) => {
                         "<p> Episodes: " + episodesCount + "</p>" +
                         "<p> Duration: " + duration + "</p>" +
                         "<p> Release date: " + releaseDate + "</p>" +
-                        "<p>" + genres + "</p></div>");
+                        "<p>" + genres + "</p>" +
+                        "<butoon class='butoon' id='addAnimeInMyListButton" + animeId + "'>Add To List</butoon></div>");
                 })
             } else if (status === 'ERROR') {
                 $('#errorMessage').html(data.value);

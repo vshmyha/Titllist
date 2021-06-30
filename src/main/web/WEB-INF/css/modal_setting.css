@@ -123,6 +123,10 @@ form.changePassword input[type = "submit"], form.newAnime input[type = "submit"]
     cursor: pointer;
 }
 
+.changeRoleButton{
+    display: block;
+}
+
 form.changePassword input[type = "submit"]:hover, form.newAnime input[type = "submit"]:hover{
     background: #33d9b2;
 }
@@ -136,6 +140,3 @@ form.changePassword input[type = "submit"]:hover, form.newAnime input[type = "su
     to {top: 0; opacity: 1}
 }
 
-#saveRole{
-    display: none;
-}
