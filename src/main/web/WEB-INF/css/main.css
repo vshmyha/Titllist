@@ -8,10 +8,12 @@ html {
     padding: 0;
     color: white;
 }
+
 input:checked {
     border: 6px solid black;
 }
-.radio{
+
+.radio {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -243,5 +245,23 @@ content {
 }
 
 .addAnime {
+}
+
+#addToTitllist {
+    display: none;
+}
+
+.status {
+    float: left;
+}
+
+.animeStatus {
+    float: right;
+    font-size: 21px;
+    color: #ffaf1a;
+}
+
+#buttonHome {
+    font-size: 23px;
 }
 

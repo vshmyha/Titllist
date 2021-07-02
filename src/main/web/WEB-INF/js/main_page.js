@@ -1,30 +1,20 @@
+let byTypeDiv = $('#animeByTeg');
 window.addEventListener('load', (event) => {
+    loadAllAnime();
+});
+
+function loadAllAnime() {
+    byTypeDiv.html('');
     $.getJSON('controller?command=getAllAnime', function (result) {
         let status = result.status;
-        let byTypeDiv = $('#animeByTeg');
         if (status != null) {
             if (status === 'OK') {
                 $.each(result.value, function (i, field) {
                     let animeId = field.id;
-                    let type = field.type.typeName;
                     let rusName = field.rusName;
                     let japName = field.japName;
-                    let episodesCount = field.episodesCount;
-                    let duration = field.duration;
-                    let releaseDate = field.releaseDate;
-                    let genresArray = field.genres;
-                    let genres = "Genres: ";
-                    $.each(genresArray, function (i, field) {
-                        let genre = field.genreName;
-                        genres = genres.concat(genre, ', ');
-                    })
-                    byTypeDiv.append("<div class='anime' id='" + animeId + "'> <p> Name: " + rusName + "/" + japName + "</p>" +
-                        "<p> Type: " + type + "</p>" +
-                        "<p> Episodes: " + episodesCount + "</p>" +
-                        "<p> Duration: " + duration + "</p>" +
-                        "<p> Release date: " + releaseDate + "</p>" +
-                        "<p>" + genres + "</p>" +
-                        "<butoon class='butoon' id='addAnimeInMyListButton" + animeId + "'>Add To List</butoon></div>");
+                    let buttonId = "animeDiv" + animeId;
+                    byTypeDiv.append("<div class='anime' id='" + buttonId + "'onclick='showAnimeInformation(" + animeId + ", " + buttonId + ")'" + "'> <p> Name: " + rusName + "/" + japName + "</p></div>");
                 })
             } else if (status === 'ERROR') {
                 $('#errorMessage').html(data.value);
@@ -33,7 +23,7 @@ window.addEventListener('load', (event) => {
             }
         }
     });
-})
+};
 
 let types = $('#types');
 let typeBtn = $('#typeBtn');
@@ -48,24 +38,10 @@ function getAnimesByTag(commandName, dataId) {
             if (status === 'OK') {
                 $.each(result.value, function (i, field) {
                     let animeId = field.id;
-                    let type = field.type.typeName;
                     let rusName = field.rusName;
                     let japName = field.japName;
-                    let episodesCount = field.episodesCount;
-                    let duration = field.duration;
-                    let releaseDate = field.releaseDate;
-                    let genresArray = field.genres;
-                    let genres = "Genres: ";
-                    $.each(genresArray, function (i, field) {
-                        let genre = field.genreName;
-                        genres = genres.concat(genre, ', ');
-                    })
-                    byTypeDiv.append("<div class='anime' id='" + animeId + "'> <p> Name: " + rusName + "/" + japName + "</p>" +
-                        "<p> Type: " + type + "</p>" +
-                        "<p> Episodes: " + episodesCount + "</p>" +
-                        "<p> Duration: " + duration + "</p>" +
-                        "<p> Release date: " + releaseDate + "</p>" +
-                        "<p>" + genres + "</p></div>");
+                    let buttonId = "animeDiv" + animeId;
+                    byTypeDiv.append("<div class='anime' id='" + buttonId + "'onclick='showAnimeInformation(" + animeId + ", " + buttonId + ")'" + "'> <p> Name: " + rusName + "/" + japName + "</p></div>");
                 })
             } else if (status === 'ERROR') {
                 $('#errorMessage').html(data.value);

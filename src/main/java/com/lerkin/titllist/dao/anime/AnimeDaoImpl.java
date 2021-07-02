@@ -3,6 +3,8 @@ package com.lerkin.titllist.dao.anime;
 import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.entity_db.Anime;
 import com.lerkin.titllist.entity_db.Genre;
+import com.lerkin.titllist.entity_db.Status;
+import com.lerkin.titllist.entity_db.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,13 +14,14 @@ import java.util.List;
 
 public class AnimeDaoImpl implements AnimeDao {
 
-    private static final String SELECT_ANIME_BY_GENRE = "SELECT a.id_anime, a.rus_name, a.jap_name, a.episods, a.duration, a.release_date FROM anime_base AS a JOIN anime_genre ag ON a.id_anime = ag.id_anime WHERE id_genre=?";
-    private static final String SELECT_ANIME_BY_TYPE = "SELECT id_anime, rus_name, jap_name, episods, duration, release_date FROM anime_base WHERE type_id = ?";
-    private static final String SELECT_ANIME_BY_RELEASE_DATE = "SELECT id_anime, rus_name, jap_name, episods, duration, release_date FROM anime_base WHERE release_date = ?";
+    private static final String SELECT_ANIME_BY_GENRE = "SELECT a.id_anime, a.rus_name, a.jap_name FROM anime_base AS a JOIN anime_genre ag ON a.id_anime = ag.id_anime WHERE id_genre=?";
+    private static final String SELECT_ANIME_BY_TYPE = "SELECT id_anime, rus_name, jap_name FROM anime_base WHERE type_id = ?";
+    private static final String SELECT_ANIME_BY_RELEASE_DATE = "SELECT id_anime, rus_name, jap_name FROM anime_base WHERE release_date = ?";
     private static final String SELECT_ALL_ANIME = "SELECT id_anime, rus_name, jap_name FROM anime_base";
     private static final String SELECT_ANIME_BY_ID = "SELECT id_anime, rus_name, jap_name, episods, duration, release_date FROM anime_base WHERE id_anime = ?";
     private static final String INSERT_NEW_ANIME = "INSERT anime_base(rus_name, jap_name, type_id, episods, duration, release_date) VALUE (?, ?, ?, ?, ?, ?)";
     private static final String INSERT_ANIME_GENRE = "INSERT anime_genre(id_anime, id_genre) VALUE(?, ?)";
+    private static final String INSERT_ANIME_TO_USER_TITLLIST = "INSERT INTO anime_user(id_user, id_anime, status) VALUES ((SELECT id FROM users WHERE username=?), ?, (SELECT id FROM status WHERE status=?))";
 
     @Override
     public List<Anime> selectAnimeByGenre(Integer idGenre) {
@@ -126,7 +129,7 @@ public class AnimeDaoImpl implements AnimeDao {
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
             int animeId = 0;
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 animeId = resultSet.getInt(1);
             }
             for (Genre genre : genres) {
@@ -155,12 +158,32 @@ public class AnimeDaoImpl implements AnimeDao {
             preparedStatement = connection.prepareStatement(SELECT_ANIME_BY_ID);
             preparedStatement.setInt(1, animeId);
             resultSet = preparedStatement.executeQuery();
-            anime = AnimeParser.parser(resultSet);
+            anime = AnimeParser.parse(resultSet);
             return anime;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
         } finally {
             ConnectionManager.close(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public void insertAnimeToUserTitllist(User user, Integer animeId, Status status) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String statusName = status.getStatusName();
+        String userName = user.getUserName();
+        try {
+            connection = ConnectionManager.takeConnection();
+            preparedStatement = connection.prepareStatement(INSERT_ANIME_TO_USER_TITLLIST);
+            preparedStatement.setString(1, userName);
+            preparedStatement.setInt(2, animeId);
+            preparedStatement.setString(3, statusName);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            ConnectionManager.close(connection, preparedStatement);
         }
     }
 }

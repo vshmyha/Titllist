@@ -5,7 +5,10 @@ import com.lerkin.titllist.dao.role.RoleParser;
 import com.lerkin.titllist.entity_db.Role;
 import com.lerkin.titllist.entity_db.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
@@ -13,7 +16,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT * FROM users LEFT JOIN roles ON users.role_id = roles.id WHERE username=? AND password=?";
     private static final String SELECT_USER_BY_USERNAME = "SELECT * FROM users WHERE username=?";
     private static final String INSERT_NEW_USER = "INSERT users (username, password, role_id) VALUES (?, ?, (SELECT id FROM roles WHERE role_name=?))";
-    private static final String UPDATE_NEW_PASSWORD = "UPDATE users SET password = ? where username = ?";
+    private static final String UPDATE_NEW_PASSWORD = "UPDATE users SET password = ? WHERE username = ?";
     private static final String SELECT_USERS_AND_ROLES = "SELECT u.id, u.username, r.role_name FROM users u LEFT JOIN roles r ON u.role_id = r.id WHERE r.role_name <> 'Super Admin' ORDER BY r.id";
 
     @Override

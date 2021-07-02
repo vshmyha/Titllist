@@ -48,7 +48,7 @@ public class ForwardUtil {
         forward(request, response, MAIN_PAGE);
     }
 
-    public static void forwardToBlockedPage(ServletRequest request, ServletResponse response){
+    public static void forwardToBlockedPage(ServletRequest request, ServletResponse response) {
         forward(request, response, BLOCKED_PAGE);
     }
 

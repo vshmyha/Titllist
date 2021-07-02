@@ -1,15 +1,12 @@
 package com.lerkin.titllist.dao.type;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
-import com.lerkin.titllist.dao.anime.AnimeParser;
-import com.lerkin.titllist.entity_db.Anime;
 import com.lerkin.titllist.entity_db.Type;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TypeDaoImpl implements TypeDao {
@@ -45,7 +42,7 @@ public class TypeDaoImpl implements TypeDao {
             preparedStatement = connection.prepareStatement(SELECT_TYPE_BY_ANIME_ID);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 type = TypeParser.parse(resultSet);
             }
             return type;

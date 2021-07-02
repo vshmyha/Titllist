@@ -25,7 +25,7 @@ public class LoginCommand implements Command {
 
         if (user != null) {
             Role role = user.getRole();
-            if(!role.isBlocked()){
+            if (!role.isBlocked()) {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
                 ForwardUtil.forwardToMainPage(req, resp);

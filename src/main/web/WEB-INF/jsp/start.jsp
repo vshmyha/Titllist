@@ -14,6 +14,7 @@
 </head>
 <body>
 <form id="loginForm" class="form" action="controller" method="post">
+    ${requestScope.response}
     <h1>Login</h1>
     <input autocomplete='off' id="loginField" type="text" name="username" value="" placeholder="Username"/>
     <input autocomplete='off' id="passwordField" type="password" name="password" value="" placeholder="Password"/>
@@ -22,7 +23,7 @@
     <input type="button" onclick="location.href='controller?command=goToRegistrationPage';" value="Sign Up"/>
 </form>
 
-${requestScope.response}
+
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">

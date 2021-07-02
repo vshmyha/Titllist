@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void checkCurrentPassword(User user) {
         user = getUserByNameAndPass(user);
-        if(user == null){
+        if (user == null) {
             throw new UserFriendlyException("Wrong current password");
         }
     }

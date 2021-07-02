@@ -1,6 +1,8 @@
 package com.lerkin.titllist.dao.anime;
 
 import com.lerkin.titllist.entity_db.Anime;
+import com.lerkin.titllist.entity_db.Status;
+import com.lerkin.titllist.entity_db.User;
 
 import java.util.List;
 
@@ -17,4 +19,6 @@ public interface AnimeDao {
     void insertNewAnime(Anime anime);
 
     Anime selectAnimeById(Integer animeId);
+
+    void insertAnimeToUserTitllist(User user, Integer animeId, Status status);
 }

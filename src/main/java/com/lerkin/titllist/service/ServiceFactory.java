@@ -4,16 +4,20 @@ import com.lerkin.titllist.service.anime.AnimeService;
 import com.lerkin.titllist.service.anime.AnimeServiceImpl;
 import com.lerkin.titllist.service.authority.AuthorityService;
 import com.lerkin.titllist.service.authority.AuthorityServiceImpl;
-import com.lerkin.titllist.service.role.RoleService;
-import com.lerkin.titllist.service.role.RoleServiceImpl;
-import com.lerkin.titllist.service.user.UserService;
-import com.lerkin.titllist.service.user.UserServiceImpl;
 import com.lerkin.titllist.service.genre.GenreService;
 import com.lerkin.titllist.service.genre.GenreServiceImpl;
 import com.lerkin.titllist.service.release_date.ReleaseDateService;
 import com.lerkin.titllist.service.release_date.ReleaseDateServiceImp;
+import com.lerkin.titllist.service.role.RoleService;
+import com.lerkin.titllist.service.role.RoleServiceImpl;
+import com.lerkin.titllist.service.status.StatusService;
+import com.lerkin.titllist.service.status.StatusServiceImpl;
 import com.lerkin.titllist.service.type.TypeService;
 import com.lerkin.titllist.service.type.TypeServiceImpl;
+import com.lerkin.titllist.service.user.UserService;
+import com.lerkin.titllist.service.user.UserServiceImpl;
+import com.lerkin.titllist.service.user_anime.UserAnimeService;
+import com.lerkin.titllist.service.user_anime.UserAnimeServiceImpl;
 
 public class ServiceFactory {
 
@@ -24,6 +28,8 @@ public class ServiceFactory {
     private static final AnimeService ANIME_SERVICE = new AnimeServiceImpl();
     private static final AuthorityService AUTHORITY_SERVICE = new AuthorityServiceImpl();
     private static final RoleService ROLE_SERVICE = new RoleServiceImpl();
+    private static final StatusService STATUS_SERVICE = new StatusServiceImpl();
+    private static final UserAnimeService USER_ANIME_SERVICE = new UserAnimeServiceImpl();
 
     public static UserService getUserService() {
         return USER_SERVICE;
@@ -51,5 +57,13 @@ public class ServiceFactory {
 
     public static RoleService getRoleService() {
         return ROLE_SERVICE;
+    }
+
+    public static StatusService getStatusService() {
+        return STATUS_SERVICE;
+    }
+
+    public static UserAnimeService getUserAnimeService() {
+        return USER_ANIME_SERVICE;
     }
 }

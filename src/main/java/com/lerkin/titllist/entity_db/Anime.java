@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Anime extends DBEntity{
+public class Anime extends DBEntity {
     private String rusName;
     private String japName;
     private Type type;
@@ -21,7 +21,7 @@ public class Anime extends DBEntity{
     private Short releaseDate;
     private List<Genre> genres;
 
-    public Anime(String rusName, String japName){
+    public Anime(String rusName, String japName) {
         this.rusName = rusName;
         this.japName = japName;
     }

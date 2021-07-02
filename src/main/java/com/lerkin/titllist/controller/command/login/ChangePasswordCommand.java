@@ -20,13 +20,14 @@ public class ChangePasswordCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
-        String username = (String) session.getAttribute("username");
+        User user = (User) session.getAttribute("user");
+        String username = user.getUserName();
         String currentPassword = req.getParameter("currentPassword");
         String newPassword = req.getParameter("newPassword");
-        User user = new User(username, currentPassword, null);
-        userService.checkCurrentPassword(user);
-        user.setPassword(newPassword);
-        userService.changePassword(user);
+        User fullUser = new User(username, currentPassword, null);
+        userService.checkCurrentPassword(fullUser);
+        fullUser.setPassword(newPassword);
+        userService.changePassword(fullUser);
         String url = ForwardUtil.createCommandPath(CommandNames.GO_TO_START_PAGE, null);
         ResponseEntity responseEntity = new ResponseEntity(ResponseType.NEW_PAGE, url);
         ResponseUtil.sendResponse(resp, responseEntity);

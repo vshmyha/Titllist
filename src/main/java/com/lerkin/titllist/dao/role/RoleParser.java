@@ -17,7 +17,7 @@ public class RoleParser {
 
     public static List<Role> listParser(ResultSet resultSet) throws SQLException {
         List<Role> roles = new ArrayList<>();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             String roleName = resultSet.getString("role_name");
             Role role = Role.byText(roleName);
             roles.add(role);

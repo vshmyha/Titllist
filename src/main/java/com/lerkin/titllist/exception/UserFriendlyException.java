@@ -1,6 +1,6 @@
 package com.lerkin.titllist.exception;
 
-public class UserFriendlyException extends RuntimeException{
+public class UserFriendlyException extends RuntimeException {
 
     public UserFriendlyException() {
     }

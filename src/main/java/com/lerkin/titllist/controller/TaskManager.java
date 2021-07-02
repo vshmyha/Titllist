@@ -1,14 +1,19 @@
 package com.lerkin.titllist.controller;
 
 import com.lerkin.titllist.constant.Messages;
-import com.lerkin.titllist.controller.command.*;
+import com.lerkin.titllist.controller.command.Command;
 import com.lerkin.titllist.controller.command.login.ChangePasswordCommand;
 import com.lerkin.titllist.controller.command.login.LoginCommand;
 import com.lerkin.titllist.controller.command.login.LogoutCommand;
 import com.lerkin.titllist.controller.command.login.RegistrationCommand;
 import com.lerkin.titllist.controller.command.read.*;
-import com.lerkin.titllist.controller.command.redirect.*;
+import com.lerkin.titllist.controller.command.redirect.GoToBlockedPage;
+import com.lerkin.titllist.controller.command.redirect.GoToMainPage;
+import com.lerkin.titllist.controller.command.redirect.GoToRegistrationPage;
+import com.lerkin.titllist.controller.command.redirect.GoToStartPage;
+import com.lerkin.titllist.controller.command.update.AddAnimeToUserTitllist;
 import com.lerkin.titllist.controller.command.update.AddNewAnime;
+import com.lerkin.titllist.controller.command.update.ChangeAnimeStatusInTitllist;
 import com.lerkin.titllist.controller.command.update.ChangeRoleCommand;
 import com.lerkin.titllist.exception.UserFriendlyException;
 
@@ -45,6 +50,9 @@ class TaskManager {
         COMMAND_MAP.put(CommandNames.CHANGE_ROLE_COMMAND, new ChangeRoleCommand());
         COMMAND_MAP.put(CommandNames.GET_AVAILABLE_ROLES, new GetAvailableRoles());
         COMMAND_MAP.put(CommandNames.GET_ANIME_BY_ID_COMMAND, new GetAnimeByIdCommand());
+        COMMAND_MAP.put(CommandNames.ADD_ANIME_TO_USER_TITLLIST, new AddAnimeToUserTitllist());
+        COMMAND_MAP.put(CommandNames.GET_ANIME_STATUS_COMMAND, new GetAnimeStatusCommand());
+        COMMAND_MAP.put(CommandNames.CHANGE_ANIME_STATUS_IN_TITLLIST, new ChangeAnimeStatusInTitllist());
     }
 
     static void impl(String commandName, HttpServletRequest request, HttpServletResponse response) {

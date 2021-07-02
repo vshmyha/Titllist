@@ -27,5 +27,5 @@ class TypeParser {
         Type type = new Type(typeName);
         type.setId(id);
         return type;
-}
+    }
 }

@@ -13,7 +13,7 @@ public interface CommandNames {
     String CHANGE_PASSWORD_COMMAND = "changePasswordCommand";
     String GET_BY_TYPE_COMMAND = "getByTypeCommand";
     String GET_BY_GENRE_COMMAND = "getByGenreCommand";
-    String GET_BY_RELEASE_DATE_COMMAND =  "getByReleaseDateCommand";
+    String GET_BY_RELEASE_DATE_COMMAND = "getByReleaseDateCommand";
     String GET_ALL_ANIME = "getAllAnime";
     String ADD_NEW_ANIME = "addNewAnime";
     String REFRESH_AUTHORITIES = "refreshAuth";
@@ -23,4 +23,7 @@ public interface CommandNames {
     String CHANGE_ROLE_COMMAND = "changeRoleCommand";
     String GET_AVAILABLE_ROLES = "getAvailableRoles";
     String GET_ANIME_BY_ID_COMMAND = "getAnimeByIdCommand";
+    String ADD_ANIME_TO_USER_TITLLIST = "addAnimeToUserTitllist";
+    String GET_ANIME_STATUS_COMMAND = "getAnimeStatusCommand";
+    String CHANGE_ANIME_STATUS_IN_TITLLIST = "changeAnimeStatusInTitllist";
 }

@@ -1,6 +1,5 @@
 package com.lerkin.titllist.dao.type;
 
-import com.lerkin.titllist.entity_db.Anime;
 import com.lerkin.titllist.entity_db.Type;
 
 import java.util.List;

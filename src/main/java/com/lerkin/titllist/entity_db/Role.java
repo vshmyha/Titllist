@@ -21,9 +21,13 @@ public enum Role {
         return this.equals(SIMPLE);
     }
 
-    public boolean isSuperAdmin() {return this.equals(SUPER_ADMIN); }
+    public boolean isSuperAdmin() {
+        return this.equals(SUPER_ADMIN);
+    }
 
-    public boolean isAdmin() {return  this.equals(ADMIN);}
+    public boolean isAdmin() {
+        return this.equals(ADMIN);
+    }
 
     public static Role byText(String text) {
         Role[] values = values();

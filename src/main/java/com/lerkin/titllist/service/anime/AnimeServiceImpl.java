@@ -3,10 +3,12 @@ package com.lerkin.titllist.service.anime;
 import com.lerkin.titllist.dao.DaoFactory;
 import com.lerkin.titllist.dao.anime.AnimeDao;
 import com.lerkin.titllist.entity_db.Anime;
+import com.lerkin.titllist.entity_db.Status;
+import com.lerkin.titllist.entity_db.User;
 
 import java.util.List;
 
-public class AnimeServiceImpl implements AnimeService{
+public class AnimeServiceImpl implements AnimeService {
 
     private final AnimeDao animeDao = DaoFactory.getAnimeDao();
 
@@ -38,5 +40,10 @@ public class AnimeServiceImpl implements AnimeService{
     @Override
     public Anime getAnimeById(Integer animeId) {
         return animeDao.selectAnimeById(animeId);
+    }
+
+    @Override
+    public void addAnimeToUserTitllist(User user, Integer animeId, Status status) {
+        animeDao.insertAnimeToUserTitllist(user, animeId, status);
     }
 }

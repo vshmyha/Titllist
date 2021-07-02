@@ -7,6 +7,7 @@ import com.lerkin.titllist.controller.response.ResponseUtil;
 import com.lerkin.titllist.entity_db.Genre;
 import com.lerkin.titllist.service.ServiceFactory;
 import com.lerkin.titllist.service.genre.GenreService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

@@ -12,7 +12,7 @@ public class ResponseEntity {
         this.value = value;
     }
 
-    public ResponseEntity(ResponseType status){
+    public ResponseEntity(ResponseType status) {
         this.status = status;
     }
 

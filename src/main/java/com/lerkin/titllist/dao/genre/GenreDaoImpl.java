@@ -1,8 +1,6 @@
 package com.lerkin.titllist.dao.genre;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
-import com.lerkin.titllist.dao.anime.AnimeParser;
-import com.lerkin.titllist.entity_db.Anime;
 import com.lerkin.titllist.entity_db.Genre;
 
 import java.sql.Connection;

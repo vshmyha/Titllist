@@ -21,8 +21,7 @@
         <ul>
             <div class="dropdown">
                 <li class="home">
-                    <a href="#">
-                        Home
+                    <button id="buttonHome" onclick="loadAllAnime()">Home</button>
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
@@ -66,7 +65,8 @@
                 <i class="far fa-user-circle"></i>
                 <li class="user">${sessionScope.user.userName}</li>
                 <div class="dropdown-content">
-                    <button class="myTitllist" name="command" onclick="location.href='controller?command=goToMyTitllistPage';">My Titllist
+                    <button class="myTitllist" name="command"
+                            onclick="location.href='controller?command=showMyTitllistCommand';">My Titllist
                     </button>
                     <button id="setting" type="button" class="setting">Settings</button>
                     <button type="button" class="adminSetting" id="adminSetting">Admin settings</button>
@@ -77,6 +77,26 @@
         </ul>
     </nav>
 </header>
+
+<div id="animeModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="closeAnimeWindow">&times;</span>
+            <h2 id='animeName' align="center"></h2>
+        </div>
+        <div class="modal-body">
+            <p id="forErrorMessage"></p>
+            <div id="animeContent">
+            </div>
+            <div>
+                <form id="addToTitllist" action="controller" method="post">
+                    <div id="inputStatus"></div>
+                    <input type="submit" value="Apply">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="modal" class="modal">
     <div class="modal-content">
@@ -148,7 +168,6 @@
                     <label>Genre:
                         <select form="addNewAnime" size="6" required id="genreSelection" multiple="multiple"
                                 name="genre">
-
                         </select>
                     </label>
 

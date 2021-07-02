@@ -17,7 +17,7 @@ public class ConnectionManager {
         }
     }
 
-    public static void close(Connection connection, Statement statement, ResultSet resultSet)  {
+    public static void close(Connection connection, Statement statement, ResultSet resultSet) {
         try {
             if (resultSet != null) {
                 resultSet.close();
@@ -28,17 +28,17 @@ public class ConnectionManager {
             if (connection != null) {
                 connection.close();
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
 
     }
 
-    public static void close(Connection connection, Statement statement)  {
+    public static void close(Connection connection, Statement statement) {
         close(connection, statement, null);
     }
 
-    public static void close(Connection connection)  {
+    public static void close(Connection connection) {
         close(connection, null, null);
     }
 }

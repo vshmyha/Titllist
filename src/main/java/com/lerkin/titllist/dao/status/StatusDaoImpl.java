@@ -1,32 +1,28 @@
-package com.lerkin.titllist.dao.authority;
+package com.lerkin.titllist.dao.status;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
-import com.lerkin.titllist.dao.role.RoleParser;
-import com.lerkin.titllist.entity_db.Role;
+import com.lerkin.titllist.entity_db.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-public class AuthorityDaoImpl implements AuthorityDao {
-    private static final String SELECT_ROLE_QUERY = "SELECT r.role_name FROM users AS u LEFT JOIN roles AS r ON u.role_id = r.id WHERE u.id=?";
+public class StatusDaoImpl implements StatusDao {
+
+    private static final String SELECT_STATUSES = "SELECT status FROM status";
 
     @Override
-    public Role userRole(Integer userId) {
+    public List<Status> selectStatuses() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Role role = null;
         try {
             connection = ConnectionManager.takeConnection();
-            preparedStatement = connection.prepareStatement(SELECT_ROLE_QUERY);
-            preparedStatement.setInt(1, userId);
+            preparedStatement = connection.prepareStatement(SELECT_STATUSES);
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                role = RoleParser.parse(resultSet);
-            }
-            return role;
+            return StatusParser.listParser(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
         } finally {

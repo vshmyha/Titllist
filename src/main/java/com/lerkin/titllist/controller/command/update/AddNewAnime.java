@@ -1,6 +1,9 @@
 package com.lerkin.titllist.controller.command.update;
 
 import com.lerkin.titllist.controller.command.Command;
+import com.lerkin.titllist.controller.response.ResponseEntity;
+import com.lerkin.titllist.controller.response.ResponseType;
+import com.lerkin.titllist.controller.response.ResponseUtil;
 import com.lerkin.titllist.entity_db.Anime;
 import com.lerkin.titllist.entity_db.Genre;
 import com.lerkin.titllist.entity_db.Type;
@@ -35,5 +38,7 @@ public class AddNewAnime implements Command {
         }
         Anime anime = new Anime(rusName, japNAme, type, episodes, duration, releaseDate, genres);
         animeService.addNewAnime(anime);
+        ResponseEntity responseEntity = new ResponseEntity(ResponseType.OK);
+        ResponseUtil.sendResponse(resp, responseEntity);
     }
 }

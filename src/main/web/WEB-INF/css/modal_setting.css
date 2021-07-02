@@ -4,9 +4,12 @@
     color: white;
 
 }
-.modal-body {padding: 5px 16px;}
 
-.modal{
+.modal-body {
+    padding: 5px 16px;
+}
+
+.modal {
     display: none;
     left: 0;
     top: 0;
@@ -15,15 +18,15 @@
     overflow: auto;
     z-index: 1;
     position: fixed;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-.addAnimeBody{
+.addAnimeBody {
     display: none;
 }
 
-.usersBody{
+.usersBody {
     display: none;
 }
 
@@ -34,12 +37,12 @@
     width: 30%;
     margin: 6% auto;
     padding: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     animation-name: animatetop;
     animation-duration: 0.4s
 }
 
-.close, .closeWindow{
+.close, .closeWindow, .closeAnimeWindow {
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -48,13 +51,15 @@
 .close:hover,
 .close:focus,
 .closeWindow:hover,
-.closeWindow:focus{
+.closeWindow:focus,
+.closeAnimeWindow:hover,
+.closeAnimeWindow:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
 
-form.changePassword input[type = "password"]{
+form.changePassword input[type = "password"] {
     display: block;
     margin: 20px auto;
     text-align: center;
@@ -69,7 +74,8 @@ form.changePassword input[type = "password"]{
     border-radius: 24px;
     transition: 0.25s;
 }
-form.newAnime input.animeField[type="text"]{
+
+form.newAnime input.animeField[type="text"] {
     display: block;
     margin: 15px auto;
     text-align: center;
@@ -85,21 +91,21 @@ form.newAnime input.animeField[type="text"]{
     transition: 0.25s;
 }
 
-form.newAnime input.animeField[type="text"]:focus{
+form.newAnime input.animeField[type="text"]:focus {
     width: 200px;
     border-color: #33d9b2;
 }
 
-form.changePassword input[type = "password"]:focus{
+form.changePassword input[type = "password"]:focus {
     width: 280px;
     border-color: #33d9b2;
 }
 
-label{
+label {
     display: block;
 }
 
-.option{
+.option {
     color: black;
 }
 
@@ -123,20 +129,26 @@ form.changePassword input[type = "submit"], form.newAnime input[type = "submit"]
     cursor: pointer;
 }
 
-.changeRoleButton{
+.changeRoleButton {
     display: block;
 }
 
-form.changePassword input[type = "submit"]:hover, form.newAnime input[type = "submit"]:hover{
+form.changePassword input[type = "submit"]:hover, form.newAnime input[type = "submit"]:hover {
     background: #33d9b2;
 }
 
-.sett_title{
+.sett_title {
     font-size: 18px;
 }
 
 @keyframes animatetop {
-    from {top: -300px; opacity: 0}
-    to {top: 0; opacity: 1}
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
 }
 

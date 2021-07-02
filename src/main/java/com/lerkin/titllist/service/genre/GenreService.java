@@ -1,6 +1,5 @@
 package com.lerkin.titllist.service.genre;
 
-import com.lerkin.titllist.entity_db.Anime;
 import com.lerkin.titllist.entity_db.Genre;
 
 import java.util.List;
