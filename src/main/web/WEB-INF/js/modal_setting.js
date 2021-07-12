@@ -72,8 +72,8 @@ function refreshUsersAndRoles() {
                                 availableRoles.push(role);
                             })
                         }
-                        tableUsers.append("<tr><td>User</td>" +
-                            "<td>Role</td></tr>" +
+                        tableUsers.append("<tr><td class='tdUser'>User</td>" +
+                            "<td class='tdRole'>Role</td></tr>" +
                             "<tr id='supperAdmin'><td>Lerkin</td>" +
                             "<td>SUPER ADMIN</td></tr>");
                         $.each(users.value, function (i, field) {
@@ -120,7 +120,7 @@ function showRoleSelectionForUser(roleContainerStr, userId, buttonId) {
                     "<select name='role' form='changeRole' style='color: black'  id='selection" + userId + "'></select>" +
                     "<input type='hidden' name='command' value='changeRoleCommand'>" +
                     "<input type='hidden' name='userId' value='" + userId + "'>" +
-                    "<input form='changeRole' type='submit'>Save</input></form>")
+                    "<input form='changeRole' type='submit' value='Save'></form>")
                 let selectionId = "selection" + userId;
                 let selection = $('#' + selectionId);
                 console.log(selection);
@@ -296,7 +296,7 @@ addAnimeForm.submit(function (event) {
             let status = data.status;
             if (status != null) {
                 if (status === 'ERROR') {
-                    $('#errorMessagePlace').html(data.value);
+                    $('#errorForSearch').html(data.value);
                 } else if (status === 'OK') {
                     alert("A new anime has been successfully added.");
                     document.getElementById('addNewAnime').reset();
@@ -308,6 +308,84 @@ addAnimeForm.submit(function (event) {
         }
     });
 });
+
+let statusPanel = $('#statusPanel');
+
+function showUserTitllist(status) {
+    let commandName = 'showUserTitllistCommand';
+    if (status != null) {
+        status = status.replace(/\s/g, '');
+        let command = 'showUserTitllistCommand';
+        let property = '&status=' + status;
+        commandName = command + property;
+    }
+    loadAllAnime(commandName, "You haven't added anime to your list yet");
+
+   getStatusPanel();
+};
+
+function getStatusPanel(){
+    statusPanel.html('');
+    $.getJSON('controller?command=getAnimeStatusCommand', function (result) {
+        let status = result.status;
+        if (status != null) {
+            if (status === 'OK') {
+                statusPanel.append("<button onclick='showUserTitllist(" + null + ")'>All</button>");
+                $.each(result.value, function (i) {
+                    let animeStatus = result.value[i];
+                    statusPanel.append("<button class='titllistButton' status='" + animeStatus + "'>" + animeStatus + "</button>");
+                });
+            }
+        }
+    });
+}
+
+$(document).on('click', '.titllistButton', function () {
+    let status = $(this).attr('status');
+    showUserTitllist(status);
+});
+
+let searchForm = $('#searchForm');
+
+$("#searchInput").keyup(function (event) {
+    if (event.keyCode === 13) {
+        searchForm.submit();
+        event.preventDefault();
+    }
+});
+
+searchForm.submit(function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: searchForm.attr('action'),
+        type: 'post',
+        dataType: 'json',
+        data: searchForm.serialize(),
+        success: function (data) {
+            let status = data.status;
+            if (status != null) {
+                if (status === 'ERROR') {
+                    $('#errorMessagePlace').html(data.value);
+                } else if (status === 'OK') {
+                    byTypeDiv.html('');
+                    if (Object.keys(data.value).length === 0) {
+                        byTypeDiv.append("<h1>No anime was found for your search</h1>")
+                    } else {
+                        $.each(data.value, function (i, field) {
+                            let animeId = field.id;
+                            let rusName = field.rusName;
+                            let japName = field.japName;
+                            let buttonId = "animeDiv" + animeId;
+                            byTypeDiv.append("<div class='anime' id='" + buttonId + "'onclick='showAnimeInformation(" + animeId + ", " + buttonId + ")'" + "'> <p> Name: " + rusName + "/" + japName + "</p></div>");
+                        });
+                    }
+                }
+            } else {
+                alert('Unknown response');
+            }
+        }
+    });
+})
 
 let refreshUserAndRoleButton = document.getElementById("refreshUserAndRole");
 

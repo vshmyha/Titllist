@@ -53,6 +53,8 @@ class TaskManager {
         COMMAND_MAP.put(CommandNames.ADD_ANIME_TO_USER_TITLLIST, new AddAnimeToUserTitllist());
         COMMAND_MAP.put(CommandNames.GET_ANIME_STATUS_COMMAND, new GetAnimeStatusCommand());
         COMMAND_MAP.put(CommandNames.CHANGE_ANIME_STATUS_IN_TITLLIST, new ChangeAnimeStatusInTitllist());
+        COMMAND_MAP.put(CommandNames.SHOW_USER_TITLLIST_COMMAND, new ShowUserTitllistCommand());
+        COMMAND_MAP.put(CommandNames.ANIME_SEARCH_COMMAND, new AnimeSearchCommand());
     }
 
     static void impl(String commandName, HttpServletRequest request, HttpServletResponse response) {

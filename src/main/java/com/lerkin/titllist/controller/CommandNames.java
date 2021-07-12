@@ -26,4 +26,6 @@ public interface CommandNames {
     String ADD_ANIME_TO_USER_TITLLIST = "addAnimeToUserTitllist";
     String GET_ANIME_STATUS_COMMAND = "getAnimeStatusCommand";
     String CHANGE_ANIME_STATUS_IN_TITLLIST = "changeAnimeStatusInTitllist";
+    String SHOW_USER_TITLLIST_COMMAND = "showUserTitllistCommand";
+    String ANIME_SEARCH_COMMAND = "animeSearchCommand";
 }

@@ -22,5 +22,10 @@ public interface AnimeService {
 
     void addAnimeToUserTitllist(User user, Integer animeId, Status status);
 
+    List<Anime> getAnimeFromUserTitllist(User user);
+
+    List<Anime> getAnimeFromUserTitllistByStatus(User user, Status status);
+
+    List<Anime> searchAnimesByName(String animeName);
 
 }

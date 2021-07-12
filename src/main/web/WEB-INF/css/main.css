@@ -224,7 +224,19 @@ content {
     overflow-y: auto;
     height: 100%;
     width: 900px;
-    background: black;
+    background: #40407ab0;;
+}
+
+#statusPanel {
+    display: block;
+    margin-left: 450px;
+    overflow-y: auto;
+    height: 45px;
+    width: 740px;
+}
+
+.titllistButton {
+    margin-right: 40px;
 }
 
 .anime {

@@ -1,23 +1,29 @@
 let byTypeDiv = $('#animeByTeg');
 window.addEventListener('load', (event) => {
-    loadAllAnime();
+    loadAllAnime('getAllAnime', 'There is no anime here yet.');
 });
 
-function loadAllAnime() {
+function loadAllAnime(command, errorMessage) {
     byTypeDiv.html('');
-    $.getJSON('controller?command=getAllAnime', function (result) {
+    statusPanel.html('');
+    $.getJSON('controller?command=' + command, function (result) {
         let status = result.status;
         if (status != null) {
             if (status === 'OK') {
-                $.each(result.value, function (i, field) {
-                    let animeId = field.id;
-                    let rusName = field.rusName;
-                    let japName = field.japName;
-                    let buttonId = "animeDiv" + animeId;
-                    byTypeDiv.append("<div class='anime' id='" + buttonId + "'onclick='showAnimeInformation(" + animeId + ", " + buttonId + ")'" + "'> <p> Name: " + rusName + "/" + japName + "</p></div>");
-                })
+                console.log(Object.keys(result.value).length === 0)
+                if (Object.keys(result.value).length === 0) {
+                    byTypeDiv.html(errorMessage);
+                } else {
+                    $.each(result.value, function (i, field) {
+                        let animeId = field.id;
+                        let rusName = field.rusName;
+                        let japName = field.japName;
+                        let buttonId = "animeDiv" + animeId;
+                        byTypeDiv.append("<div class='anime' id='" + buttonId + "'onclick='showAnimeInformation(" + animeId + ", " + buttonId + ")'" + "'> <p> Name: " + rusName + "/" + japName + "</p></div>");
+                    })
+                }
             } else if (status === 'ERROR') {
-                $('#errorMessage').html(data.value);
+                $('#errorMessage').html(result.value);
             } else {
                 alert('Unknown response');
             }
@@ -34,6 +40,7 @@ function getAnimesByTag(commandName, dataId) {
         let status = result.status;
         let byTypeDiv = $('#animeByTeg');
         byTypeDiv.html('');
+        statusPanel.html('');
         if (status != null) {
             if (status === 'OK') {
                 $.each(result.value, function (i, field) {

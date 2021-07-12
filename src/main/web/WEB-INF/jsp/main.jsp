@@ -21,9 +21,9 @@
         <ul>
             <div class="dropdown">
                 <li class="home">
-                    <button id="buttonHome" onclick="loadAllAnime()">Home</button>
-                        <i class="fas fa-home"></i>
-                    </a>
+                    <button id="buttonHome" onclick="loadAllAnime('getAllAnime', 'There is no anime here yet.')">Home
+                    </button>
+                    <i class="fas fa-home"></i>
                 </li>
                 <div class="dropdown-content">
                     <div id="genre-dropdown">
@@ -50,13 +50,15 @@
             </div>
             <li>
                 <div class="search-icon">
-                    <input class="search-txt" type="search" placeholder="Search">
-                    <a class="search-btn" href="#">
-                        <i class="fas fa-search"></i>
-                    </a>
+                    <form id="searchForm" action="controller" method="post">
+                        <input autocomplete='off' id="searchInput" class="search-txt" type="text" name="animeName" placeholder="Search">
+                        <input type="hidden" name="command" value="animeSearchCommand"/>
+                        <div class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </form>
                 </div>
             </li>
-
         </ul>
     </nav>
     <nav>
@@ -66,7 +68,7 @@
                 <li class="user">${sessionScope.user.userName}</li>
                 <div class="dropdown-content">
                     <button class="myTitllist" name="command"
-                            onclick="location.href='controller?command=showMyTitllistCommand';">My Titllist
+                            onclick="showUserTitllist(null)">My Titllist
                     </button>
                     <button id="setting" type="button" class="setting">Settings</button>
                     <button type="button" class="adminSetting" id="adminSetting">Admin settings</button>
@@ -136,7 +138,7 @@
                 <button id="refreshUserAndRole"><i class="fas fa-redo-alt"></i></button>
                 <table id="userTable">
                     <tr>
-                        <td></td>
+                        <td class='td'></td>
                     </tr>
                 </table>
             </div>
@@ -179,7 +181,10 @@
     </div>
 </div>
 <div class="scroll">
-    <div class="vertical-container" id="animeByTeg">
+    <div id="animeDiv">
+        <div id="statusPanel"></div>
+        <div class="vertical-container" id="animeByTeg">
+        </div>
     </div>
 </div>
 

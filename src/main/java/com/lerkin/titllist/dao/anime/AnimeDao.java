@@ -21,4 +21,10 @@ public interface AnimeDao {
     Anime selectAnimeById(Integer animeId);
 
     void insertAnimeToUserTitllist(User user, Integer animeId, Status status);
+
+    List<Anime> selectAnimeFromUserTitllist(User user);
+
+    List<Anime> selectAnimeFromUserTitllistByStatus(User user, Status status);
+
+    List<Anime> selectAnimesByName(String animeName);
 }

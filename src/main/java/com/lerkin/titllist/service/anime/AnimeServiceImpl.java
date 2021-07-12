@@ -46,4 +46,19 @@ public class AnimeServiceImpl implements AnimeService {
     public void addAnimeToUserTitllist(User user, Integer animeId, Status status) {
         animeDao.insertAnimeToUserTitllist(user, animeId, status);
     }
+
+    @Override
+    public List<Anime> getAnimeFromUserTitllist(User user) {
+        return animeDao.selectAnimeFromUserTitllist(user);
+    }
+
+    @Override
+    public List<Anime> getAnimeFromUserTitllistByStatus(User user, Status status) {
+        return animeDao.selectAnimeFromUserTitllistByStatus(user, status);
+    }
+
+    @Override
+    public List<Anime> searchAnimesByName(String animeName) {
+        return animeDao.selectAnimesByName(animeName);
+    }
 }

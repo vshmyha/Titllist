@@ -115,7 +115,7 @@ placeholder {
     font-family: cursive;
 }
 
-form.changePassword input[type = "submit"], form.newAnime input[type = "submit"] {
+form.changePassword input[type = "submit"], form.newAnime input[type = "submit"]{
     display: block;
     background: none;
     margin: 20px auto;
@@ -127,6 +127,24 @@ form.changePassword input[type = "submit"], form.newAnime input[type = "submit"]
     border-radius: 24px;
     transition: 0.25s;
     cursor: pointer;
+}
+
+#changeRole input[type = "submit"] {
+    display: block;
+    background: none;
+    text-align: center;
+    border: 3px solid #33d9b2;
+    padding: 4px 10px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    float: right;
+}
+
+#changeRole input[type = "submit"]:hover {
+    background: #33d9b2;
 }
 
 .changeRoleButton {
@@ -150,5 +168,25 @@ form.changePassword input[type = "submit"]:hover, form.newAnime input[type = "su
         top: 0;
         opacity: 1
     }
+}
+
+#userTable {
+    width: 100%;
+}
+
+td {
+    padding: 0;
+    text-align: center;
+}
+
+.tdUser, .tdRole {
+    font-size: 23px;
+    color: khaki;
+}
+
+
+
+.tdRole {
+    width: 50%;
 }
 
