@@ -2,7 +2,9 @@ package com.lerkin.titllist.service.anime;
 
 import com.lerkin.titllist.dao.DaoFactory;
 import com.lerkin.titllist.dao.anime.AnimeDao;
+import com.lerkin.titllist.dao.genre.GenreDao;
 import com.lerkin.titllist.entity_db.Anime;
+import com.lerkin.titllist.entity_db.Genre;
 import com.lerkin.titllist.entity_db.Status;
 import com.lerkin.titllist.entity_db.User;
 
@@ -11,6 +13,7 @@ import java.util.List;
 public class AnimeServiceImpl implements AnimeService {
 
     private final AnimeDao animeDao = DaoFactory.getAnimeDao();
+    private final GenreDao genreDao = DaoFactory.getGenreDao();
 
     @Override
     public List<Anime> getAnimeByGenres(Integer idGenre) {
@@ -39,7 +42,10 @@ public class AnimeServiceImpl implements AnimeService {
 
     @Override
     public Anime getAnimeById(Integer animeId) {
-        return animeDao.selectAnimeById(animeId);
+        Anime anime = animeDao.selectAnimeById(animeId);
+        List<Genre> genres = genreDao.selectGenresByAnimeId(animeId);
+        anime.setGenres(genres);
+        return anime;
     }
 
     @Override

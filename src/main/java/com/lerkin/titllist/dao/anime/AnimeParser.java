@@ -3,7 +3,6 @@ package com.lerkin.titllist.dao.anime;
 import com.lerkin.titllist.entity_db.Anime;
 import com.lerkin.titllist.entity_db.Genre;
 import com.lerkin.titllist.entity_db.Type;
-import com.lerkin.titllist.service.ServiceFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,9 +34,10 @@ public class AnimeParser {
             Integer duration = resultSet.getInt("duration");
             Short releaseDate = resultSet.getShort("release_date");
             Integer idAnime = resultSet.getInt("id_anime");
-            Type type = ServiceFactory.getTypeService().getTypeByAnimeId(idAnime);
-            List<Genre> genres = ServiceFactory.getGenreService().getGenresByAnimeId(idAnime);
-            anime = new Anime(rusName, japName, type, episodesCount, duration, releaseDate, genres);
+            String typeName = resultSet.getString("type_name");
+            Type type = new Type();
+            type.setTypeName(typeName);
+            anime = new Anime(rusName, japName, type, episodesCount, duration, releaseDate);
             anime.setId(idAnime);
         }
         return anime;
