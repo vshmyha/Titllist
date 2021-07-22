@@ -26,4 +26,12 @@ public class Anime extends DBEntity {
         this.japName = japName;
     }
 
+    public Anime(String rusName, String japName, Type type, Integer episodesCount, Integer duration, Short releaseDate) {
+        this.rusName = rusName;
+        this.japName = japName;
+        this.type = type;
+        this.episodesCount = episodesCount;
+        this.duration = duration;
+        this.releaseDate = releaseDate;
+    }
 }

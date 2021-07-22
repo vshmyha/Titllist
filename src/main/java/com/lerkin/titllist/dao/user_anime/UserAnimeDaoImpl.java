@@ -12,10 +12,11 @@ import java.sql.SQLException;
 
 public class UserAnimeDaoImpl implements UserAnimeDao {
 
-    private static final String SELECT_ANIME_USER = "SELECT abase.id_anime, auser.id_user,  abase.rus_name, abase.jap_name, abase.episods, abase.duration, abase.release_date, s.status\n" +
+    private static final String SELECT_ANIME_USER = "SELECT abase.id_anime, auser.id_user, abase.rus_name, abase.jap_name, abase.episods, abase.duration, abase.release_date, s.status, t.type_name\n" +
             "FROM anime_base abase\n" +
             "         LEFT JOIN anime_user auser ON abase.id_anime = auser.id_anime\n" +
             "         LEFT JOIN status s ON auser.status = s.id\n" +
+            "         LEFT JOIN type t ON abase.type_id = t.id_type\n" +
             "WHERE auser.id_anime = ?\n" +
             "  AND auser.id_user = ?";
     private static final String SELECT_CURRENT_ANIME_STATUS = "SELECT s.status FROM status s JOIN anime_user au ON s.id = au.status\n" +
