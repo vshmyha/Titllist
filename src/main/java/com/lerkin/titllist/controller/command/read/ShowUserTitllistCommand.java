@@ -28,7 +28,7 @@ public class ShowUserTitllistCommand implements Command {
         if (statusName == null) {
             animes = animeService.getAnimeFromUserTitllist(user);
         } else {
-            if(statusName.startsWith("In")){
+            if (statusName.startsWith("In")) {
                 statusName = "In process";
             }
             Status status = Status.byText(statusName);

@@ -21,7 +21,7 @@ public class UserAnimeDaoImpl implements UserAnimeDao {
             "  AND auser.id_user = ?";
     private static final String SELECT_CURRENT_ANIME_STATUS = "SELECT s.status FROM statuses s JOIN anime_user au ON s.id = au.status\n" +
             "WHERE au.id_user = ? AND au.id_anime = ?";
-    private static final String UPDATE_CURRENT_ANIME_STATUS = "UPDATE anime_user SET status=(SELECT id FROM statuses WHERE statuses.status=?) WHERE id_anime=? and id_user=?";
+    private static final String UPDATE_CURRENT_ANIME_STATUS = "UPDATE anime_user SET status=(SELECT id FROM statuses WHERE statuses.status=?) WHERE id_anime=? AND id_user=?";
 
     @Override
     public UserAnime selectUserAnime(Integer animeId, Integer userId) {

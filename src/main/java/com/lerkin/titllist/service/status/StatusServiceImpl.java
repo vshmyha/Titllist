@@ -1,8 +1,8 @@
 package com.lerkin.titllist.service.status;
 
 import com.lerkin.titllist.dao.DaoFactory;
-import com.lerkin.titllist.dao.status.StatusDao;
 import com.lerkin.titllist.dao.entity.Status;
+import com.lerkin.titllist.dao.status.StatusDao;
 
 import java.util.List;
 

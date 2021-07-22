@@ -1,8 +1,8 @@
 package com.lerkin.titllist.service.type;
 
 import com.lerkin.titllist.dao.DaoFactory;
-import com.lerkin.titllist.dao.type.TypeDao;
 import com.lerkin.titllist.dao.entity.Type;
+import com.lerkin.titllist.dao.type.TypeDao;
 
 import java.util.List;
 

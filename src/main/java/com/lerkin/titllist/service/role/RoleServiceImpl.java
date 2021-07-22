@@ -1,9 +1,9 @@
 package com.lerkin.titllist.service.role;
 
 import com.lerkin.titllist.dao.DaoFactory;
-import com.lerkin.titllist.dao.role.RoleDao;
 import com.lerkin.titllist.dao.entity.Role;
 import com.lerkin.titllist.dao.entity.User;
+import com.lerkin.titllist.dao.role.RoleDao;
 
 import java.util.List;
 

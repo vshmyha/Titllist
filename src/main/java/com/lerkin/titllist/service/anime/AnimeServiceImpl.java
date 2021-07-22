@@ -2,11 +2,11 @@ package com.lerkin.titllist.service.anime;
 
 import com.lerkin.titllist.dao.DaoFactory;
 import com.lerkin.titllist.dao.anime.AnimeDao;
-import com.lerkin.titllist.dao.genre.GenreDao;
 import com.lerkin.titllist.dao.entity.Anime;
 import com.lerkin.titllist.dao.entity.Genre;
 import com.lerkin.titllist.dao.entity.Status;
 import com.lerkin.titllist.dao.entity.User;
+import com.lerkin.titllist.dao.genre.GenreDao;
 
 import java.util.List;
 
