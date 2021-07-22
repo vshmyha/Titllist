@@ -1,6 +1,6 @@
 package com.lerkin.titllist.dao.role;
 
-import com.lerkin.titllist.entity_db.Role;
+import com.lerkin.titllist.dao.entity.Role;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

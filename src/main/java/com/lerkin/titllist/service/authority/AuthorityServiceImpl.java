@@ -2,7 +2,7 @@ package com.lerkin.titllist.service.authority;
 
 import com.lerkin.titllist.dao.DaoFactory;
 import com.lerkin.titllist.dao.authority.AuthorityDao;
-import com.lerkin.titllist.entity_db.Role;
+import com.lerkin.titllist.dao.entity.Role;
 
 public class AuthorityServiceImpl implements AuthorityService {
     private final AuthorityDao authorityDao = DaoFactory.getAuthorityDao();

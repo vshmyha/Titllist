@@ -1,10 +1,10 @@
 package com.lerkin.titllist.dao.anime;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
-import com.lerkin.titllist.entity_db.Anime;
-import com.lerkin.titllist.entity_db.Genre;
-import com.lerkin.titllist.entity_db.Status;
-import com.lerkin.titllist.entity_db.User;
+import com.lerkin.titllist.dao.entity.Anime;
+import com.lerkin.titllist.dao.entity.Genre;
+import com.lerkin.titllist.dao.entity.Status;
+import com.lerkin.titllist.dao.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,14 +21,14 @@ public class AnimeDaoImpl implements AnimeDao {
     private static final String SELECT_ANIME_BY_ID = "SELECT id_anime, rus_name, jap_name, episods, duration, release_date FROM anime_base WHERE id_anime = ?";
     private static final String INSERT_NEW_ANIME = "INSERT anime_base(rus_name, jap_name, type_id, episods, duration, release_date) VALUE (?, ?, ?, ?, ?, ?)";
     private static final String INSERT_ANIME_GENRE = "INSERT anime_genre(id_anime, id_genre) VALUE(?, ?)";
-    private static final String INSERT_ANIME_TO_USER_TITLLIST = "INSERT INTO anime_user(id_user, id_anime, status) VALUES ((SELECT id FROM users WHERE username=?), ?, (SELECT id FROM status WHERE status=?))";
+    private static final String INSERT_ANIME_TO_USER_TITLLIST = "INSERT INTO anime_user(id_user, id_anime, status) VALUES ((SELECT id FROM users WHERE username=?), ?, (SELECT id FROM statuses WHERE status=?))";
     private static final String SELECT_ANIME_FROM_USER_TITLLIST = "SELECT ab.id_anime, ab.rus_name, ab.jap_name FROM anime_base ab JOIN anime_user au ON ab.id_anime = au.id_anime where au.id_user=?";
     private static final String SELECT_ANIME_BY_NAME = "SELECT id_anime, rus_name, jap_name FROM anime_base WHERE rus_name LIKE ? OR jap_name LIKE ?";
     private static final String SELECT_ANIME_FROM_USER_TITLLIST_BY_STATUS = "SELECT ab.id_anime, ab.rus_name, ab.jap_name\n" +
             "FROM anime_base ab\n" +
             "         JOIN anime_user au ON ab.id_anime = au.id_anime\n" +
             "WHERE au.id_user = ?\n" +
-            "  AND au.status = (SELECT id FROM status WHERE status = ?)";
+            "  AND au.status = (SELECT id FROM statuses WHERE status = ?)";
 
     @Override
     public List<Anime> selectAnimeByGenre(Integer idGenre) {

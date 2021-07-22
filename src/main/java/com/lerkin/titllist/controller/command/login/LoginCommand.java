@@ -2,8 +2,8 @@ package com.lerkin.titllist.controller.command.login;
 
 import com.lerkin.titllist.controller.command.Command;
 import com.lerkin.titllist.controller.tool.ForwardUtil;
-import com.lerkin.titllist.entity_db.Role;
-import com.lerkin.titllist.entity_db.User;
+import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dao.entity.User;
 import com.lerkin.titllist.service.ServiceFactory;
 import com.lerkin.titllist.service.user.UserService;
 

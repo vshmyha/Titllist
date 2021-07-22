@@ -6,8 +6,8 @@ import com.lerkin.titllist.controller.response.ResponseEntity;
 import com.lerkin.titllist.controller.response.ResponseType;
 import com.lerkin.titllist.controller.response.ResponseUtil;
 import com.lerkin.titllist.controller.tool.ForwardUtil;
-import com.lerkin.titllist.entity_db.Role;
-import com.lerkin.titllist.entity_db.User;
+import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dao.entity.User;
 import com.lerkin.titllist.service.ServiceFactory;
 import com.lerkin.titllist.service.role.RoleService;
 

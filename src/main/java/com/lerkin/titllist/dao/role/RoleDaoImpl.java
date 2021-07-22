@@ -1,8 +1,8 @@
 package com.lerkin.titllist.dao.role;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
-import com.lerkin.titllist.entity_db.Role;
-import com.lerkin.titllist.entity_db.User;
+import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dao.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,31 +20,21 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public List<Role> selectRolesForAdmin() {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        List<Role> roles = new ArrayList<>();
-        try {
-            connection = ConnectionManager.takeConnection();
-            preparedStatement = connection.prepareStatement(SELECT_ROLES_FOR_ADMIN);
-            resultSet = preparedStatement.executeQuery();
-            return RoleParser.listParser(resultSet);
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        } finally {
-            ConnectionManager.close(connection, preparedStatement, resultSet);
-        }
+        return loadRoles(SELECT_ROLES_FOR_ADMIN);
     }
 
     @Override
     public List<Role> selectRolesForSuperAdmin() {
+        return loadRoles(SELECT_ROLES_FOR_SUPER_ADMIN);
+    }
+
+    private List<Role> loadRoles(String selectRolesForAdmin) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        List<Role> roles = new ArrayList<>();
         try {
             connection = ConnectionManager.takeConnection();
-            preparedStatement = connection.prepareStatement(SELECT_ROLES_FOR_SUPER_ADMIN);
+            preparedStatement = connection.prepareStatement(selectRolesForAdmin);
             resultSet = preparedStatement.executeQuery();
             return RoleParser.listParser(resultSet);
         } catch (SQLException e) {

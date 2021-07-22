@@ -1,7 +1,7 @@
 package com.lerkin.titllist.service.user_anime;
 
-import com.lerkin.titllist.entity_db.Status;
-import com.lerkin.titllist.entity_db.UserAnime;
+import com.lerkin.titllist.dao.entity.Status;
+import com.lerkin.titllist.dao.entity.UserAnime;
 
 public interface UserAnimeService {
 

@@ -1,6 +1,6 @@
 package com.lerkin.titllist.dao.genre;
 
-import com.lerkin.titllist.entity_db.Genre;
+import com.lerkin.titllist.dao.entity.Genre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -4,7 +4,7 @@ import com.lerkin.titllist.controller.command.Command;
 import com.lerkin.titllist.controller.response.ResponseEntity;
 import com.lerkin.titllist.controller.response.ResponseType;
 import com.lerkin.titllist.controller.response.ResponseUtil;
-import com.lerkin.titllist.entity_db.Status;
+import com.lerkin.titllist.dao.entity.Status;
 import com.lerkin.titllist.service.ServiceFactory;
 import com.lerkin.titllist.service.status.StatusService;
 

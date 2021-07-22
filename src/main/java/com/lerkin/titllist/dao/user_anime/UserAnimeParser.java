@@ -1,9 +1,9 @@
 package com.lerkin.titllist.dao.user_anime;
 
 import com.lerkin.titllist.dao.anime.AnimeParser;
-import com.lerkin.titllist.entity_db.Anime;
-import com.lerkin.titllist.entity_db.Status;
-import com.lerkin.titllist.entity_db.UserAnime;
+import com.lerkin.titllist.dao.entity.Anime;
+import com.lerkin.titllist.dao.entity.Status;
+import com.lerkin.titllist.dao.entity.UserAnime;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

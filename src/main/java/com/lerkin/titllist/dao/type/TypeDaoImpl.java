@@ -1,7 +1,7 @@
 package com.lerkin.titllist.dao.type;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
-import com.lerkin.titllist.entity_db.Type;
+import com.lerkin.titllist.dao.entity.Type;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

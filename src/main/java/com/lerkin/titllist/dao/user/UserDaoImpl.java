@@ -2,8 +2,8 @@ package com.lerkin.titllist.dao.user;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.dao.role.RoleParser;
-import com.lerkin.titllist.entity_db.Role;
-import com.lerkin.titllist.entity_db.User;
+import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dao.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

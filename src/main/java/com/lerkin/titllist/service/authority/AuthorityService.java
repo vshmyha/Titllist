@@ -1,6 +1,6 @@
 package com.lerkin.titllist.service.authority;
 
-import com.lerkin.titllist.entity_db.Role;
+import com.lerkin.titllist.dao.entity.Role;
 
 public interface AuthorityService {
 

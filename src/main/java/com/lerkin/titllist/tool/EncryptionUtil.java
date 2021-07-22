@@ -1,6 +1,6 @@
 package com.lerkin.titllist.tool;
 
-import com.lerkin.titllist.entity_db.User;
+import com.lerkin.titllist.dao.entity.User;
 
 import java.util.Base64;
 

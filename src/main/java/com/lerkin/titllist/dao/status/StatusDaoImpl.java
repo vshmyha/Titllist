@@ -1,7 +1,7 @@
 package com.lerkin.titllist.dao.status;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
-import com.lerkin.titllist.entity_db.Status;
+import com.lerkin.titllist.dao.entity.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StatusDaoImpl implements StatusDao {
 
-    private static final String SELECT_STATUSES = "SELECT status FROM status";
+    private static final String SELECT_STATUSES = "SELECT status FROM statuses";
 
     @Override
     public List<Status> selectStatuses() {

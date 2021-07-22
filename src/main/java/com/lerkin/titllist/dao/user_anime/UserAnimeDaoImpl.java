@@ -1,8 +1,8 @@
 package com.lerkin.titllist.dao.user_anime;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
-import com.lerkin.titllist.entity_db.Status;
-import com.lerkin.titllist.entity_db.UserAnime;
+import com.lerkin.titllist.dao.entity.Status;
+import com.lerkin.titllist.dao.entity.UserAnime;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,13 +15,13 @@ public class UserAnimeDaoImpl implements UserAnimeDao {
     private static final String SELECT_ANIME_USER = "SELECT abase.id_anime, auser.id_user, abase.rus_name, abase.jap_name, abase.episods, abase.duration, abase.release_date, s.status, t.type_name\n" +
             "FROM anime_base abase\n" +
             "         LEFT JOIN anime_user auser ON abase.id_anime = auser.id_anime\n" +
-            "         LEFT JOIN status s ON auser.status = s.id\n" +
+            "         LEFT JOIN statuses s ON auser.status = s.id\n" +
             "         LEFT JOIN type t ON abase.type_id = t.id_type\n" +
             "WHERE auser.id_anime = ?\n" +
             "  AND auser.id_user = ?";
-    private static final String SELECT_CURRENT_ANIME_STATUS = "SELECT s.status FROM status s JOIN anime_user au ON s.id = au.status\n" +
+    private static final String SELECT_CURRENT_ANIME_STATUS = "SELECT s.status FROM statuses s JOIN anime_user au ON s.id = au.status\n" +
             "WHERE au.id_user = ? AND au.id_anime = ?";
-    private static final String UPDATE_CURRENT_ANIME_STATUS = "UPDATE anime_user SET status=(SELECT id FROM status WHERE status.status=?) WHERE id_anime=? and id_user=?";
+    private static final String UPDATE_CURRENT_ANIME_STATUS = "UPDATE anime_user SET status=(SELECT id FROM statuses WHERE statuses.status=?) WHERE id_anime=? and id_user=?";
 
     @Override
     public UserAnime selectUserAnime(Integer animeId, Integer userId) {

@@ -1,6 +1,6 @@
 package com.lerkin.titllist.service.genre;
 
-import com.lerkin.titllist.entity_db.Genre;
+import com.lerkin.titllist.dao.entity.Genre;
 
 import java.util.List;
 

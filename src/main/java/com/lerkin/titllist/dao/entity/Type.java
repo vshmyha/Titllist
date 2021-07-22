@@ -1,4 +1,4 @@
-package com.lerkin.titllist.entity_db;
+package com.lerkin.titllist.dao.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Genre extends DBEntity {
+public class Type extends DBEntity {
 
-    private String genreName;
+    private String typeName;
 }

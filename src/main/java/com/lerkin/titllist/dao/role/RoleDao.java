@@ -1,7 +1,7 @@
 package com.lerkin.titllist.dao.role;
 
-import com.lerkin.titllist.entity_db.Role;
-import com.lerkin.titllist.entity_db.User;
+import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dao.entity.User;
 
 import java.util.List;
 

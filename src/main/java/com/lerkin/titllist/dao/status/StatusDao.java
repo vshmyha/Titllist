@@ -1,6 +1,6 @@
 package com.lerkin.titllist.dao.status;
 
-import com.lerkin.titllist.entity_db.Status;
+import com.lerkin.titllist.dao.entity.Status;
 
 import java.util.List;
 

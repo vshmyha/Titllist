@@ -2,8 +2,8 @@ package com.lerkin.titllist.service.user;
 
 import com.lerkin.titllist.dao.DaoFactory;
 import com.lerkin.titllist.dao.user.UserDao;
-import com.lerkin.titllist.entity_db.Role;
-import com.lerkin.titllist.entity_db.User;
+import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dao.entity.User;
 import com.lerkin.titllist.exception.UserFriendlyException;
 import com.lerkin.titllist.tool.EncryptionUtil;
 
