@@ -1,6 +1,7 @@
 package com.lerkin.titllist.dao.release_date;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+@Repository
 
 public class ReleaseDateDaoImpl implements ReleaseDateDao {
 

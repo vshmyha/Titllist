@@ -110,29 +110,23 @@ function refreshUsersAndRoles() {
 function showRoleSelectionForUser(roleContainerStr, userId, buttonId) {
     let roleContainer = $(roleContainerStr);
     roleContainer.html('');
-    $.getJSON('controller?command=getRolesCommand', function (result) {
-        if (status != null) {
-            if (status === 'OK') {
-                let changeRoleButton = buttonId.id;
-                let butt = document.getElementById(changeRoleButton);
-                butt.style.display = "none";
-                roleContainer.append("<form id='changeRole' action='controller' method='post'>" +
-                    "<select name='role' form='changeRole' style='color: black'  id='selection" + userId + "'></select>" +
-                    "<input type='hidden' name='command' value='changeRoleCommand'>" +
-                    "<input type='hidden' name='userId' value='" + userId + "'>" +
-                    "<input form='changeRole' type='submit' value='Save'></form>")
-                let selectionId = "selection" + userId;
-                let selection = $('#' + selectionId);
-                console.log(selection);
-                $.each(result.value, function (i) {
-                    let role = result.value[i];
-                    selection.append("<option class='option' value='" + role + "'>" + role + "</option>")
-                })
-                addChangeRoleHandler();
-            } else if (status === 'ERROR') {
-                $('#errorMessagePlace').html(result.value);
-            }
-        }
+    $.getJSON('/role', function (result) {
+        let changeRoleButton = buttonId.id;
+        let butt = document.getElementById(changeRoleButton);
+        butt.style.display = "none";
+        roleContainer.append("<form id='changeRole' action='controller' method='post'>" +
+            "<select name='role' form='changeRole' style='color: black'  id='selection" + userId + "'></select>" +
+            "<input type='hidden' name='command' value='changeRoleCommand'>" +
+            "<input type='hidden' name='userId' value='" + userId + "'>" +
+            "<input form='changeRole' type='submit' value='Save'></form>")
+        let selectionId = "selection" + userId;
+        let selection = $('#' + selectionId);
+        console.log(selection);
+        $.each(result, function (i) {
+            let role = result[i];
+            selection.append("<option class='option' value='" + role + "'>" + role + "</option>")
+        })
+        addChangeRoleHandler();
     });
 };
 
@@ -233,22 +227,17 @@ let divInputStatus = $('#inputStatus');
 function showAnimeStatusChoice() {
     divInputStatus.html('');
     changeDivStyle(form);
-    $.getJSON('controller?command=getAnimeStatusCommand', function (result) {
-        let status = result.status;
-        if (status != null) {
-            if (status === 'OK') {
-                $.each(result.value, function (i) {
-                    let status = result.value[i];
-                    if (i === result.value.length - 1) {
-                        divInputStatus.append("<input checked className='status' type='radio' name='animeStatus' value='" + status + "'>" +
-                            "<label>" + status + "</label>");
-                    } else {
-                        divInputStatus.append("<input className='status' type='radio' name='animeStatus' value='" + status + "'>" +
-                            "<label>" + status + "</label>");
-                    }
-                });
+    $.getJSON('/getAnimeStatus', function (result) {
+        $.each(result, function (i) {
+            let status = result[i];
+            if (i === result.length - 1) {
+                divInputStatus.append("<input checked className='status' type='radio' name='animeStatus' value='" + status + "'>" +
+                    "<label>" + status + "</label>");
+            } else {
+                divInputStatus.append("<input className='status' type='radio' name='animeStatus' value='" + status + "'>" +
+                    "<label>" + status + "</label>");
             }
-        }
+        });
     });
 };
 
@@ -312,31 +301,26 @@ addAnimeForm.submit(function (event) {
 let statusPanel = $('#statusPanel');
 
 function showUserTitllist(status) {
-    let commandName = 'showUserTitllistCommand';
+    let commandName = '/showUserTitllist';
     if (status != null) {
         status = status.replace(/\s/g, '');
-        let command = 'showUserTitllistCommand';
+        let command = '/showUserTitllist';
         let property = '&status=' + status;
         commandName = command + property;
     }
     loadAllAnime(commandName, "You haven't added anime to your list yet");
 
-   getStatusPanel();
+    getStatusPanel();
 };
 
-function getStatusPanel(){
+function getStatusPanel() {
     statusPanel.html('');
-    $.getJSON('controller?command=getAnimeStatusCommand', function (result) {
-        let status = result.status;
-        if (status != null) {
-            if (status === 'OK') {
-                statusPanel.append("<button onclick='showUserTitllist(" + null + ")'>All</button>");
-                $.each(result.value, function (i) {
-                    let animeStatus = result.value[i];
-                    statusPanel.append("<button class='titllistButton' status='" + animeStatus + "'>" + animeStatus + "</button>");
-                });
-            }
-        }
+    $.getJSON('/status', function (result) {
+        statusPanel.append("<button onclick='showUserTitllist(" + null + ")'>All</button>");
+        $.each(result, function (i) {
+            let animeStatus = result[i];
+            statusPanel.append("<button class='titllistButton' status='" + animeStatus + "'>" + animeStatus + "</button>");
+        });
     });
 }
 

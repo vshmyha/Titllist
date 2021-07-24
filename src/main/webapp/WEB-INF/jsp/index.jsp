@@ -6,7 +6,7 @@
     <title></title>
 </head>
 <body>
-<c:redirect url="controller?command=goToStartPage"/>
+<c:redirect url="/start_page"/>
 
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>

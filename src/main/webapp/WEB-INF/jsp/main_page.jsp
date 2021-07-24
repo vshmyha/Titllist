@@ -50,7 +50,7 @@
             </div>
             <li>
                 <div class="search-icon">
-                    <form id="searchForm" action="controller" method="post">
+                    <form id="searchForm" action="/search" method="post">
                         <input autocomplete='off' id="searchInput" class="search-txt" type="text" name="animeName" placeholder="Search">
                         <input type="hidden" name="command" value="animeSearchCommand"/>
                         <div class="search-btn">
@@ -72,7 +72,7 @@
                     </button>
                     <button id="setting" type="button" class="setting">Settings</button>
                     <button type="button" class="adminSetting" id="adminSetting">Admin settings</button>
-                    <button class="logout" name="command" onclick="location.href='controller?command=logout';">Log Out
+                    <button class="logout" name="command" onclick="location.href='/logout';">Log Out
                     </button>
                 </div>
             </div>
@@ -143,17 +143,17 @@
                 </table>
             </div>
             <div id="addAnimeBody" class="addAnimeBody">
-                <form id="addNewAnime" class="newAnime" action="controller" method="get">
+                <form id="addNewAnime" class="newAnime" action="/anime/addNewAnime" method="get">
                     <h2 class="sett_title" align="center">Add New Anime</h2>
 
                     <label>RusName: <input required class="animeField" name="rusName" type="text"/></label>
 
                     <label>JapName: <input required class="animeField" name="japName" type="text"/></label>
 
-                    <label>Type:
-                        <select form="addNewAnime" style="color: black" required id="typeSelection" name="type">
-                        </select>
-                    </label>
+<%--                    <label>Type:--%>
+<%--                        <select form="addNewAnime" style="color: black" required id="typeSelection" name="type">--%>
+<%--                        </select>--%>
+<%--                    </label>--%>
 
                     <label>Duration:
                         <input required class="animeField" name="duration" type="text"/>
@@ -167,11 +167,11 @@
                         <input required class="animeField" name="releaseDate" type="text"/>
                     </label>
 
-                    <label>Genre:
-                        <select form="addNewAnime" size="6" required id="genreSelection" multiple="multiple"
-                                name="genre">
-                        </select>
-                    </label>
+<%--                    <label>Genre:--%>
+<%--                        <select form="addNewAnime" size="6" required id="genreSelection" multiple="multiple"--%>
+<%--                                name="genre">--%>
+<%--                        </select>--%>
+<%--                    </label>--%>
 
                     <input type="hidden" name="command" value="addNewAnime">
                     <input type="submit" value="Add"/>

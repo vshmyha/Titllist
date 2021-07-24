@@ -3,12 +3,14 @@ package com.lerkin.titllist.dao.user_anime;
 import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.dao.entity.Status;
 import com.lerkin.titllist.dao.entity.UserAnime;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Repository
 
 public class UserAnimeDaoImpl implements UserAnimeDao {
 

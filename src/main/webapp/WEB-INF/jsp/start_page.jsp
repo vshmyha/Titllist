@@ -13,26 +13,26 @@
     <title>Start page</title>
 </head>
 <body>
-<form id="loginForm" class="form" action="controller" method="post">
+<form id="loginForm" class="form" action="/login" method="post">
     ${requestScope.response}
     <h1>Login</h1>
     <input autocomplete='off' id="loginField" type="text" name="username" value="" placeholder="Username"/>
     <input autocomplete='off' id="passwordField" type="password" name="password" value="" placeholder="Password"/>
     <input id="submitLoginBtn" type="submit" value="Log In"/>
     <input type="hidden" name="command" value="login"/>
-    <input type="button" onclick="location.href='controller?command=goToRegistrationPage';" value="Sign Up"/>
+    <input type="button" onclick="location.href='/registration_page';" value="Sign Up"/>
 </form>
 
 
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-    <%@include file="../js/start_page.js"%>
+    <%@include file="/WEB-INF/js/start_page.js"%>
 </script>
 <script>
-    <%@include file="../js/common.js"%>
+    <%@include file="/WEB-INF/js/common.js"%>
 </script>
 <style>
-    <%@include file="../css/base.css"%>
+    <%@include file="/WEB-INF/css/base.css"%>
 </style>
 </html>

@@ -3,11 +3,14 @@ package com.lerkin.titllist.dao.authority;
 import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.dao.entity.Role;
 import com.lerkin.titllist.dao.role.RoleParser;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+@Repository
 
 public class AuthorityDaoImpl implements AuthorityDao {
     private static final String SELECT_ROLE_QUERY = "SELECT r.role_name FROM users AS u LEFT JOIN roles AS r ON u.role_id = r.id WHERE u.id=?";

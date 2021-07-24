@@ -1,32 +1,23 @@
 let byTypeDiv = $('#animeByTeg');
 window.addEventListener('load', (event) => {
-    loadAllAnime('getAllAnime', 'There is no anime here yet.');
+    loadAllAnime('/anime', 'There is no anime here yet.');
 });
 
 function loadAllAnime(command, errorMessage) {
     byTypeDiv.html('');
     statusPanel.html('');
-    $.getJSON('controller?command=' + command, function (result) {
-        let status = result.status;
-        if (status != null) {
-            if (status === 'OK') {
-                console.log(Object.keys(result.value).length === 0)
-                if (Object.keys(result.value).length === 0) {
-                    byTypeDiv.html(errorMessage);
-                } else {
-                    $.each(result.value, function (i, field) {
-                        let animeId = field.id;
-                        let rusName = field.rusName;
-                        let japName = field.japName;
-                        let buttonId = "animeDiv" + animeId;
-                        byTypeDiv.append("<div class='anime' id='" + buttonId + "'onclick='showAnimeInformation(" + animeId + ", " + buttonId + ")'" + "'> <p> Name: " + rusName + "/" + japName + "</p></div>");
-                    })
-                }
-            } else if (status === 'ERROR') {
-                $('#errorMessage').html(result.value);
-            } else {
-                alert('Unknown response');
-            }
+    console.log(command)
+    $.getJSON(command, function (result) {
+        if (Object.keys(result).length === 0) {
+            byTypeDiv.html(errorMessage);
+        } else {
+            $.each(result, function (i, field) {
+                let animeId = field.id;
+                let rusName = field.rusName;
+                let japName = field.japName;
+                let buttonId = "animeDiv" + animeId;
+                byTypeDiv.append("<div class='anime' id='" + buttonId + "'onclick='showAnimeInformation(" + animeId + ", " + buttonId + ")'" + "'> <p> Name: " + rusName + "/" + japName + "</p></div>");
+            })
         }
     });
 };

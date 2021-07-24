@@ -42,13 +42,16 @@ $(document).ajaxComplete(function (e, xhr, settings) {
     let result = JSON.parse(responseText);
     let status = result.status;
     if (status != null) {
-        if (status === 'NEW_PAGE') {
+        if (status >= 300 && status <= 399) {
+            alert('Here is the redirect. Need to fix logic\n' + result)
             document.location.href = result.value;
             e.preventDefault();
-        } else if (status !== 'ERROR' && status !== 'OK') {
-            alert('Unknown Response');
-            console.log(result);
-            e.preventDefault();
+        } else if (isError(status)) {
+            alert(result);
         }
     }
 });
+
+function isError(status){
+    return status >= 400 && status <= 599;
+}

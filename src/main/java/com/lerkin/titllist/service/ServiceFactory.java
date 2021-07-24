@@ -21,15 +21,15 @@ import com.lerkin.titllist.service.user_anime.UserAnimeServiceImpl;
 
 public class ServiceFactory {
 
-    private static final UserService USER_SERVICE = new UserServiceImpl();
-    private static final TypeService TYPE_SERVICE = new TypeServiceImpl();
-    private static final GenreService GENRE_SERVICE = new GenreServiceImpl();
-    private static final ReleaseDateService RELEASE_DATE_SERVICE = new ReleaseDateServiceImp();
-    private static final AnimeService ANIME_SERVICE = new AnimeServiceImpl();
-    private static final AuthorityService AUTHORITY_SERVICE = new AuthorityServiceImpl();
-    private static final RoleService ROLE_SERVICE = new RoleServiceImpl();
-    private static final StatusService STATUS_SERVICE = new StatusServiceImpl();
-    private static final UserAnimeService USER_ANIME_SERVICE = new UserAnimeServiceImpl();
+    private static final UserService USER_SERVICE = null;
+    private static final TypeService TYPE_SERVICE = null;
+    private static final GenreService GENRE_SERVICE = null;
+    private static final ReleaseDateService RELEASE_DATE_SERVICE = null;
+    private static final AnimeService ANIME_SERVICE = null;
+    private static final AuthorityService AUTHORITY_SERVICE = null;
+    private static final RoleService ROLE_SERVICE = null;
+    private static final StatusService STATUS_SERVICE = null;
+    private static final UserAnimeService USER_ANIME_SERVICE = null;
 
     public static UserService getUserService() {
         return USER_SERVICE;

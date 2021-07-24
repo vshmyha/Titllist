@@ -19,6 +19,7 @@ registrationForm.submit(function () {
 
 registrationForm.submit(function (event) {
     event.preventDefault();
+    console.log(event);
     if (isValid) {
         $.ajax({
             url: registrationForm.attr('action'),
@@ -28,9 +29,7 @@ registrationForm.submit(function (event) {
             success: function (data) {
                 let status = data.status;
                 if (status != null) {
-                    if (status === 'ERROR') {
-                        $('#errorMessage').html(data.value);
-                    }
+                    isError(status);
                 } else {
                     alert('Unknown response');
                 }

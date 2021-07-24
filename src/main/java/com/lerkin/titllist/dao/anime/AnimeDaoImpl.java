@@ -5,12 +5,15 @@ import com.lerkin.titllist.dao.entity.Anime;
 import com.lerkin.titllist.dao.entity.Genre;
 import com.lerkin.titllist.dao.entity.Status;
 import com.lerkin.titllist.dao.entity.User;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+@Repository
 
 public class AnimeDaoImpl implements AnimeDao {
 

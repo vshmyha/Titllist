@@ -2,6 +2,7 @@ package com.lerkin.titllist.dao.genre;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.dao.entity.Genre;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+@Repository
 
 public class GenreDaoImpl implements GenreDao {
 

@@ -3,6 +3,7 @@ package com.lerkin.titllist.dao.role;
 import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.dao.entity.Role;
 import com.lerkin.titllist.dao.entity.User;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+@Repository
 
 public class RoleDaoImpl implements RoleDao {
     private static final String SELECT_ROLES_FOR_ADMIN = "SELECT role_name FROM roles WHERE role_name <> 'Admin' AND role_name <> 'Super Admin'";

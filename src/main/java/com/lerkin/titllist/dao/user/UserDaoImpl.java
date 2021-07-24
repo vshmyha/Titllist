@@ -4,12 +4,15 @@ import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.dao.entity.Role;
 import com.lerkin.titllist.dao.entity.User;
 import com.lerkin.titllist.dao.role.RoleParser;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+@Repository
 
 public class UserDaoImpl implements UserDao {
 

@@ -11,7 +11,7 @@
     <title>registration</title>
 </head>
 <body>
-<form class="form" id="registrationForm" action="controller" method="post">
+<form class="form" id="registrationForm" action="/registration" method="post">
     <h1>SignUp</h1>
     <input type="hidden" name="command" value="registration">
     <input autocomplete='off' id="registrationField" type="text" name="username" value="" placeholder="Username"/>
