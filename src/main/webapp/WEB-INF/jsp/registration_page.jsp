@@ -13,14 +13,13 @@
 <body>
 <form class="form" id="registrationForm" action="/registration" method="post">
     <h1>SignUp</h1>
+    <p id="errorMessage"></p>
     <input type="hidden" name="command" value="registration">
     <input autocomplete='off' id="registrationField" type="text" name="username" value="" placeholder="Username"/>
     <input autocomplete='off' id="passwordField" type="password" name="password" value="" placeholder="Password"/>
     <input autocomplete='off' id="repeatedPasswordField" type="password" name="password" value="" placeholder="Repeat password"/>
     <input id="submitRegistrationBtn" type="submit" value="Sign up"/>
 </form>
-<p id="errorMessage">
-</p>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">

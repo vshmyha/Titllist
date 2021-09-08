@@ -1,27 +1,22 @@
 function configPropertyOption(command, selectionContainer, parameter) {
-    $.getJSON('controller?command=' + command, function (result) {
-        status = result.status;
-        if (status != null) {
-            if (status === 'OK') {
-                $.each(result.value, function (i, field) {
-                    let id = field.id;
-                    let property = parameter(field);
-                    selectionContainer.append("<option class='option' data_id='" + id + "' value='" + id + "'>" + property + "</option>");
-                });
-            }
-        }
+    $.getJSON(command, function (result) {
+        $.each(result, function (i, field) {
+            let id = field.id;
+            let property = parameter(field);
+            selectionContainer.append("<option class='option' data_id='" + id + "' value='" + id + "'>" + property + "</option>");
+        });
     })
 };
 
 configPropertyOption(
-    'getAllTypesCommand',
+    '/type',
     $('#typeSelection'),
     function (field) {
         return field.typeName;
     }
 );
 configPropertyOption(
-    'getAllGenresCommand',
+    '/genre',
     $('#genreSelection'),
     function (field) {
         return field.genreName;
@@ -58,52 +53,38 @@ let tableUsers = $('#userTable');
 
 function refreshUsersAndRoles() {
     tableUsers.html("");
-    $.getJSON('controller?command=getUsersAndRoles', function (users) {
-        status = users.status;
-        if (status != null) {
-            if (status === 'OK') {
-                let availableRoles = [];
-                $.getJSON('controller?command=getAvailableRoles', function (roles) {
-                    let resultStatus = roles.status;
-                    if (resultStatus != null) {
-                        if (resultStatus === 'OK') {
-                            $.each(roles.value, function (i) {
-                                let role = roles.value[i];
-                                availableRoles.push(role);
-                            })
-                        }
-                        tableUsers.append("<tr><td class='tdUser'>User</td>" +
-                            "<td class='tdRole'>Role</td></tr>" +
-                            "<tr id='supperAdmin'><td>Lerkin</td>" +
-                            "<td>SUPER ADMIN</td></tr>");
-                        $.each(users.value, function (i, field) {
-                            let id = field.id;
-                            let role = field.role;
-                            let userName = field.userName;
-                            let roleContainerId = "admin_table_role_" + role + i;
-                            let buttonId = "changeRoleButton" + userName;
-                            let trId = 'tr' + userName;
-                            tableUsers.append("<tr id='" + trId + "'> <td id='admin_table_username_" + userName + "'>" + userName + "</td> " +
-                                "<td id='" + roleContainerId + "'>" + role + "</td></tr>");
-                            $.each(availableRoles, function (index) {
-                                console.log(availableRoles)
-                                let availableRole = availableRoles[index];
-                                if (availableRole === role) {
-                                    $('#userTable tr:last').append("<td><button class='changeRoleButton' id='" + buttonId + "'onclick='showRoleSelectionForUser(" + roleContainerId + ", " + id + "," + buttonId + ")'" +
-                                        ">Change Role</button></td>")
-                                }
-                            });
-                        });
+    $.getJSON('/user_roles', function (users) {
+        let availableRoles = [];
+        $.getJSON('/role', function (roles) {
+            $.each(roles, function (i) {
+                let role = roles[i];
+                availableRoles.push(role);
+            })
+            tableUsers.append("<tr><td class='tdUser'>User</td>" +
+                "<td class='tdRole'>Role</td></tr>" +
+                "<tr id='supperAdmin'><td>Lerkin</td>" +
+                "<td>SUPER ADMIN</td></tr>");
+            $.each(users, function (i, field) {
+                let id = field.id;
+                let role = field.role;
+                let userName = field.userName;
+                let roleContainerId = "admin_table_role_" + role + i;
+                let buttonId = "changeRoleButton" + userName;
+                let trId = 'tr' + userName;
+                tableUsers.append("<tr id='" + trId + "'> <td id='admin_table_username_" + userName + "'>" + userName + "</td> " +
+                    "<td id='" + roleContainerId + "'>" + role + "</td></tr>");
+                $.each(availableRoles, function (index) {
+                    console.log(availableRoles)
+                    let availableRole = availableRoles[index];
+                    if (availableRole === role) {
+                        $('#userTable tr:last').append("<td><button class='changeRoleButton' id='" + buttonId + "'onclick='showRoleSelectionForUser(" + roleContainerId + ", " + id + "," + buttonId + ")'" +
+                            ">Change Role</button></td>")
                     }
                 });
-            } else if (status === 'NEW_PAGE') {
-                alert("Your rights were changed by the administrator, now you will be redirected to the login page.");
-            } else if (status === 'ERROR') {
-                $('#errorMessagePlace').html(users.value);
-            } else {
-                alert("Unknown response");
-            }
-        }
+            });
+        });
+        // } else if (status === 'NEW_PAGE') {
+        //     alert("Your rights were changed by the administrator, now you will be redirected to the login page.");
     });
 };
 
@@ -114,7 +95,7 @@ function showRoleSelectionForUser(roleContainerStr, userId, buttonId) {
         let changeRoleButton = buttonId.id;
         let butt = document.getElementById(changeRoleButton);
         butt.style.display = "none";
-        roleContainer.append("<form id='changeRole' action='controller' method='post'>" +
+        roleContainer.append("<form id='changeRole' action='/role/change' method='put'>" +
             "<select name='role' form='changeRole' style='color: black'  id='selection" + userId + "'></select>" +
             "<input type='hidden' name='command' value='changeRoleCommand'>" +
             "<input type='hidden' name='userId' value='" + userId + "'>" +
@@ -135,24 +116,13 @@ function addChangeRoleHandler() {
     changeRoleForm.submit(function (event) {
         event.preventDefault();
         $.ajax({
-            url: changeRoleForm.attr('action'),
-            type: 'post',
-            dataType: 'json',
-            data: changeRoleForm.serialize(),
-            success: function (data) {
-                refreshUsersAndRoles();
-                let status = data.status;
-                if (status != null) {
-                    if (status === 'OK') {
+            url: '/role/change',
+            type: 'PUT',
 
-                    } else if (status === 'ERROR') {
-                        $('#errorMessagePlace').html(data.value);
-                    }
-                } else {
-                    alert('Unknown response');
-                }
-            }
-        });
+            data: changeRoleForm.serialize(),
+        }).done(function () {
+            refreshUsersAndRoles();
+        })
     });
 };
 
@@ -160,10 +130,12 @@ let modalAnimeWindow = document.getElementById('animeModal');
 let spanAnimeModalWindow = document.getElementsByClassName("closeAnimeWindow")[0];
 let heading = $('#animeName');
 let animeContent = $('#animeContent');
+let addOrChange = $('#forForm');
 
 spanAnimeModalWindow.onclick = function () {
     closeModalWindow(modalAnimeWindow);
-    closeModalWindow(form);
+    closeModalWindow(document.getElementById('inputStatus'));
+
 };
 
 function showAnimeInformation(animeId) {
@@ -174,60 +146,82 @@ function showAnimeInformation(animeId) {
 function loadNewAnimeInformation(animeId) {
     animeContent.html('');
     heading.html('');
-    closeModalWindow(form);
-    $.getJSON('controller?command=getAnimeByIdCommand&id=' + animeId, function (result) {
-        let status = result.status;
-        if (status != null) {
-            if (status === 'OK') {
-                let userAnime = result.value;
-                let animeStatus = userAnime.status;
-                let anime = userAnime.anime;
-                let animeId = anime.id;
-                let type = anime.type.typeName;
-                let rusName = anime.rusName;
-                let japName = anime.japName;
-                let episodesCount = anime.episodesCount;
-                let duration = anime.duration;
-                let releaseDate = anime.releaseDate;
-                let genresArray = anime.genres;
-                let genres = "Genres: ";
-                let button;
-                $.each(genresArray, function (i, field) {
-                    let genre = field.genreName;
-                    genres = genres.concat(genre, ', ');
+    addOrChange.html(' ');
+    $.getJSON('/anime/' + animeId, function (result) {
+        console.log(result)
+        let animeStatus = result.status;
+        let anime = result.anime;
+        let animeId = anime.id;
+        let type = anime.type.typeName;
+        let rusName = anime.rusName;
+        let japName = anime.japName;
+        let episodesCount = anime.episodesCount;
+        let duration = anime.duration;
+        let releaseDate = anime.releaseDate;
+        let genresArray = anime.genres;
+        let genres = "Genres: ";
+        let buttonText;
+        $.each(genresArray, function (i, field) {
+            let genre = field.genreName;
+            genres = genres.concat(genre, ', ');
+        })
+        heading.append("<p animeid='" + animeId + "' id='header'>" + rusName + "/" + japName + "</p>");
+        if (animeStatus === null) {
+            buttonText = 'Add To Titllist';
+            $('#forForm').append("<form id='addAnimeToTitllist' action='/titllist/add' method='POST'>" +
+                "<div id='inputStatus'></div></form>");
+            $('#addAnimeToTitllist').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '/titllist/add',
+                    type: 'POST',
+                    data: $('#addAnimeToTitllist').serialize(),
+                }).done(function () {
+                    let animeId = $('#header').attr("animeId");
+                    loadNewAnimeInformation(animeId);
+                }).fail(function (data) {
+                    $('#forErrorMessage').html(data.responseText);
                 })
-                heading.append("<p animeid='" + animeId + "' id='header'>" + rusName + "/" + japName + "</p>");
-                if (animeStatus === null) {
-                    button = 'Add To Titllist';
-                    animeContent.append("<input form='addToTitllist' type='hidden' name='command' value='addAnimeToUserTitllist'>");
-                } else {
-                    button = 'Change Tittlist';
-                    animeContent.append("<input form='addToTitllist' type='hidden' name='command' value='changeAnimeStatusInTitllist'>");
-                    animeContent.append("<div><p class='animeStatus'>" + animeStatus + "</p></div>");
-                }
-                animeContent.append("<div><p> Type: " + type + "</p>" +
-                    "<p> Episodes: " + episodesCount + "</p>" +
-                    "<p> Duration: " + duration + "</p>" +
-                    "<p> Release date: " + releaseDate + "</p>" +
-                    "<p>" + genres + "</p>" +
-                    "<butoon class='butoon' id='addAnimeInMyListButton' onclick='showAnimeStatusChoice()'>" + button + "</butoon></div>");
-            } else if (status === 'ERROR') {
-                $('#forErrorMessage').html(data.value);
-            } else {
-                alert('Unknown response');
-            }
+            });
+        } else {
+            buttonText = 'Change Tittlist';
+            $('#forForm').append("<form id='changeAnimeStatus' action='/status/change' method='PUT'>" +
+                "<div id='inputStatus'></div></form>");
+            animeContent.append("<div><p class='animeStatus'>" + animeStatus + "</p></div>");
+            $('#changeAnimeStatus').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '/status/change',
+                    type: 'PUT',
+                    data: $('#changeAnimeStatus').serialize(),
+                }).done(function () {
+                    let animeId = $('#header').attr("animeId");
+                    loadNewAnimeInformation(animeId);
+                }).fail(function (data) {
+                    $('#forErrorMessage').html(data.responseText);
+                })
+            });
         }
+
+        animeContent.append("<div><p> Type: " + type + "</p>" +
+            "<p> Episodes: " + episodesCount + "</p>" +
+            "<p> Duration: " + duration + "</p>" +
+            "<p> Release date: " + releaseDate + "</p>" +
+            "<p>" + genres + "</p>" +
+            "<butoon class='butoon' id='addAnimeInMyListButton' onclick='showAnimeStatusChoice()' >" + buttonText + "</butoon></div>");
+        // $('#addAnimeInMyListButton').click(function(){
+        //     showAnimeStatusChoice();
+        // })
 
     });
 };
 
-let form = document.getElementById('addToTitllist');
-let divInputStatus = $('#inputStatus');
-
 function showAnimeStatusChoice() {
+    let divInputStatus = $('#inputStatus');
+    let inputStatus = document.getElementById('inputStatus');
     divInputStatus.html('');
-    changeDivStyle(form);
-    $.getJSON('/getAnimeStatus', function (result) {
+    changeDivStyle(inputStatus);
+    $.getJSON('/status', function (result) {
         $.each(result, function (i) {
             let status = result[i];
             if (i === result.length - 1) {
@@ -238,75 +232,37 @@ function showAnimeStatusChoice() {
                     "<label>" + status + "</label>");
             }
         });
+        divInputStatus.append("<input type='submit' value='Apply'>");
+        let anime = $('#header').attr("animeId");
+        $('#inputStatus').append('<input type="hidden" name="animeId" value="' + anime + '" /> ');
     });
+
 };
-
-let formAddToTitllist = $('#addToTitllist');
-
-formAddToTitllist.submit(function () {
-    let anime = $('#header').attr("animeId");
-    $(this).append('<input type="hidden" name="animeId" value="' + anime + '" /> ');
-    return true;
-});
-
-formAddToTitllist.submit(function (event) {
-    event.preventDefault();
-    $.ajax({
-        url: formAddToTitllist.attr('action'),
-        type: 'post',
-        dataType: 'json',
-        data: formAddToTitllist.serialize(),
-        success: function (data) {
-            let status = data.status;
-            if (status != null) {
-                if (status === 'ERROR') {
-                    $('#forErrorMessage').html(data.value);
-                } else if (status === 'OK') {
-                    let animeId = $('#header').attr("animeId");
-                    loadNewAnimeInformation(animeId);
-                }
-            } else {
-                alert('Unknown response');
-            }
-        }
-    });
-});
 
 let addAnimeForm = $('#addNewAnime');
 
 addAnimeForm.submit(function (event) {
     event.preventDefault();
     $.ajax({
-        url: addAnimeForm.attr('action'),
-        type: 'post',
-        dataType: 'json',
-        data: addAnimeForm.serialize(),
-        success: function (data) {
-            let status = data.status;
-            if (status != null) {
-                if (status === 'ERROR') {
-                    $('#errorForSearch').html(data.value);
-                } else if (status === 'OK') {
-                    alert("A new anime has been successfully added.");
-                    document.getElementById('addNewAnime').reset();
-                    loadAllAnime();
-                }
-            } else {
-                alert('Unknown response');
-            }
-        }
-    });
+        url: '/anime/add',
+        type: 'POST',
+        data: addAnimeForm.serialize()
+    }).done(function () {
+        alert("A new anime has been successfully added.");
+        document.getElementById('addNewAnime').reset();
+        loadAllAnime();
+    }).fail(function (data) {
+        $('#errorForSearch').html(data.responseText);
+    })
 });
 
 let statusPanel = $('#statusPanel');
 
 function showUserTitllist(status) {
-    let commandName = '/showUserTitllist';
+    let commandName = '/titllist';
     if (status != null) {
         status = status.replace(/\s/g, '');
-        let command = '/showUserTitllist';
-        let property = '&status=' + status;
-        commandName = command + property;
+        commandName = '/titllist/' + status;
     }
     loadAllAnime(commandName, "You haven't added anime to your list yet");
 
@@ -341,33 +297,27 @@ $("#searchInput").keyup(function (event) {
 searchForm.submit(function (event) {
     event.preventDefault();
     $.ajax({
-        url: searchForm.attr('action'),
-        type: 'post',
+        url: '/anime/search',
+        type: 'POST',
         dataType: 'json',
         data: searchForm.serialize(),
         success: function (data) {
-            let status = data.status;
-            if (status != null) {
-                if (status === 'ERROR') {
-                    $('#errorMessagePlace').html(data.value);
-                } else if (status === 'OK') {
-                    byTypeDiv.html('');
-                    if (Object.keys(data.value).length === 0) {
-                        byTypeDiv.append("<h1>No anime was found for your search</h1>")
-                    } else {
-                        $.each(data.value, function (i, field) {
-                            let animeId = field.id;
-                            let rusName = field.rusName;
-                            let japName = field.japName;
-                            let buttonId = "animeDiv" + animeId;
-                            byTypeDiv.append("<div class='anime' id='" + buttonId + "'onclick='showAnimeInformation(" + animeId + ", " + buttonId + ")'" + "'> <p> Name: " + rusName + "/" + japName + "</p></div>");
-                        });
-                    }
-                }
+            byTypeDiv.html('');
+            if (Object.keys(data).length === 0) {
+                byTypeDiv.append("<h1>No anime was found for your search</h1>")
             } else {
-                alert('Unknown response');
+                $.each(data, function (i, field) {
+                    let animeId = field.id;
+                    let rusName = field.rusName;
+                    let japName = field.japName;
+                    let buttonId = "animeDiv" + animeId;
+                    byTypeDiv.append("<div class='anime' id='" + buttonId + "'onclick='showAnimeInformation(" + animeId + ", " + buttonId + ")'" + "'> <p> Name: " + rusName + "/" + japName + "</p></div>");
+                });
             }
-        }
+        },
+        error: [function (data) {
+            $('#errorMessage').html(data.responseText);
+        }]
     });
 })
 
@@ -420,7 +370,7 @@ window.onclick = function (event) {
         closeModalWindow(adminModal);
     } else if (event.target === modalAnimeWindow) {
         closeModalWindow(modalAnimeWindow);
-        closeModalWindow(form);
+        closeModalWindow(document.getElementById('inputStatus'));
     }
 };
 
@@ -447,22 +397,15 @@ changePasswordForm.submit(function (event) {
     event.preventDefault();
     if (isValid) {
         $.ajax({
-            url: changePasswordForm.attr('action'),
-            type: 'post',
-            dataType: 'json',
+            url: '/change',
+            type: 'PUT',
             data: changePasswordForm.serialize(),
-            success: function (data) {
-                let status = data.status;
-                if (status != null) {
-                    if (status === 'ERROR') {
-                        $('#errorMessage').html(data.value);
-                    } else if (status === 'NEW_PAGE') {
-                        alert("Password changed successfully");
-                    }
-                } else {
-                    alert('Unknown response');
-                }
-            }
-        });
+        }).done(function () {
+            alert("Password changed successfully");
+            window.location = "/start_page";
+        }).fail(function (data) {
+            console.log(data);
+            $('#errorMessage').html(data.responseText);
+        })
     }
 });

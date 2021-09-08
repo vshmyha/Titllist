@@ -19,21 +19,17 @@ registrationForm.submit(function () {
 
 registrationForm.submit(function (event) {
     event.preventDefault();
-    console.log(event);
+
     if (isValid) {
         $.ajax({
-            url: registrationForm.attr('action'),
-            type: 'post',
+            type: 'POST',
+            url: '/registration',
             dataType: 'json',
             data: registrationForm.serialize(),
-            success: function (data) {
-                let status = data.status;
-                if (status != null) {
-                    isError(status);
-                } else {
-                    alert('Unknown response');
-                }
-            }
-        });
+        }).done(
+            window.location = "/main_page"
+        ).fail(function (data) {
+                $('#errorMessage').html(data.responseText);
+            })
     }
 });

@@ -15,7 +15,7 @@ public class AnimeParser {
         while (resultSet.next()) {
             String rusName = resultSet.getString("rus_name");
             String japName = resultSet.getString("jap_name");
-            Integer idAnime = resultSet.getInt("id_anime");
+            Integer idAnime = resultSet.getInt("id");
             Anime anime = new Anime(rusName, japName);
             anime.setId(idAnime);
             animes.add(anime);
@@ -29,11 +29,11 @@ public class AnimeParser {
         if (cursorMoved || resultSet.next()) {
             String rusName = resultSet.getString("rus_name");
             String japName = resultSet.getString("jap_name");
-            Integer episodesCount = resultSet.getInt("episods");
+            Integer episodesCount = resultSet.getInt("episodes");
             Integer duration = resultSet.getInt("duration");
             Short releaseDate = resultSet.getShort("release_date");
-            Integer idAnime = resultSet.getInt("id_anime");
-            String typeName = resultSet.getString("type_name");
+            Integer idAnime = resultSet.getInt("id");
+            String typeName = resultSet.getString("name");
             Type type = new Type();
             type.setTypeName(typeName);
             anime = new Anime(rusName, japName, type, episodesCount, duration, releaseDate);

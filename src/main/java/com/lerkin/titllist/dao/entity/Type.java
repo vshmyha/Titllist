@@ -12,4 +12,9 @@ import lombok.NoArgsConstructor;
 public class Type extends DBEntity {
 
     private String typeName;
+
+    public Type(Integer id, String typeName) {
+        super(id);
+        this.typeName = typeName;
+    }
 }

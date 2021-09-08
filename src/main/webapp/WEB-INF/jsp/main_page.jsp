@@ -21,7 +21,7 @@
         <ul>
             <div class="dropdown">
                 <li class="home">
-                    <button id="buttonHome" onclick="loadAllAnime('getAllAnime', 'There is no anime here yet.')">Home
+                    <button id="buttonHome" onclick="loadAllAnime('/anime', 'There is no anime here yet.')">Home
                     </button>
                     <i class="fas fa-home"></i>
                 </li>
@@ -50,8 +50,9 @@
             </div>
             <li>
                 <div class="search-icon">
-                    <form id="searchForm" action="/search" method="post">
-                        <input autocomplete='off' id="searchInput" class="search-txt" type="text" name="animeName" placeholder="Search">
+                    <form id="searchForm" action="/anime/search" method="get">
+                        <input autocomplete='off' id="searchInput" class="search-txt" type="text" name="animeName"
+                               placeholder="Search">
                         <input type="hidden" name="command" value="animeSearchCommand"/>
                         <div class="search-btn">
                             <i class="fas fa-search"></i>
@@ -90,12 +91,10 @@
             <p id="forErrorMessage"></p>
             <div id="animeContent">
             </div>
-            <div>
-                <form id="addToTitllist" action="controller" method="post">
-                    <div id="inputStatus"></div>
-                    <input type="submit" value="Apply">
-                </form>
+            <div id="forForm">
+                </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -109,7 +108,7 @@
         <div class="modal-body">
             <p id="errorMessage">
             </p>
-            <form id="changePasswordForm" class="changePassword" action="controller" method="post">
+            <form id="changePasswordForm" class="changePassword" action="/change" method="put">
                 <h2 class="sett_title" align="center">Change password</h2>
                 <input id="currentPasswordField" type="password" name="currentPassword" placeholder="Current password"/>
                 <input id="newPasswordField" type="password" name="newPassword" placeholder="New password"/>
@@ -143,17 +142,17 @@
                 </table>
             </div>
             <div id="addAnimeBody" class="addAnimeBody">
-                <form id="addNewAnime" class="newAnime" action="/anime/addNewAnime" method="get">
+                <form id="addNewAnime" class="newAnime">
                     <h2 class="sett_title" align="center">Add New Anime</h2>
 
                     <label>RusName: <input required class="animeField" name="rusName" type="text"/></label>
 
                     <label>JapName: <input required class="animeField" name="japName" type="text"/></label>
 
-<%--                    <label>Type:--%>
-<%--                        <select form="addNewAnime" style="color: black" required id="typeSelection" name="type">--%>
-<%--                        </select>--%>
-<%--                    </label>--%>
+                    <label>Type:
+                        <select form="addNewAnime" style="color: black" required id="typeSelection" name="type">
+                        </select>
+                    </label>
 
                     <label>Duration:
                         <input required class="animeField" name="duration" type="text"/>
@@ -167,11 +166,11 @@
                         <input required class="animeField" name="releaseDate" type="text"/>
                     </label>
 
-<%--                    <label>Genre:--%>
-<%--                        <select form="addNewAnime" size="6" required id="genreSelection" multiple="multiple"--%>
-<%--                                name="genre">--%>
-<%--                        </select>--%>
-<%--                    </label>--%>
+                    <label>Genres:
+                        <select form="addNewAnime" size="6" required id="genreSelection" multiple="multiple"
+                                name="genres">
+                        </select>
+                    </label>
 
                     <input type="hidden" name="command" value="addNewAnime">
                     <input type="submit" value="Add"/>

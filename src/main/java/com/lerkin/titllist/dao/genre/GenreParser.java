@@ -13,7 +13,7 @@ class GenreParser {
         List<Genre> genres = new ArrayList<>();
         while (resultSet.next()) {
             String genreName = resultSet.getString("genre");
-            Integer id = resultSet.getInt("id_genre");
+            Integer id = resultSet.getInt("id");
             Genre genre = new Genre(genreName);
             genre.setId(id);
             genres.add(genre);

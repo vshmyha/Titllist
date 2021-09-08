@@ -71,7 +71,6 @@ public class RoleDaoImpl implements RoleDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        List<Role> roles = new ArrayList<>();
         String roleName = role.getRoleName();
         try {
             connection = ConnectionManager.takeConnection();

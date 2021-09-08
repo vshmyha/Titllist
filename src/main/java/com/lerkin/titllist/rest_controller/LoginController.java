@@ -4,6 +4,8 @@ import com.lerkin.titllist.dao.entity.Role;
 import com.lerkin.titllist.dao.entity.User;
 import com.lerkin.titllist.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +23,6 @@ public class LoginController {
 
     @PostMapping(Navigation.LOGIN)
     public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
-
         User user = new User(username, password, null);
         user = userService.getUserByNameAndPass(user);
         if (user != null) {
@@ -29,46 +30,40 @@ public class LoginController {
             if (!role.isBlocked()) {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
-                return "main_page";
+                return "redirect:main_page";
             } else {
-                return "blocked_page";
+                return "redirect:blocked_page";
             }
         } else {
             req.setAttribute("response", "Wrong login or password");
-            return "start_page";
+            return "redirect:start_page";
         }
     }
 
     @GetMapping(Navigation.LOGOUT)
     public String logout(HttpServletRequest req) {
-
         HttpSession session = req.getSession();
         session.invalidate();
-        return "start_page";
+        return "redirect:start_page";
     }
 
-//TODO: js realisation
     @PostMapping(Navigation.REGISTRATION)
-    public String registration(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
-
+    public ResponseEntity<?> registration(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
         User user = new User(username, password, null);
         userService.registration(user);
         HttpSession session = req.getSession();
-        session.setAttribute("username", user.getUserName());
-        return "main_page";
+        session.setAttribute("user", user);
+        return ResponseEntity.ok().build();
     }
 
-//TODO: js realisation
-    @PutMapping(Navigation.CHANGE_PASSWORD)
-    public String changePassword(@RequestParam String currentPassword, @RequestParam String newPassword, HttpServletRequest req) {
-
-        HttpSession session = req.getSession();
+    @PutMapping(Navigation.CHANGE)
+    public ResponseEntity<?> changePassword(@RequestParam String currentPassword, @RequestParam String newPassword, HttpSession session) {
         User user = (User) session.getAttribute("user");
         String username = user.getUserName();
         User fullUser = new User(username, currentPassword, null);
         userService.checkCurrentPassword(fullUser);
         fullUser.setPassword(newPassword);
         userService.changePassword(fullUser);
-        return "start_page";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

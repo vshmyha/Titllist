@@ -14,8 +14,8 @@ import java.util.List;
 
 public class TypeDaoImpl implements TypeDao {
 
-    private static final String SELECT_ALL_TYPE = "SELECT id_type, type_name FROM type";
-    private static final String SELECT_TYPE_BY_ANIME_ID = "SELECT  id_type, type_name FROM type t JOIN anime_base a ON a.type_id = t.id_type WHERE a.id_anime =?";
+    private static final String SELECT_ALL_TYPE = "SELECT id, name FROM type";
+    private static final String SELECT_TYPE_BY_ANIME_ID = "SELECT  id, name FROM type t JOIN anime_base a ON a.type_id = t.id WHERE a.id =?";
 
     @Override
     public List<Type> selectTypes() {

@@ -15,8 +15,8 @@ import java.util.List;
 
 public class GenreDaoImpl implements GenreDao {
 
-    private static final String SELECT_ALL_GENRE = "SELECT id_genre, genre FROM genres ORDER BY genre";
-    private static final String SELECT_GENRES_BY_ANIME_ID = "SELECT g.id_genre, g.genre FROM anime_base AS a  JOIN anime_genre ag ON a.id_anime = ag.id_anime JOIN genres g ON ag.id_genre = g.id_genre WHERE ag.id_anime = ?";
+    private static final String SELECT_ALL_GENRE = "SELECT id, genre FROM genres ORDER BY genre";
+    private static final String SELECT_GENRES_BY_ANIME_ID = "SELECT g.id, g.genre FROM anime_base AS a  JOIN anime_genre ag ON a.id = ag.id_anime JOIN genres g ON ag.id_genre = g.id WHERE ag.id_anime = ?";
 
     @Override
     public List<Genre> selectGenres() {

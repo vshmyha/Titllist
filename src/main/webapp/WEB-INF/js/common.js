@@ -38,16 +38,13 @@ function randomBackgroundImage() {
 }
 
 $(document).ajaxComplete(function (e, xhr, settings) {
-    let responseText = xhr.responseText;
-    let result = JSON.parse(responseText);
-    let status = result.status;
+    console.log(xhr)
+    let status = xhr.status;
     if (status != null) {
         if (status >= 300 && status <= 399) {
             alert('Here is the redirect. Need to fix logic\n' + result)
             document.location.href = result.value;
             e.preventDefault();
-        } else if (isError(status)) {
-            alert(result);
         }
     }
 });

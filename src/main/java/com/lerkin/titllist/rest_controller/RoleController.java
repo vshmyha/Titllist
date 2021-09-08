@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,31 +18,22 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    //TODO: js & t.d.
-    @PutMapping(Navigation.CHANGE_ROLE)
+    @PutMapping(Navigation.CHANGE)
     public ResponseEntity<?> changeRole(@RequestParam String role, @RequestParam Integer userId) {
         User user = new User();
         Role roleName = Role.valueOf(role);
         user.setRole(roleName);
         user.setId(userId);
         roleService.changeRole(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
-    //TODO: returned type, js..
+
     @GetMapping
-    public ResponseEntity<List<Role>> getRoles(HttpServletRequest req) {
-        HttpSession session = req.getSession();
+    public ResponseEntity<List<Role>> getAvailableRoles(HttpSession session) {
         User user = (User) session.getAttribute("user");
         Role role = user.getRole();
-        List<Role> roles = new ArrayList<>();
-        if (role.isSuperAdmin()) {
-            roles = roleService.getRolesForSuperAdmin();
-        } else if (!role.isSimple()) {
-            roles = roleService.getRolesForAdmin();
-        } else {
-//            return "start_page";
-        }
+        List<Role> roles = roleService.getAvailableRoles(role);
         return ResponseEntity.ok(roles);
     }
 }

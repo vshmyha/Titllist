@@ -16,7 +16,7 @@ public class Anime extends DBEntity {
     private String rusName;
     private String japName;
     private Type type;
-    private Integer episodesCount;
+    private Integer episodes;
     private Integer duration;
     private Short releaseDate;
     private List<Genre> genres;
@@ -26,11 +26,11 @@ public class Anime extends DBEntity {
         this.japName = japName;
     }
 
-    public Anime(String rusName, String japName, Type type, Integer episodesCount, Integer duration, Short releaseDate) {
+    public Anime(String rusName, String japName, Type type, Integer episodes, Integer duration, Short releaseDate) {
         this.rusName = rusName;
         this.japName = japName;
         this.type = type;
-        this.episodesCount = episodesCount;
+        this.episodes = episodes;
         this.duration = duration;
         this.releaseDate = releaseDate;
     }
