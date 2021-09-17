@@ -1,13 +1,15 @@
 package com.lerkin.titllist.service.type;
 
-import com.lerkin.titllist.dao.entity.Type;
+
+
+import com.lerkin.titllist.dao.entity_db.TypeEntity;
 
 import java.util.List;
 
 public interface TypeService {
 
-    List<Type> getTypes();
+    List<TypeEntity> getTypes();
 
-    Type getTypeByAnimeId(Integer id);
+    TypeEntity getTypeByAnimeId(Integer id);
 
 }

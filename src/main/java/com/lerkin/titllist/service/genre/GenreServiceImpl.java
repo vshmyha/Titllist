@@ -1,8 +1,9 @@
 package com.lerkin.titllist.service.genre;
 
-import com.lerkin.titllist.dao.entity.Genre;
-import com.lerkin.titllist.dao.genre.GenreDao;
+import com.lerkin.titllist.dao.entity_db.GenreEntity;
+import com.lerkin.titllist.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,15 +12,12 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class GenreServiceImpl implements GenreService {
-    private final GenreDao genreDao;
+
+    private final GenreRepository genreRepository;
 
     @Override
-    public List<Genre> getGenres() {
-        return genreDao.selectGenres();
+    public List<GenreEntity> getGenres() {
+        return genreRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
-    @Override
-    public List<Genre> getGenresByAnimeId(Integer animeId) {
-        return genreDao.selectGenresByAnimeId(animeId);
-    }
 }

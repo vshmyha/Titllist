@@ -19,7 +19,6 @@ public class TitllistController {
 
     private final AnimeService animeService;
 
-    //TODO: js realisation
     @PostMapping(Navigation.ADD)
     public ResponseEntity<?> addAnimeToUserTitllist(HttpSession session, @RequestParam Integer animeId, @RequestParam String animeStatus) {
         User user = (User) session.getAttribute("user");

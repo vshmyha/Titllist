@@ -25,13 +25,13 @@ public class Controller extends HttpServlet {
             String command = request.getParameter(COMMAND);
             TaskManager.impl(command, request, response);
         } catch (UserIsBlockedException e) {
-            String url = ForwardUtil.createCommandPath(CommandNames.GO_TO_BLOCKED_PAGE, null);
+            String url = ForwardUtil.createCommandPath(CommandName.GO_TO_BLOCKED_PAGE, null);
             ResponseEntity responseEntity = new ResponseEntity(ResponseType.NEW_PAGE, url);
             ResponseUtil.sendResponse(response, responseEntity);
         } catch (UserFriendlyException e) {
             ResponseUtil.sendResponse(response, e);
         } catch (SessionInvalidException e) {
-            String url = ForwardUtil.createCommandPath(CommandNames.GO_TO_START_PAGE, null);
+            String url = ForwardUtil.createCommandPath(CommandName.GO_TO_START_PAGE, null);
             ResponseEntity responseEntity = new ResponseEntity(ResponseType.NEW_PAGE, url);
             ResponseUtil.sendResponse(response, responseEntity);
         } catch (Throwable e) {

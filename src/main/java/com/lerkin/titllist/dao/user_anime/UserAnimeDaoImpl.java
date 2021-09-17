@@ -14,16 +14,16 @@ import java.sql.SQLException;
 
 public class UserAnimeDaoImpl implements UserAnimeDao {
 
-    private static final String SELECT_ANIME_USER = "SELECT abase.id, auser.id_user, abase.rus_name, abase.jap_name, abase.episodes, abase.duration, abase.release_date, s.status, t.name\n" +
+    private static final String SELECT_ANIME_USER = "SELECT abase.id, auser.id_user, abase.rus_name, abase.jap_name, abase.episodes, abase.duration, abase.release_date, s.name, t.name\n" +
             "FROM anime_base abase\n" +
             "         LEFT JOIN anime_user auser ON abase.id = auser.id_anime\n" +
             "         LEFT JOIN statuses s ON auser.status = s.id\n" +
-            "         LEFT JOIN type t ON abase.type_id = t.id\n" +
+            "         LEFT JOIN types t ON abase.type_id = t.id\n" +
             "WHERE auser.id_anime = ?\n" +
             "  AND auser.id_user = ?";
-    private static final String SELECT_CURRENT_ANIME_STATUS = "SELECT s.status FROM statuses s JOIN anime_user au ON s.id = au.status\n" +
+    private static final String SELECT_CURRENT_ANIME_STATUS = "SELECT s.name FROM statuses s JOIN anime_user au ON s.id = au.status\n" +
             "WHERE au.id_user = ? AND au.id_anime = ?";
-    private static final String UPDATE_CURRENT_ANIME_STATUS = "UPDATE anime_user SET status=(SELECT id FROM statuses WHERE statuses.status=?) WHERE id_anime=? AND id_user=?";
+    private static final String UPDATE_CURRENT_ANIME_STATUS = "UPDATE anime_user SET status=(SELECT id FROM statuses WHERE statuses.name=?) WHERE id_anime=? AND id_user=?";
 
     @Override
     public UserAnime selectUserAnime(Integer animeId, Integer userId) {

@@ -1,7 +1,8 @@
 package com.lerkin.titllist.service.type;
 
-import com.lerkin.titllist.dao.entity.Type;
-import com.lerkin.titllist.dao.type.TypeDao;
+
+import com.lerkin.titllist.dao.entity_db.TypeEntity;
+import com.lerkin.titllist.repository.TypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +13,16 @@ import java.util.List;
 
 public class TypeServiceImpl implements TypeService {
 
-    private final TypeDao typeDao;
+    private final TypeRepository typeRepository;
 
     @Override
-    public List<Type> getTypes() {
-        return typeDao.selectTypes();
+    public List<TypeEntity> getTypes() {
+        return typeRepository.findAll();
     }
 
     @Override
-    public Type getTypeByAnimeId(Integer id) {
-        return typeDao.selectTypeByAnimeId(id);
+    public TypeEntity getTypeByAnimeId(Integer id) {
+        return typeRepository.findTypeByAnimeId(id);
     }
 
 }

@@ -15,7 +15,7 @@ public class UserAnimeParser {
         if (resultSet.next()) {
             Anime anime = AnimeParser.parse(resultSet, true);
             Integer userId = resultSet.getInt("id_user");
-            String animeStatus = resultSet.getString("status");
+            String animeStatus = resultSet.getString("name");
             Status status = Status.byText(animeStatus);
             UserAnime userAnime = new UserAnime(anime, status, userId);
             return userAnime;

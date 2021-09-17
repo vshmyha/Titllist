@@ -17,9 +17,9 @@ import java.util.List;
 public class RoleDaoImpl implements RoleDao {
     private static final String SELECT_ROLES_FOR_ADMIN = "SELECT role_name FROM roles WHERE role_name <> 'Admin' AND role_name <> 'Super Admin'";
     private static final String SELECT_ROLES_FOR_SUPER_ADMIN = "SELECT role_name FROM roles WHERE role_name <> 'Super Admin'";
-    private static final String UPDATE_ROLE = "UPDATE users SET role_id = (SELECT id FROM roles WHERE role_name=?) WHERE id = ?";
-    private static final String SELECT_AVAILABLE_ROLES = "SELECT role_name FROM roles JOIN available_roles ar ON roles.id = ar.available_role_id " +
-            "WHERE ar.role_id = (SELECT id FROM roles WHERE role_name = ?)";
+    private static final String UPDATE_ROLE = "UPDATE users SET role_id = (SELECT id FROM roles WHERE name=?) WHERE id = ?";
+    private static final String SELECT_AVAILABLE_ROLES = "SELECT name FROM roles JOIN available_roles ar ON roles.id = ar.available_role_id " +
+            "WHERE ar.role_id = (SELECT id FROM roles WHERE name = ?)";
 
     @Override
     public List<Role> selectRolesForAdmin() {

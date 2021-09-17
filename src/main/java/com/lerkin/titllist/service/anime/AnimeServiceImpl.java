@@ -2,10 +2,12 @@ package com.lerkin.titllist.service.anime;
 
 import com.lerkin.titllist.dao.anime.AnimeDao;
 import com.lerkin.titllist.dao.entity.Anime;
-import com.lerkin.titllist.dao.entity.Genre;
 import com.lerkin.titllist.dao.entity.Status;
 import com.lerkin.titllist.dao.entity.User;
+import com.lerkin.titllist.dao.entity_db.AnimeEntity;
 import com.lerkin.titllist.dao.genre.GenreDao;
+import com.lerkin.titllist.repository.AnimeRepository;
+import com.lerkin.titllist.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +18,12 @@ import java.util.List;
 
 public class AnimeServiceImpl implements AnimeService {
 
+    private final AnimeRepository animeRepository;
     private final AnimeDao animeDao;
-    private final GenreDao genreDao;
 
     @Override
-    public List<Anime> getAnimeByGenres(Integer idGenre) {
-        return animeDao.selectAnimeByGenre(idGenre);
+    public List<AnimeEntity> getAnimeByGenres(Integer idGenre) {
+        return animeRepository.findByGenreId(idGenre);
     }
 
     @Override
@@ -35,8 +37,8 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public List<Anime> getAllAnime() {
-        return animeDao.selectAllAnime();
+    public List<AnimeEntity> getAllAnime() {
+        return animeRepository.findAll();
     }
 
     @Override
@@ -45,10 +47,8 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public Anime getAnimeById(Integer animeId) {
-        Anime anime = animeDao.selectAnimeById(animeId);
-        List<Genre> genres = genreDao.selectGenresByAnimeId(animeId);
-        anime.setGenres(genres);
+    public AnimeEntity getAnimeById(Integer animeId) {
+        AnimeEntity anime = animeRepository.findAnimeEntityById(animeId);
         return anime;
     }
 

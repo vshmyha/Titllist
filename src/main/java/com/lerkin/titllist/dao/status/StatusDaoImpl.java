@@ -14,7 +14,7 @@ import java.util.List;
 
 public class StatusDaoImpl implements StatusDao {
 
-    private static final String SELECT_STATUSES = "SELECT status FROM statuses";
+    private static final String SELECT_STATUSES = "SELECT name FROM statuses";
 
     @Override
     public List<Status> selectStatuses() {

@@ -2,6 +2,7 @@ package com.lerkin.titllist.rest_controller;
 
 import com.lerkin.titllist.dao.entity.Status;
 import com.lerkin.titllist.dao.entity.User;
+import com.lerkin.titllist.dao.entity_db.StatusEntity;
 import com.lerkin.titllist.service.status.StatusService;
 import com.lerkin.titllist.service.user_anime.UserAnimeService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class StatusController {
     private final UserAnimeService userAnimeService;
 
     @GetMapping
-    public ResponseEntity<List<Status>> getAnimeStatus() {
-        List<Status> statuses = statusService.getStatuses();
+    public ResponseEntity<List<StatusEntity>> getAnimeStatus() {
+        List<StatusEntity> statuses = statusService.getStatuses();
         return ResponseEntity.ok(statuses);
     }
 

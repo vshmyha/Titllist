@@ -1,7 +1,7 @@
 package com.lerkin.titllist.service.status;
 
-import com.lerkin.titllist.dao.entity.Status;
-import com.lerkin.titllist.dao.status.StatusDao;
+import com.lerkin.titllist.dao.entity_db.StatusEntity;
+import com.lerkin.titllist.repository.StatusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.List;
 
 public class StatusServiceImpl implements StatusService {
 
-    private final StatusDao statusDao;
+    private final StatusRepository statusRepository;
 
     @Override
-    public List<Status> getStatuses() {
-        return statusDao.selectStatuses();
+    public List<StatusEntity> getStatuses() {
+        return statusRepository.findAll();
     }
 }

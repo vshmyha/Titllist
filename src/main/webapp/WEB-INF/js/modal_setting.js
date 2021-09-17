@@ -148,21 +148,19 @@ function loadNewAnimeInformation(animeId) {
     heading.html('');
     addOrChange.html(' ');
     $.getJSON('/anime/' + animeId, function (result) {
-        console.log(result)
         let animeStatus = result.status;
-        let anime = result.anime;
-        let animeId = anime.id;
-        let type = anime.type.typeName;
-        let rusName = anime.rusName;
-        let japName = anime.japName;
-        let episodesCount = anime.episodesCount;
-        let duration = anime.duration;
-        let releaseDate = anime.releaseDate;
-        let genresArray = anime.genres;
+        let animeId = result.id;
+        let type = result.type.name;
+        let rusName = result.rusName;
+        let japName = result.japName;
+        let episodesCount = result.episodes;
+        let duration = result.duration;
+        let releaseDate = result.releaseDate;
+        let genresArray = result.genres;
         let genres = "Genres: ";
         let buttonText;
         $.each(genresArray, function (i, field) {
-            let genre = field.genreName;
+            let genre = field.name;
             genres = genres.concat(genre, ', ');
         })
         heading.append("<p animeid='" + animeId + "' id='header'>" + rusName + "/" + japName + "</p>");
@@ -273,8 +271,9 @@ function getStatusPanel() {
     statusPanel.html('');
     $.getJSON('/status', function (result) {
         statusPanel.append("<button onclick='showUserTitllist(" + null + ")'>All</button>");
-        $.each(result, function (i) {
-            let animeStatus = result[i];
+        $.each(result, function (i, field) {
+            let id = field.id;
+            let animeStatus =field.name;
             statusPanel.append("<button class='titllistButton' status='" + animeStatus + "'>" + animeStatus + "</button>");
         });
     });

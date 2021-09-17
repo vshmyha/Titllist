@@ -1,12 +1,11 @@
 package com.lerkin.titllist.service.genre;
 
-import com.lerkin.titllist.dao.entity.Genre;
+import com.lerkin.titllist.dao.entity_db.GenreEntity;
 
 import java.util.List;
 
 public interface GenreService {
 
-    List<Genre> getGenres();
+    List<GenreEntity> getGenres();
 
-    List<Genre> getGenresByAnimeId(Integer animeId);
 }

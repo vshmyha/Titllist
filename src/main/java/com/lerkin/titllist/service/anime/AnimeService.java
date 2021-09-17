@@ -3,22 +3,23 @@ package com.lerkin.titllist.service.anime;
 import com.lerkin.titllist.dao.entity.Anime;
 import com.lerkin.titllist.dao.entity.Status;
 import com.lerkin.titllist.dao.entity.User;
+import com.lerkin.titllist.dao.entity_db.AnimeEntity;
 
 import java.util.List;
 
 public interface AnimeService {
 
-    List<Anime> getAnimeByGenres(Integer idGenre);
+    List<AnimeEntity> getAnimeByGenres(Integer idGenre);
 
     List<Anime> getAnimeByTypes(Integer idType);
 
     List<Anime> getAnimeByReleaseDate(Integer releaseDate);
 
-    List<Anime> getAllAnime();
+    List<AnimeEntity> getAllAnime();
 
     void addNewAnime(Anime anime);
 
-    Anime getAnimeById(Integer animeId);
+    AnimeEntity getAnimeById(Integer animeId);
 
     void addAnimeToUserTitllist(User user, Integer animeId, Status status);
 

@@ -1,6 +1,7 @@
 package com.lerkin.titllist.rest_controller;
 
 import com.lerkin.titllist.dao.entity.Anime;
+import com.lerkin.titllist.dao.entity_db.AnimeEntity;
 import com.lerkin.titllist.service.anime.AnimeService;
 import com.lerkin.titllist.tool.NormalizationUtils;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,8 @@ public class AnimeController {
     private final AnimeService animeService;
 
     @GetMapping
-    public ResponseEntity<List<Anime>> getAllAnime() {
-        List<Anime> animes = animeService.getAllAnime();
+    public ResponseEntity<List<AnimeEntity>> getAllAnime() {
+        List<AnimeEntity> animes = animeService.getAllAnime();
         return ResponseEntity.ok(animes);
     }
 
@@ -44,8 +45,8 @@ public class AnimeController {
     }
 
     @GetMapping(Navigation.GENRE + Navigation.ID_PARAM)
-    public ResponseEntity<List<Anime>> getAnimeByGenre(@PathVariable Integer id) {
-        List<Anime> animeByGenres = animeService.getAnimeByGenres(id);
+    public ResponseEntity<List<AnimeEntity>> getAnimeByGenre(@PathVariable Integer id) {
+        List<AnimeEntity> animeByGenres = animeService.getAnimeByGenres(id);
         return ResponseEntity.ok(animeByGenres);
     }
 

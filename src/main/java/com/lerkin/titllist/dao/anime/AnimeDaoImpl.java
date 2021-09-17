@@ -21,8 +21,8 @@ public class AnimeDaoImpl implements AnimeDao {
     private static final String SELECT_ANIME_BY_TYPE = "SELECT id, rus_name, jap_name FROM anime_base WHERE type_id = ?";
     private static final String SELECT_ANIME_BY_RELEASE_DATE = "SELECT id, rus_name, jap_name FROM anime_base WHERE release_date = ?";
     private static final String SELECT_ALL_ANIME = "SELECT id, rus_name, jap_name FROM anime_base";
-    private static final String SELECT_ANIME_BY_ID = "SELECT abase.id, abase.rus_name, abase.jap_name, abase.episodes, abase.duration, abase.release_date, t.type_name\n" +
-            "            FROM anime_base abase LEFT JOIN type t ON abase.type_id = t.id WHERE abase.id = ?";
+    private static final String SELECT_ANIME_BY_ID = "SELECT abase.id, abase.rus_name, abase.jap_name, abase.episodes, abase.duration, abase.release_date, t.name\n" +
+            "            FROM anime_base abase LEFT JOIN types t ON abase.type_id = t.id WHERE abase.id = ?";
     private static final String INSERT_NEW_ANIME = "INSERT anime_base(rus_name, jap_name, type_id, episodes, duration, release_date) VALUE (?, ?, ?, ?, ?, ?)";
     private static final String INSERT_ANIME_GENRE = "INSERT anime_genre(id_anime, id_genre) VALUE(?, ?)";
     private static final String INSERT_ANIME_TO_USER_TITLLIST = "INSERT INTO anime_user(id_user, id_anime, status) VALUES ((SELECT id FROM users WHERE username=?), ?, (SELECT id FROM statuses WHERE status=?))";

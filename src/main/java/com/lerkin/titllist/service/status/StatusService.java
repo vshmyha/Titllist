@@ -1,10 +1,11 @@
 package com.lerkin.titllist.service.status;
 
-import com.lerkin.titllist.dao.entity.Status;
+
+import com.lerkin.titllist.dao.entity_db.StatusEntity;
 
 import java.util.List;
 
 public interface StatusService {
 
-    List<Status> getStatuses();
+    List<StatusEntity> getStatuses();
 }

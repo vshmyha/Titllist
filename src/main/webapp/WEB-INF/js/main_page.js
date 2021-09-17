@@ -11,6 +11,7 @@ function loadAllAnime(command, errorMessage) {
             byTypeDiv.html(errorMessage);
         } else {
             $.each(result, function (i, field) {
+
                 let animeId = field.id;
                 let rusName = field.rusName;
                 let japName = field.japName;
@@ -47,6 +48,7 @@ function configurePropertyButton(button, content, getPropertiesCommand, getByPro
         content.html('');
         content.show();
         $.getJSON(getPropertiesCommand, function (result) {
+            console.log(result)
             $.each(result, function (i, field) {
                 let id = field.id;
                 let property = extractProperty(field);
@@ -69,7 +71,7 @@ configurePropertyButton(
     '/anime/type/',
     'typeButton',
     function (field) {
-        return field.typeName;
+        return field.name;
     }
 );
 
@@ -88,7 +90,7 @@ genreBtn.mouseenter(function () {
     $.getJSON('/genre', function (result) {
         $.each(result, function (i, field) {
             let id = field.id;
-            let genreName = field.genreName;
+            let genreName = field.name;
             genres.append("<button type='button' class='genreButton' name='command' data_id='" + id + "'>" + genreName + "</button>");
         });
         $(".genreButton").each(function () {
