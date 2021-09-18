@@ -14,30 +14,30 @@ import java.util.List;
 @Table(name = "anime_base")
 public class AnimeEntity {
 
-    @Id
-    private Integer id;
+	@Id
+	private Integer id;
 
-    @Column(name = "rus_name")
-    private String rusName;
+	@Column(name = "rus_name")
+	private String rusName;
 
-    @Column(name = "jap_name")
-    private String japName;
+	@Column(name = "jap_name")
+	private String japName;
 
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    private TypeEntity type;
+	@ManyToOne
+	@JoinColumn(name = "type_id")
+	private TypeEntity type;
 
-    private Integer episodes;
+	private Integer episodes;
 
-    private Integer duration;
+	private Integer duration;
 
-    @Column(name = "release_date")
-    private Short releaseDate;
+	@Column(name = "release_date")
+	private Short releaseDate;
 
-    @ManyToMany
-    @JoinTable(name = "anime_genre",
-            joinColumns = {@JoinColumn(name = "id_anime")},
-            inverseJoinColumns = {@JoinColumn(name = "id_genre")})
-    private List<GenreEntity> genres;
+	@ManyToMany
+	@JoinTable(name = "anime_genre",
+			joinColumns = {@JoinColumn(name = "id_anime")},
+			inverseJoinColumns = {@JoinColumn(name = "id_genre")})
+	private List<GenreEntity> genres;
 
 }

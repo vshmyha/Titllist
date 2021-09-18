@@ -14,47 +14,49 @@ import java.util.List;
 
 public class TypeDaoImpl implements TypeDao {
 
-    private static final String SELECT_ALL_TYPE = "SELECT id, name FROM type";
-    private static final String SELECT_TYPE_BY_ANIME_ID = "SELECT  id, name FROM type t JOIN anime_base a ON a.type_id = t.id WHERE a.id =?";
+	private static final String SELECT_ALL_TYPE = "SELECT id, name FROM type";
+	private static final String SELECT_TYPE_BY_ANIME_ID = "SELECT  id, name FROM type t JOIN anime_base a ON a.type_id = t.id WHERE a.id =?";
 
-    @Override
-    public List<Type> selectTypes() {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = ConnectionManager.takeConnection();
-            preparedStatement = connection.prepareStatement(SELECT_ALL_TYPE);
-            resultSet = preparedStatement.executeQuery();
-            return TypeParser.parseListTypes(resultSet);
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        } finally {
-            ConnectionManager.close(connection, preparedStatement, resultSet);
-        }
-    }
+	@Override
+	public List<Type> selectTypes() {
 
-    @Override
-    public Type selectTypeByAnimeId(Integer id) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        Type type = null;
-        try {
-            connection = ConnectionManager.takeConnection();
-            preparedStatement = connection.prepareStatement(SELECT_TYPE_BY_ANIME_ID);
-            preparedStatement.setInt(1, id);
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                type = TypeParser.parse(resultSet);
-            }
-            return type;
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        } finally {
-            ConnectionManager.close(connection, preparedStatement, resultSet);
-        }
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionManager.takeConnection();
+			preparedStatement = connection.prepareStatement(SELECT_ALL_TYPE);
+			resultSet = preparedStatement.executeQuery();
+			return TypeParser.parseListTypes(resultSet);
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		} finally {
+			ConnectionManager.close(connection, preparedStatement, resultSet);
+		}
+	}
 
-    }
+	@Override
+	public Type selectTypeByAnimeId(Integer id) {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Type type = null;
+		try {
+			connection = ConnectionManager.takeConnection();
+			preparedStatement = connection.prepareStatement(SELECT_TYPE_BY_ANIME_ID);
+			preparedStatement.setInt(1, id);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				type = TypeParser.parse(resultSet);
+			}
+			return type;
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		} finally {
+			ConnectionManager.close(connection, preparedStatement, resultSet);
+		}
+
+	}
 
 }

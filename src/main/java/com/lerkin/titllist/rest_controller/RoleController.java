@@ -16,24 +16,25 @@ import java.util.List;
 @RequestMapping(Navigation.ROLE)
 public class RoleController {
 
-    private final RoleService roleService;
+	private final RoleService roleService;
 
-    @PutMapping(Navigation.CHANGE)
-    public ResponseEntity<?> changeRole(@RequestParam String role, @RequestParam Integer userId) {
-        User user = new User();
-        Role roleName = Role.valueOf(role);
-        user.setRole(roleName);
-        user.setId(userId);
-        roleService.changeRole(user);
-        return ResponseEntity.ok().build();
-    }
+	@PutMapping(Navigation.CHANGE)
+	public ResponseEntity<?> changeRole(@RequestParam String role, @RequestParam Integer userId) {
 
+		User user = new User();
+		Role roleName = Role.valueOf(role);
+		user.setRole(roleName);
+		user.setId(userId);
+		roleService.changeRole(user);
+		return ResponseEntity.ok().build();
+	}
 
-    @GetMapping
-    public ResponseEntity<List<Role>> getAvailableRoles(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        Role role = user.getRole();
-        List<Role> roles = roleService.getAvailableRoles(role);
-        return ResponseEntity.ok(roles);
-    }
+	@GetMapping
+	public ResponseEntity<List<Role>> getAvailableRoles(HttpSession session) {
+
+		User user = (User) session.getAttribute("user");
+		Role role = user.getRole();
+		List<Role> roles = roleService.getAvailableRoles(role);
+		return ResponseEntity.ok(roles);
+	}
 }

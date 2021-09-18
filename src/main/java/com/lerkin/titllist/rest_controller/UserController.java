@@ -17,17 +17,18 @@ import java.util.List;
 @RequestMapping(Navigation.USER_ROLES)
 public class UserController {
 
-    private final UserService userService;
+	private final UserService userService;
 
-    @GetMapping
-    public ResponseEntity<List<User>> getUsersAndRoles(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        Role role = user.getRole();
-        if (!role.isSimple()) {
-            List<User> users = userService.getUsersAndRoles();
-            return ResponseEntity.ok(users);
-        }
-        return ResponseEntity.ok(null);
-        // return "redirect:start_page";
-    }
+	@GetMapping
+	public ResponseEntity<List<User>> getUsersAndRoles(HttpSession session) {
+
+		User user = (User) session.getAttribute("user");
+		Role role = user.getRole();
+		if (!role.isSimple()) {
+			List<User> users = userService.getUsersAndRoles();
+			return ResponseEntity.ok(users);
+		}
+		return ResponseEntity.ok(null);
+		// return "redirect:start_page";
+	}
 }

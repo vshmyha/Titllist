@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ReleaseDateDao {
 
-    List<Short> selectReleaseDates();
+	List<Short> selectReleaseDates();
 }

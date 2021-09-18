@@ -13,16 +13,16 @@ import javax.persistence.*;
 @Table(name = "users")
 public class UserEntity {
 
-    @Id
-    private Integer id;
+	@Id
+	private Integer id;
 
-    @Column(name = "username")
-    private String userName;
+	@Column(name = "username")
+	private String userName;
 
-    private String password;
+	private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private RoleEntity role;
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private RoleEntity role;
 
 }

@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface TypeDao {
 
-    List<Type> selectTypes();
+	List<Type> selectTypes();
 
-    Type selectTypeByAnimeId(Integer id);
+	Type selectTypeByAnimeId(Integer id);
 
 }

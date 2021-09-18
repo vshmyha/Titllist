@@ -5,39 +5,48 @@ import lombok.Getter;
 @Getter
 public enum Role {
 
-    BLOCKED("Blocked"), SIMPLE("Simple"), ADMIN("Admin"), SUPER_ADMIN("Super Admin");
+	BLOCKED("Blocked"),
+	SIMPLE("Simple"),
+	ADMIN("Admin"),
+	SUPER_ADMIN("Super Admin");
 
-    private String roleName;
+	private String roleName;
 
-    Role(String roleName) {
-        this.roleName = roleName;
-    }
+	Role(String roleName) {
 
-    public boolean isBlocked() {
-        return this.equals(BLOCKED);
-    }
+		this.roleName = roleName;
+	}
 
-    public boolean isSimple() {
-        return this.equals(SIMPLE);
-    }
+	public boolean isBlocked() {
 
-    public boolean isSuperAdmin() {
-        return this.equals(SUPER_ADMIN);
-    }
+		return this.equals(BLOCKED);
+	}
 
-    public boolean isAdmin() {
-        return this.equals(ADMIN);
-    }
+	public boolean isSimple() {
 
-    public static Role byText(String text) {
-        Role[] values = values();
-        Role result = null;
-        for (Role role : values) {
-            if (text.equals(role.getRoleName())) {
-                result = role;
-                break;
-            }
-        }
-        return result;
-    }
+		return this.equals(SIMPLE);
+	}
+
+	public boolean isSuperAdmin() {
+
+		return this.equals(SUPER_ADMIN);
+	}
+
+	public boolean isAdmin() {
+
+		return this.equals(ADMIN);
+	}
+
+	public static Role byText(String text) {
+
+		Role[] values = values();
+		Role result = null;
+		for (Role role : values) {
+			if (text.equals(role.getRoleName())) {
+				result = role;
+				break;
+			}
+		}
+		return result;
+	}
 }

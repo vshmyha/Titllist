@@ -5,9 +5,9 @@ import com.lerkin.titllist.dao.entity.UserAnime;
 
 public interface UserAnimeService {
 
-    UserAnime getUserAnime(Integer animeId, Integer userId);
+	UserAnime getUserAnime(Integer animeId, Integer userId);
 
-    void checkCurrentAnimeStatus(Integer animeId, Integer userId, Status status);
+	void checkCurrentAnimeStatus(Integer animeId, Integer userId, Status status);
 
-    void changeAnimeStatusInTitllist(Integer animeId, Integer userId, Status status);
+	void changeAnimeStatusInTitllist(Integer animeId, Integer userId, Status status);
 }

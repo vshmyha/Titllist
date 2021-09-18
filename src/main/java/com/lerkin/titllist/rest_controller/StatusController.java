@@ -18,22 +18,24 @@ import java.util.List;
 @RequestMapping(Navigation.STATUS)
 public class StatusController {
 
-    private final StatusService statusService;
-    private final UserAnimeService userAnimeService;
+	private final StatusService statusService;
+	private final UserAnimeService userAnimeService;
 
-    @GetMapping
-    public ResponseEntity<List<StatusEntity>> getAnimeStatus() {
-        List<StatusEntity> statuses = statusService.getStatuses();
-        return ResponseEntity.ok(statuses);
-    }
+	@GetMapping
+	public ResponseEntity<List<StatusEntity>> getAnimeStatus() {
 
-    @PutMapping(Navigation.CHANGE)
-    public ResponseEntity<?> changeAnimeStatus(HttpSession session, @RequestParam String animeStatus, @RequestParam Integer animeId) {
-        User user = (User) session.getAttribute("user");
-        Integer userId = user.getId();
-        Status status = Status.byText(animeStatus);
-        userAnimeService.checkCurrentAnimeStatus(animeId, userId, status);
-        userAnimeService.changeAnimeStatusInTitllist(animeId, userId, status);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+		List<StatusEntity> statuses = statusService.getStatuses();
+		return ResponseEntity.ok(statuses);
+	}
+
+	@PutMapping(Navigation.CHANGE)
+	public ResponseEntity<?> changeAnimeStatus(HttpSession session, @RequestParam String animeStatus, @RequestParam Integer animeId) {
+
+		User user = (User) session.getAttribute("user");
+		Integer userId = user.getId();
+		Status status = Status.byText(animeStatus);
+		userAnimeService.checkCurrentAnimeStatus(animeId, userId, status);
+		userAnimeService.changeAnimeStatusInTitllist(animeId, userId, status);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }

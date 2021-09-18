@@ -14,11 +14,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReleaseDateController {
 
-    private final ReleaseDateService releaseDateService;
+	private final ReleaseDateService releaseDateService;
 
-    @GetMapping
-    public ResponseEntity<List<Short>> getReleaseDate() {
-        List<Short> releaseDates = releaseDateService.getReleaseDate();
-        return ResponseEntity.ok(releaseDates);
-    }
+	@GetMapping
+	public ResponseEntity<List<Short>> getReleaseDate() {
+
+		List<Short> releaseDates = releaseDateService.getReleaseDate();
+		return ResponseEntity.ok(releaseDates);
+	}
 }

@@ -18,57 +18,67 @@ import java.util.List;
 
 public class AnimeServiceImpl implements AnimeService {
 
-    private final AnimeRepository animeRepository;
-    private final AnimeDao animeDao;
+	private final AnimeRepository animeRepository;
+	private final AnimeDao animeDao;
 
-    @Override
-    public List<AnimeEntity> getAnimeByGenres(Integer idGenre) {
-        return animeRepository.findByGenreId(idGenre);
-    }
+	@Override
+	public List<AnimeEntity> getAnimeByGenres(Integer idGenre) {
 
-    @Override
-    public List<Anime> getAnimeByTypes(Integer idType) {
-        return animeDao.selectAnimeByTypes(idType);
-    }
+		return animeRepository.findByGenreId(idGenre);
+	}
 
-    @Override
-    public List<Anime> getAnimeByReleaseDate(Integer releaseDate) {
-        return animeDao.selectAnimeByReleaseDate(releaseDate);
-    }
+	@Override
+	public List<Anime> getAnimeByTypes(Integer idType) {
 
-    @Override
-    public List<AnimeEntity> getAllAnime() {
-        return animeRepository.findAll();
-    }
+		return animeDao.selectAnimeByTypes(idType);
+	}
 
-    @Override
-    public void addNewAnime(Anime anime) {
-        animeDao.insertNewAnime(anime);
-    }
+	@Override
+	public List<Anime> getAnimeByReleaseDate(Integer releaseDate) {
 
-    @Override
-    public AnimeEntity getAnimeById(Integer animeId) {
-        AnimeEntity anime = animeRepository.findAnimeEntityById(animeId);
-        return anime;
-    }
+		return animeDao.selectAnimeByReleaseDate(releaseDate);
+	}
 
-    @Override
-    public void addAnimeToUserTitllist(User user, Integer animeId, Status status) {
-        animeDao.insertAnimeToUserTitllist(user, animeId, status);
-    }
+	@Override
+	public List<AnimeEntity> getAllAnime() {
 
-    @Override
-    public List<Anime> getAnimeFromUserTitllist(User user) {
-        return animeDao.selectAnimeFromUserTitllist(user);
-    }
+		return animeRepository.findAll();
+	}
 
-    @Override
-    public List<Anime> getAnimeFromUserTitllistByStatus(User user, Status status) {
-        return animeDao.selectAnimeFromUserTitllistByStatus(user, status);
-    }
+	@Override
+	public void addNewAnime(Anime anime) {
 
-    @Override
-    public List<Anime> searchAnimesByName(String animeName) {
-        return animeDao.selectAnimesByName(animeName);
-    }
+		animeDao.insertNewAnime(anime);
+	}
+
+	@Override
+	public AnimeEntity getAnimeById(Integer animeId) {
+
+		AnimeEntity anime = animeRepository.findAnimeEntityById(animeId);
+		return anime;
+	}
+
+	@Override
+	public void addAnimeToUserTitllist(User user, Integer animeId, Status status) {
+
+		animeDao.insertAnimeToUserTitllist(user, animeId, status);
+	}
+
+	@Override
+	public List<Anime> getAnimeFromUserTitllist(User user) {
+
+		return animeDao.selectAnimeFromUserTitllist(user);
+	}
+
+	@Override
+	public List<Anime> getAnimeFromUserTitllistByStatus(User user, Status status) {
+
+		return animeDao.selectAnimeFromUserTitllistByStatus(user, status);
+	}
+
+	@Override
+	public List<Anime> searchAnimesByName(String animeName) {
+
+		return animeDao.selectAnimesByName(animeName);
+	}
 }

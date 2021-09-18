@@ -9,15 +9,16 @@ import java.util.List;
 
 class GenreParser {
 
-    public static List<Genre> parse(ResultSet resultSet) throws SQLException {
-        List<Genre> genres = new ArrayList<>();
-        while (resultSet.next()) {
-            String genreName = resultSet.getString("name");
-            Integer id = resultSet.getInt("id");
-            Genre genre = new Genre(genreName);
-            genre.setId(id);
-            genres.add(genre);
-        }
-        return genres;
-    }
+	public static List<Genre> parse(ResultSet resultSet) throws SQLException {
+
+		List<Genre> genres = new ArrayList<>();
+		while (resultSet.next()) {
+			String genreName = resultSet.getString("name");
+			Integer id = resultSet.getInt("id");
+			Genre genre = new Genre(genreName);
+			genre.setId(id);
+			genres.add(genre);
+		}
+		return genres;
+	}
 }

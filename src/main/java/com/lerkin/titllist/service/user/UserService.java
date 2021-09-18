@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface UserService {
 
-    User getUserByNameAndPass(User user);
+	User getUserByNameAndPass(User user);
 
-    void registration(User user);
+	void registration(User user);
 
-    void changePassword(User user);
+	void changePassword(User user);
 
-    void checkCurrentPassword(User user);
+	void checkCurrentPassword(User user);
 
-    List<User> getUsersAndRoles();
+	List<User> getUsersAndRoles();
 }

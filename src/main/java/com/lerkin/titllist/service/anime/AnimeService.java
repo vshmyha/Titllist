@@ -9,24 +9,24 @@ import java.util.List;
 
 public interface AnimeService {
 
-    List<AnimeEntity> getAnimeByGenres(Integer idGenre);
+	List<AnimeEntity> getAnimeByGenres(Integer idGenre);
 
-    List<Anime> getAnimeByTypes(Integer idType);
+	List<Anime> getAnimeByTypes(Integer idType);
 
-    List<Anime> getAnimeByReleaseDate(Integer releaseDate);
+	List<Anime> getAnimeByReleaseDate(Integer releaseDate);
 
-    List<AnimeEntity> getAllAnime();
+	List<AnimeEntity> getAllAnime();
 
-    void addNewAnime(Anime anime);
+	void addNewAnime(Anime anime);
 
-    AnimeEntity getAnimeById(Integer animeId);
+	AnimeEntity getAnimeById(Integer animeId);
 
-    void addAnimeToUserTitllist(User user, Integer animeId, Status status);
+	void addAnimeToUserTitllist(User user, Integer animeId, Status status);
 
-    List<Anime> getAnimeFromUserTitllist(User user);
+	List<Anime> getAnimeFromUserTitllist(User user);
 
-    List<Anime> getAnimeFromUserTitllistByStatus(User user, Status status);
+	List<Anime> getAnimeFromUserTitllistByStatus(User user, Status status);
 
-    List<Anime> searchAnimesByName(String animeName);
+	List<Anime> searchAnimesByName(String animeName);
 
 }

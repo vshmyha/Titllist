@@ -4,5 +4,5 @@ import com.lerkin.titllist.dao.entity.Role;
 
 public interface AuthorityService {
 
-    Role userRole(Integer userId);
+	Role userRole(Integer userId);
 }

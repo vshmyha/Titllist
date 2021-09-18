@@ -7,38 +7,42 @@ import java.sql.Statement;
 
 public class ConnectionManager {
 
-    private static final ConnectionPool CONNECTION_POOL = new ConnectionPool();
+	private static final ConnectionPool CONNECTION_POOL = new ConnectionPool();
 
-    public static Connection takeConnection() {
-        try {
-            return CONNECTION_POOL.takeConnection();
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Connection taking fail", e);
-        }
-    }
+	public static Connection takeConnection() {
 
-    public static void close(Connection connection, Statement statement, ResultSet resultSet) {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
+		try {
+			return CONNECTION_POOL.takeConnection();
+		} catch (InterruptedException e) {
+			throw new RuntimeException("Connection taking fail", e);
+		}
+	}
 
-    }
+	public static void close(Connection connection, Statement statement, ResultSet resultSet) {
 
-    public static void close(Connection connection, Statement statement) {
-        close(connection, statement, null);
-    }
+		try {
+			if (resultSet != null) {
+				resultSet.close();
+			}
+			if (statement != null) {
+				statement.close();
+			}
+			if (connection != null) {
+				connection.close();
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
 
-    public static void close(Connection connection) {
-        close(connection, null, null);
-    }
+	}
+
+	public static void close(Connection connection, Statement statement) {
+
+		close(connection, statement, null);
+	}
+
+	public static void close(Connection connection) {
+
+		close(connection, null, null);
+	}
 }

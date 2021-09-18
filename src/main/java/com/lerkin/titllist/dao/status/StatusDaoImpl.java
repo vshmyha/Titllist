@@ -14,22 +14,23 @@ import java.util.List;
 
 public class StatusDaoImpl implements StatusDao {
 
-    private static final String SELECT_STATUSES = "SELECT name FROM statuses";
+	private static final String SELECT_STATUSES = "SELECT name FROM statuses";
 
-    @Override
-    public List<Status> selectStatuses() {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = ConnectionManager.takeConnection();
-            preparedStatement = connection.prepareStatement(SELECT_STATUSES);
-            resultSet = preparedStatement.executeQuery();
-            return StatusParser.listParser(resultSet);
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        } finally {
-            ConnectionManager.close(connection, preparedStatement, resultSet);
-        }
-    }
+	@Override
+	public List<Status> selectStatuses() {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionManager.takeConnection();
+			preparedStatement = connection.prepareStatement(SELECT_STATUSES);
+			resultSet = preparedStatement.executeQuery();
+			return StatusParser.listParser(resultSet);
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		} finally {
+			ConnectionManager.close(connection, preparedStatement, resultSet);
+		}
+	}
 }

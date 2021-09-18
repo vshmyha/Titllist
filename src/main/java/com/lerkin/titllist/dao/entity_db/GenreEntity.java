@@ -14,12 +14,12 @@ import java.util.List;
 @Data
 public class GenreEntity {
 
-    @Id
-    private Integer id;
+	@Id
+	private Integer id;
 
-    private String name;
+	private String name;
 
-    @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
-    private List<AnimeEntity> animes;
+	@ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
+	private List<AnimeEntity> animes;
 
 }

@@ -11,11 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User extends DBEntity {
 
-    private String userName;
-    private String password;
-    private Role role;
+	private String userName;
+	private String password;
+	private Role role;
 
-    public String getUserName() {
-        return userName;
-    }
+	public String getUserName() {
+
+		return userName;
+	}
 }

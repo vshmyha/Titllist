@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Genre extends DBEntity {
 
-    private String genreName;
+	private String genreName;
 
-    public Genre(Integer id, String genreName) {
-        super(id);
-        this.genreName = genreName;
-    }
+	public Genre(Integer id, String genreName) {
+
+		super(id);
+		this.genreName = genreName;
+	}
 }

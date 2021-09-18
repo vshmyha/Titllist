@@ -14,13 +14,12 @@ import java.util.List;
 @Table(name = "types")
 public class TypeEntity {
 
-    @Id
-    private Integer id;
+	@Id
+	private Integer id;
 
-    private String name;
+	private String name;
 
-//    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
-//    private List<AnimeEntity> animes;
-
+	//    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+	//    private List<AnimeEntity> animes;
 
 }

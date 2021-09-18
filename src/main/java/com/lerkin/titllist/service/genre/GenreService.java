@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface GenreService {
 
-    List<GenreEntity> getGenres();
+	List<GenreEntity> getGenres();
 
 }

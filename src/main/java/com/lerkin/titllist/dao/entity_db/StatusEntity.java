@@ -15,10 +15,9 @@ import javax.persistence.Table;
 @Table(name = "statuses")
 public class StatusEntity {
 
-    @Id
-    private Integer id;
+	@Id
+	private Integer id;
 
-    private String name;
-
+	private String name;
 
 }

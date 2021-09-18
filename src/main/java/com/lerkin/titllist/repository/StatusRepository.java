@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface StatusRepository extends JpaRepository<StatusEntity, Integer> {
 
-    List<StatusEntity> findAll();
+	List<StatusEntity> findAll();
 }

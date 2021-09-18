@@ -19,51 +19,55 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final UserService userService;
+	private final UserService userService;
 
-    @PostMapping(Navigation.LOGIN)
-    public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
-        User user = new User(username, password, null);
-        user = userService.getUserByNameAndPass(user);
-        if (user != null) {
-            Role role = user.getRole();
-            if (!role.isBlocked()) {
-                HttpSession session = req.getSession();
-                session.setAttribute("user", user);
-                return "redirect:main_page";
-            } else {
-                return "redirect:blocked_page";
-            }
-        } else {
-            req.setAttribute("response", "Wrong login or password");
-            return "redirect:start_page";
-        }
-    }
+	@PostMapping(Navigation.LOGIN)
+	public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
 
-    @GetMapping(Navigation.LOGOUT)
-    public String logout(HttpServletRequest req) {
-        HttpSession session = req.getSession();
-        session.invalidate();
-        return "redirect:start_page";
-    }
+		User user = new User(username, password, null);
+		user = userService.getUserByNameAndPass(user);
+		if (user != null) {
+			Role role = user.getRole();
+			if (!role.isBlocked()) {
+				HttpSession session = req.getSession();
+				session.setAttribute("user", user);
+				return "redirect:main_page";
+			} else {
+				return "redirect:blocked_page";
+			}
+		} else {
+			req.setAttribute("response", "Wrong login or password");
+			return "redirect:start_page";
+		}
+	}
 
-    @PostMapping(Navigation.REGISTRATION)
-    public ResponseEntity<?> registration(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
-        User user = new User(username, password, null);
-        userService.registration(user);
-        HttpSession session = req.getSession();
-        session.setAttribute("user", user);
-        return ResponseEntity.ok().build();
-    }
+	@GetMapping(Navigation.LOGOUT)
+	public String logout(HttpServletRequest req) {
 
-    @PutMapping(Navigation.CHANGE)
-    public ResponseEntity<?> changePassword(@RequestParam String currentPassword, @RequestParam String newPassword, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        String username = user.getUserName();
-        User fullUser = new User(username, currentPassword, null);
-        userService.checkCurrentPassword(fullUser);
-        fullUser.setPassword(newPassword);
-        userService.changePassword(fullUser);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+		HttpSession session = req.getSession();
+		session.invalidate();
+		return "redirect:start_page";
+	}
+
+	@PostMapping(Navigation.REGISTRATION)
+	public ResponseEntity<?> registration(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
+
+		User user = new User(username, password, null);
+		userService.registration(user);
+		HttpSession session = req.getSession();
+		session.setAttribute("user", user);
+		return ResponseEntity.ok().build();
+	}
+
+	@PutMapping(Navigation.CHANGE)
+	public ResponseEntity<?> changePassword(@RequestParam String currentPassword, @RequestParam String newPassword, HttpSession session) {
+
+		User user = (User) session.getAttribute("user");
+		String username = user.getUserName();
+		User fullUser = new User(username, currentPassword, null);
+		userService.checkCurrentPassword(fullUser);
+		fullUser.setPassword(newPassword);
+		userService.changePassword(fullUser);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }

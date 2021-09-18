@@ -15,11 +15,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TypeController {
 
-    private final TypeService typeService;
+	private final TypeService typeService;
 
-    @GetMapping
-    public ResponseEntity<List<TypeEntity>> getTypes() {
-        List<TypeEntity> types = typeService.getTypes();
-        return ResponseEntity.ok(types);
-    }
+	@GetMapping
+	public ResponseEntity<List<TypeEntity>> getTypes() {
+
+		List<TypeEntity> types = typeService.getTypes();
+		return ResponseEntity.ok(types);
+	}
 }

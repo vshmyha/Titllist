@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface RoleService {
 
-    List<Role> getRolesForAdmin();
+	List<Role> getRolesForAdmin();
 
-    List<Role> getRolesForSuperAdmin();
+	List<Role> getRolesForSuperAdmin();
 
-    void changeRole(User user);
+	void changeRole(User user);
 
-    List<Role> getAvailableRoles(Role role);
+	List<Role> getAvailableRoles(Role role);
 }

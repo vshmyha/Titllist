@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface RoleDao {
 
-    List<Role> selectRolesForAdmin();
+	List<Role> selectRolesForAdmin();
 
-    List<Role> selectRolesForSuperAdmin();
+	List<Role> selectRolesForSuperAdmin();
 
-    void updateRole(User user);
+	void updateRole(User user);
 
-    List<Role> selectAvailableRoles(Role role);
+	List<Role> selectAvailableRoles(Role role);
 }

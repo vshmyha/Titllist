@@ -13,11 +13,12 @@ import java.util.List;
 
 public class GenreServiceImpl implements GenreService {
 
-    private final GenreRepository genreRepository;
+	private final GenreRepository genreRepository;
 
-    @Override
-    public List<GenreEntity> getGenres() {
-        return genreRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
-    }
+	@Override
+	public List<GenreEntity> getGenres() {
+
+		return genreRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+	}
 
 }

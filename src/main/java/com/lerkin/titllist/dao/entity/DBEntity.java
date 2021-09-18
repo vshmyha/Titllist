@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DBEntity {
-    private Integer id;
+
+	private Integer id;
 }

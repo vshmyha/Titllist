@@ -10,16 +10,16 @@ import java.sql.SQLException;
 
 public class UserAnimeParser {
 
-    public static UserAnime parser(ResultSet resultSet) throws SQLException {
+	public static UserAnime parser(ResultSet resultSet) throws SQLException {
 
-        if (resultSet.next()) {
-            Anime anime = AnimeParser.parse(resultSet, true);
-            Integer userId = resultSet.getInt("id_user");
-            String animeStatus = resultSet.getString("name");
-            Status status = Status.byText(animeStatus);
-            UserAnime userAnime = new UserAnime(anime, status, userId);
-            return userAnime;
-        }
-        return null;
-    }
+		if (resultSet.next()) {
+			Anime anime = AnimeParser.parse(resultSet, true);
+			Integer userId = resultSet.getInt("id_user");
+			String animeStatus = resultSet.getString("name");
+			Status status = Status.byText(animeStatus);
+			UserAnime userAnime = new UserAnime(anime, status, userId);
+			return userAnime;
+		}
+		return null;
+	}
 }

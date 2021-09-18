@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserAnime {
 
-    private Anime anime;
-    private Status status;
-    private Integer userId;
+	private Anime anime;
+	private Status status;
+	private Integer userId;
 }

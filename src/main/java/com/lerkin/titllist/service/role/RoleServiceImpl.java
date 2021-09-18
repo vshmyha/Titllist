@@ -12,25 +12,30 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class RoleServiceImpl implements RoleService {
-    private final RoleDao roleDao;
 
-    @Override
-    public List<Role> getRolesForAdmin() {
-        return roleDao.selectRolesForAdmin();
-    }
+	private final RoleDao roleDao;
 
-    @Override
-    public List<Role> getRolesForSuperAdmin() {
-        return roleDao.selectRolesForSuperAdmin();
-    }
+	@Override
+	public List<Role> getRolesForAdmin() {
 
-    @Override
-    public void changeRole(User user) {
-        roleDao.updateRole(user);
-    }
+		return roleDao.selectRolesForAdmin();
+	}
 
-    @Override
-    public List<Role> getAvailableRoles(Role role) {
-        return roleDao.selectAvailableRoles(role);
-    }
+	@Override
+	public List<Role> getRolesForSuperAdmin() {
+
+		return roleDao.selectRolesForSuperAdmin();
+	}
+
+	@Override
+	public void changeRole(User user) {
+
+		roleDao.updateRole(user);
+	}
+
+	@Override
+	public List<Role> getAvailableRoles(Role role) {
+
+		return roleDao.selectAvailableRoles(role);
+	}
 }

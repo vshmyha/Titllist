@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 
 public class AuthorityServiceImpl implements AuthorityService {
-    private final AuthorityDao authorityDao;
 
-    @Override
-    public Role userRole(Integer userId) {
-        return authorityDao.userRole(userId);
-    }
+	private final AuthorityDao authorityDao;
+
+	@Override
+	public Role userRole(Integer userId) {
+
+		return authorityDao.userRole(userId);
+	}
 }

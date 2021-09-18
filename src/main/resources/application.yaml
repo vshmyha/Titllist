@@ -1,16 +1,25 @@
 server:
   port: 8081
+
 spring:
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://localhost:3306/Titllist
+    url: jdbc:mysql://localhost:3306/titllist
     username: root
-    password: rootadmin
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            scripts:
+              action: create
+            create-target: create.sql
+            create-source: metadata
     show-sql: true
     hibernate:
       ddl-auto: update

@@ -11,10 +11,11 @@ import java.util.List;
 
 public class ReleaseDateServiceImp implements ReleaseDateService {
 
-    private final ReleaseDateDao releaseDateDao;
+	private final ReleaseDateDao releaseDateDao;
 
-    @Override
-    public List<Short> getReleaseDate() {
-        return releaseDateDao.selectReleaseDates();
-    }
+	@Override
+	public List<Short> getReleaseDate() {
+
+		return releaseDateDao.selectReleaseDates();
+	}
 }

@@ -17,24 +17,26 @@ import java.util.Objects;
 @RestController
 @RequiredArgsConstructor
 public class UpdateAuthorityCommand implements Command {
-    private final AuthorityService authorityService;
 
-    @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) {
-        HttpSession session = req.getSession(false);
-        if (Objects.nonNull(session)) {
-            User user = (User) session.getAttribute("user");
-            if (Objects.nonNull(user)) {
-                Role role = authorityService.userRole(user.getId());
-                user.setRole(role);
-                if (role.isBlocked()) {
-                    throw new UserIsBlockedException();
-                }
-            } else {
-                throw new SessionInvalidException();
-            }
-        } else {
-            throw new SessionInvalidException();
-        }
-    }
+	private final AuthorityService authorityService;
+
+	@Override
+	public void execute(HttpServletRequest req, HttpServletResponse resp) {
+
+		HttpSession session = req.getSession(false);
+		if (Objects.nonNull(session)) {
+			User user = (User) session.getAttribute("user");
+			if (Objects.nonNull(user)) {
+				Role role = authorityService.userRole(user.getId());
+				user.setRole(role);
+				if (role.isBlocked()) {
+					throw new UserIsBlockedException();
+				}
+			} else {
+				throw new SessionInvalidException();
+			}
+		} else {
+			throw new SessionInvalidException();
+		}
+	}
 }

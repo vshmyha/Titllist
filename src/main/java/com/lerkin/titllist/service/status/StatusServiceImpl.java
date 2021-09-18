@@ -12,10 +12,11 @@ import java.util.List;
 
 public class StatusServiceImpl implements StatusService {
 
-    private final StatusRepository statusRepository;
+	private final StatusRepository statusRepository;
 
-    @Override
-    public List<StatusEntity> getStatuses() {
-        return statusRepository.findAll();
-    }
+	@Override
+	public List<StatusEntity> getStatuses() {
+
+		return statusRepository.findAll();
+	}
 }

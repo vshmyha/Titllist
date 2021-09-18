@@ -8,23 +8,23 @@ import java.util.List;
 
 public interface AnimeDao {
 
-    List<Anime> selectAnimeByGenre(Integer idGenre);
+	List<Anime> selectAnimeByGenre(Integer idGenre);
 
-    List<Anime> selectAnimeByTypes(Integer idType);
+	List<Anime> selectAnimeByTypes(Integer idType);
 
-    List<Anime> selectAnimeByReleaseDate(Integer releaseDate);
+	List<Anime> selectAnimeByReleaseDate(Integer releaseDate);
 
-    List<Anime> selectAllAnime();
+	List<Anime> selectAllAnime();
 
-    void insertNewAnime(Anime anime);
+	void insertNewAnime(Anime anime);
 
-    Anime selectAnimeById(Integer animeId);
+	Anime selectAnimeById(Integer animeId);
 
-    void insertAnimeToUserTitllist(User user, Integer animeId, Status status);
+	void insertAnimeToUserTitllist(User user, Integer animeId, Status status);
 
-    List<Anime> selectAnimeFromUserTitllist(User user);
+	List<Anime> selectAnimeFromUserTitllist(User user);
 
-    List<Anime> selectAnimeFromUserTitllistByStatus(User user, Status status);
+	List<Anime> selectAnimeFromUserTitllistByStatus(User user, Status status);
 
-    List<Anime> selectAnimesByName(String animeName);
+	List<Anime> selectAnimesByName(String animeName);
 }

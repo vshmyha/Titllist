@@ -1,6 +1,5 @@
 package com.lerkin.titllist.dao.entity_db;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,12 +14,12 @@ import java.util.List;
 @Data
 public class RoleEntity {
 
-    @Id
-    private Integer id;
+	@Id
+	private Integer id;
 
-    private String name;
+	private String name;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    private List<UserEntity> users;
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+	private List<UserEntity> users;
 
 }

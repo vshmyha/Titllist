@@ -9,13 +9,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class AppExceptionHandler {
-    
-    @ExceptionHandler(value = {Exception.class})
-    public ResponseEntity<?> handle(Exception ex) {
-        if (ex instanceof UserFriendlyException) {
-            return ResponseEntity.internalServerError().body(ex.getMessage());
-        } else {
-            return ResponseEntity.internalServerError().build();
-        }
-    }
+
+	@ExceptionHandler(value = {Exception.class})
+	public ResponseEntity<?> handle(Exception ex) {
+
+		if (ex instanceof UserFriendlyException) {
+			return ResponseEntity.internalServerError().body(ex.getMessage());
+		} else {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
 }

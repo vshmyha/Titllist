@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface TypeRepository extends JpaRepository<TypeEntity, Integer> {
 
-    @Query("SELECT t FROM TypeEntity t JOIN AnimeEntity a ON a.type.id = t.id WHERE a.id = ?1")
-    TypeEntity findTypeByAnimeId(Integer id);
+	@Query("SELECT t FROM TypeEntity t JOIN AnimeEntity a ON a.type.id = t.id WHERE a.id = ?1")
+	TypeEntity findTypeByAnimeId(Integer id);
 }

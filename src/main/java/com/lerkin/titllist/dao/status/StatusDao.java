@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface StatusDao {
 
-    List<Status> selectStatuses();
+	List<Status> selectStatuses();
 }
