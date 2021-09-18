@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+        <module name="monolite" />
+        <option name="SPRING_BOOT_MAIN_CLASS" value="com.lerkin.titllist.Application" />
+        <option name="ACTIVE_PROFILES" value="dev" />
+        <option name="VM_PARAMETERS" value="-Dspring.profiles.active=dev" />
+        <option name="ALTERNATIVE_JRE_PATH" />
+        <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+        <method v="2">
+            <option name="Make" enabled="true" />
+        </method>
+    </configuration>
+</component>
