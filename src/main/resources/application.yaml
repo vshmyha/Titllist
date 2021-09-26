@@ -12,15 +12,9 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    properties:
-      javax:
-        persistence:
-          schema-generation:
-            scripts:
-              action: create
-            create-target: create.sql
-            create-source: metadata
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+  liquibase:
+    change-log: classpath*:db/changelog/changelog-master.yaml
 

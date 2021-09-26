@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Application123" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="titllist" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.lerkin.titllist.Application" />
     <option name="ACTIVE_PROFILES" value="dev" />

@@ -2,8 +2,6 @@ package com.lerkin.titllist.rest_controller;
 
 import com.lerkin.titllist.dao.entity.Status;
 import com.lerkin.titllist.dao.entity.User;
-import com.lerkin.titllist.dao.entity_db.StatusEntity;
-import com.lerkin.titllist.service.status.StatusService;
 import com.lerkin.titllist.service.user_anime.UserAnimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,21 +9,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(Navigation.STATUS)
 public class StatusController {
 
-	private final StatusService statusService;
 	private final UserAnimeService userAnimeService;
 
 	@GetMapping
-	public ResponseEntity<List<StatusEntity>> getAnimeStatus() {
+	public ResponseEntity<?> getAnimeStatus() {
 
-		List<StatusEntity> statuses = statusService.getStatuses();
-		return ResponseEntity.ok(statuses);
+		List<String> statusNames = Arrays.stream(Status.values())
+				.map(Status::getStatusName)
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok(statusNames);
 	}
 
 	@PutMapping(Navigation.CHANGE)

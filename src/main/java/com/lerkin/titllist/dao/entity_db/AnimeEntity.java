@@ -11,10 +11,11 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Entity
-@Table(name = "anime_base")
+@Table(name = "animes")
 public class AnimeEntity {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name = "rus_name")
@@ -23,9 +24,7 @@ public class AnimeEntity {
 	@Column(name = "jap_name")
 	private String japName;
 
-	@ManyToOne
-	@JoinColumn(name = "type_id")
-	private TypeEntity type;
+	private String type;
 
 	private Integer episodes;
 
@@ -35,7 +34,7 @@ public class AnimeEntity {
 	private Short releaseDate;
 
 	@ManyToMany
-	@JoinTable(name = "anime_genre",
+	@JoinTable(name = "genres_to_animes",
 			joinColumns = {@JoinColumn(name = "id_anime")},
 			inverseJoinColumns = {@JoinColumn(name = "id_genre")})
 	private List<GenreEntity> genres;

@@ -15,6 +15,7 @@ import java.util.List;
 public class GenreEntity {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	private String name;

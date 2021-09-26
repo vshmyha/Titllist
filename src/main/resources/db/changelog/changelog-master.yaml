@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_initialize_db_structure
+      author: vshmyha
+      changes:
+        - sqlFile:
+            path: db/changelog/sql/001_initialize_db_structure.sql
+  - changeSet:
+      id: 002_insert_data
+      author: vshmyha
+      changes:
+        - sqlFile:
+            path: db/changelog/sql/002_insert_data.sql
