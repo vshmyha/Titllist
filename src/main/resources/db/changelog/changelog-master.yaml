@@ -11,3 +11,9 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/sql/002_insert_data.sql
+  - changeSet:
+      id: 003_create_and_insert_roles
+      author: vshmyha
+      changes:
+        - sqlFile:
+            path: db/changelog/sql/003_create_and_insert_roles.sql

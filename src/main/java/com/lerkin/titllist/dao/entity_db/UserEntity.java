@@ -3,6 +3,7 @@ package com.lerkin.titllist.dao.entity_db;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLInsert;
 
 import javax.persistence.*;
 
@@ -26,4 +27,10 @@ public class UserEntity {
 	@JoinColumn(name = "role_id")
 	private RoleEntity role;
 
+	public UserEntity(String userName, String password, RoleEntity role) {
+
+		this.userName = userName;
+		this.password = password;
+		this.role = role;
+	}
 }

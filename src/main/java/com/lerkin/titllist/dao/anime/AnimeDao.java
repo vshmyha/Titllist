@@ -1,7 +1,7 @@
 package com.lerkin.titllist.dao.anime;
 
 import com.lerkin.titllist.dao.entity.Anime;
-import com.lerkin.titllist.dao.entity.Status;
+import com.lerkin.titllist.dto.Status;
 import com.lerkin.titllist.dao.entity.User;
 
 import java.util.List;

@@ -1,32 +1,36 @@
 package com.lerkin.titllist.service.anime;
 
 import com.lerkin.titllist.dao.entity.Anime;
-import com.lerkin.titllist.dao.entity.Status;
-import com.lerkin.titllist.dao.entity.User;
 import com.lerkin.titllist.dao.entity_db.AnimeEntity;
+import com.lerkin.titllist.dto.AnimeDto;
+import com.lerkin.titllist.dto.PaginationDto;
+import com.lerkin.titllist.dto.TitllistNoteDto;
+import com.lerkin.titllist.dto.filter.AnimeFilter;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public interface AnimeService {
 
-	List<AnimeEntity> getAnimeByGenres(Integer idGenre);
-
-	List<Anime> getAnimeByTypes(Integer idType);
-
-	List<Anime> getAnimeByReleaseDate(Integer releaseDate);
-
-	List<AnimeEntity> getAllAnime();
+	List<AnimeDto> getAnimesPage(AnimeFilter filter, PaginationDto pagination);
 
 	void addNewAnime(Anime anime);
 
-	AnimeEntity getAnimeById(Integer animeId);
+	AnimeDto getAnimeById(Integer animeId);
 
-	void addAnimeToUserTitllist(User user, Integer animeId, Status status);
+	void addAnimeToUserTitllist(Integer userId, Integer animeId, String status);
 
-	List<Anime> getAnimeFromUserTitllist(User user);
+	List<AnimeDto> getAnimeFromUserTitllist(Integer userId);
 
-	List<Anime> getAnimeFromUserTitllistByStatus(User user, Status status);
+	List<AnimeDto> getAnimeFromUserTitllistByStatus(Integer userId, String status);
 
-	List<Anime> searchAnimesByName(String animeName);
+	List<AnimeDto> searchAnimesByName(String animeName);
+
+	TitllistNoteDto getTitllistNote(Integer animeId, Integer userId);
+
+	void checkCurrentAnimeStatus(Integer animeId, Integer userId, String status);
+
+	void changeAnimeStatusInTitllist(Integer animeId, Integer userId, String status);
 
 }

@@ -1,7 +1,7 @@
 package com.lerkin.titllist.rest_controller;
 
-import com.lerkin.titllist.dao.entity.Role;
-import com.lerkin.titllist.dao.entity.User;
+import com.lerkin.titllist.dto.Role;
+import com.lerkin.titllist.dto.UserDto;
 import com.lerkin.titllist.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class LoginController {
 	@PostMapping(Navigation.LOGIN)
 	public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
 
-		User user = new User(username, password, null);
+		UserDto user = new UserDto(null, username, password, null);
 		user = userService.getUserByNameAndPass(user);
 		if (user != null) {
 			Role role = user.getRole();
@@ -52,7 +52,7 @@ public class LoginController {
 	@PostMapping(Navigation.REGISTRATION)
 	public ResponseEntity<?> registration(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
 
-		User user = new User(username, password, null);
+		UserDto user = new UserDto(null, username, password, null);
 		userService.registration(user);
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user);
@@ -62,12 +62,12 @@ public class LoginController {
 	@PutMapping(Navigation.CHANGE)
 	public ResponseEntity<?> changePassword(@RequestParam String currentPassword, @RequestParam String newPassword, HttpSession session) {
 
-		User user = (User) session.getAttribute("user");
+		UserDto user = (UserDto) session.getAttribute("user");
 		String username = user.getUserName();
-		User fullUser = new User(username, currentPassword, null);
+		UserDto fullUser = new UserDto(null, username, currentPassword, null);
 		userService.checkCurrentPassword(fullUser);
-		fullUser.setPassword(newPassword);
-		userService.changePassword(fullUser);
+		UserDto finalUser = new UserDto(null, username, newPassword, null);
+		userService.changePassword(finalUser);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

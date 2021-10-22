@@ -1,5 +1,6 @@
 package com.lerkin.titllist.dao.entity;
 
+import com.lerkin.titllist.dto.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

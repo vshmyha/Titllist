@@ -13,6 +13,68 @@ input:checked {
     border: 6px solid black;
 }
 
+#adminSetting {
+    display: none;
+}
+
+#typeSelection {
+    margin-left: 50px;
+    border-radius: 0.25em;
+    padding: 3px 0.5em;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #7dece45c;
+    background-image: linear-gradient(to top, #f9f9f9, #7dece45c 33%);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+    background: #7dece45c;
+    border: 3px solid #2bd0d4;
+    color: black;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    background: #7dece45c;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border: 3px solid #2bd0d4;
+    border-radius: 24px;
+    padding: 14px 10px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    background: #7dece45c;
+    border: 3px solid #2bd0d4;
+    border-radius: 5px;
+}
+
+.select2-container--default .select2-selection--multiple {
+    background-color: #7dece45c;
+    color: black;
+}
+
+.select2-results__option {
+    color: black;
+    background-color: #7dece45c;
+}
+
+.select2-container--default .select2-results__option--selected {
+    background: #7dece45c;
+    color: black;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background: #7dece45c;
+    color: black;
+}
+
+#genreSelection {
+    width: 250px;
+    color: black;
+}
+
 .radio {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -167,9 +229,9 @@ nav ul li.user:hover {
     color: #ffdd59;
 }
 
-.typeContent {
-    float: left;
-}
+/*.typeContent {*/
+/*    float: left;*/
+/*}*/
 
 button {
     background: none;
@@ -222,21 +284,34 @@ content {
     margin-left: auto;
     margin-right: auto;
     overflow-y: auto;
-    height: 100%;
+    height: 83%;
     width: 900px;
     background: #40407ab0;;
 }
 
+#pagination {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    background: #07071bb0;
+}
+
 #statusPanel {
+    align-items: center;
     display: block;
-    margin-left: 450px;
+    margin-left: 318px;
     overflow-y: auto;
     height: 45px;
-    width: 740px;
+    width: 900px;
+    background: #07071bb0;
 }
 
 .titllistButton {
-    margin-right: 40px;
+    margin-right: 10px;
 }
 
 .anime {

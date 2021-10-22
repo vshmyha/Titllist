@@ -16,6 +16,7 @@
 <form id="loginForm" class="form" action="/login" method="post">
     ${requestScope.response}
     <h1>Login</h1>
+        <p id="errorMessage"></p>
     <input autocomplete='off' id="loginField" type="text" name="username" value="" placeholder="Username"/>
     <input autocomplete='off' id="passwordField" type="password" name="password" value="" placeholder="Password"/>
     <input id="submitLoginBtn" type="submit" value="Log In"/>

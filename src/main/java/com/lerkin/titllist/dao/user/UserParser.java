@@ -1,6 +1,6 @@
 package com.lerkin.titllist.dao.user;
 
-import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dto.Role;
 import com.lerkin.titllist.dao.entity.User;
 
 import java.sql.ResultSet;

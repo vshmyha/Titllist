@@ -2,13 +2,19 @@ package com.lerkin.titllist.repository;
 
 import com.lerkin.titllist.dao.entity_db.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
 
-@Repository
+import java.util.List;
+
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
-	UserEntity findUserByUserNameAndPassword(String username, String password);
+	UserEntity findByUserNameAndPassword(String username, String password);
 
-	UserEntity findUserByUserName(String username);
+	boolean existsByUserName(String username);
+
+	UserEntity findByUserName(String userName);
+
+	@Query("FROM UserEntity ORDER BY role.id DESC")
+	List<UserEntity> findOrderByRole();
 
 }

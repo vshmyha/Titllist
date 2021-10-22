@@ -17,7 +17,7 @@
     <input type="hidden" name="command" value="registration">
     <input autocomplete='off' id="registrationField" type="text" name="username" value="" placeholder="Username"/>
     <input autocomplete='off' id="passwordField" type="password" name="password" value="" placeholder="Password"/>
-    <input autocomplete='off' id="repeatedPasswordField" type="password" name="password" value="" placeholder="Repeat password"/>
+    <input autocomplete='off' id="repeatedPasswordField" type="password" name="passwordRepeated" value="" placeholder="Repeat password"/>
     <input id="submitRegistrationBtn" type="submit" value="Sign up"/>
 </form>
 </body>

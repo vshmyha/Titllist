@@ -3,6 +3,7 @@ package com.lerkin.titllist.dao.entity_db;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,7 +21,8 @@ public class GenreEntity {
 
 	private String name;
 
-	@ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "genres")
+	@ToString.Exclude
 	private List<AnimeEntity> animes;
 
 }

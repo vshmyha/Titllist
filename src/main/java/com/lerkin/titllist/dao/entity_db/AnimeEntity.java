@@ -1,8 +1,10 @@
 package com.lerkin.titllist.dao.entity_db;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "animes")
+@Builder
 public class AnimeEntity {
 
 	@Id
@@ -37,6 +40,7 @@ public class AnimeEntity {
 	@JoinTable(name = "genres_to_animes",
 			joinColumns = {@JoinColumn(name = "id_anime")},
 			inverseJoinColumns = {@JoinColumn(name = "id_genre")})
+	@ToString.Exclude
 	private List<GenreEntity> genres;
 
 }

@@ -1,5 +1,6 @@
 package com.lerkin.titllist.dao.entity;
 
+import com.lerkin.titllist.dto.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

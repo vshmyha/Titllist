@@ -3,7 +3,7 @@ package com.lerkin.titllist.dao.anime;
 import com.lerkin.titllist.dao.config.ConnectionManager;
 import com.lerkin.titllist.dao.entity.Anime;
 import com.lerkin.titllist.dao.entity.Genre;
-import com.lerkin.titllist.dao.entity.Status;
+import com.lerkin.titllist.dto.Status;
 import com.lerkin.titllist.dao.entity.User;
 import org.springframework.stereotype.Repository;
 

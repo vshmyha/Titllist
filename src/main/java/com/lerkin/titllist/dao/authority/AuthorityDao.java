@@ -1,6 +1,6 @@
 package com.lerkin.titllist.dao.authority;
 
-import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dto.Role;
 
 public interface AuthorityDao {
 

@@ -1,7 +1,7 @@
 package com.lerkin.titllist.dao.user;
 
 import com.lerkin.titllist.dao.config.ConnectionManager;
-import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dto.Role;
 import com.lerkin.titllist.dao.entity.User;
 import com.lerkin.titllist.dao.role.RoleParser;
 import org.springframework.stereotype.Repository;

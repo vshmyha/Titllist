@@ -1,7 +1,7 @@
 package com.lerkin.titllist.controller.command.read;
 
 import com.lerkin.titllist.controller.command.Command;
-import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dto.Role;
 import com.lerkin.titllist.dao.entity.User;
 import com.lerkin.titllist.exception.SessionInvalidException;
 import com.lerkin.titllist.exception.UserIsBlockedException;

@@ -1,18 +1,21 @@
 package com.lerkin.titllist.service.user;
 
 import com.lerkin.titllist.dao.entity.User;
+import com.lerkin.titllist.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
 
-	User getUserByNameAndPass(User user);
+	UserDto getUserByNameAndPass(UserDto user);
 
-	void registration(User user);
+	void registration(UserDto user);
 
-	void changePassword(User user);
+	void changePassword(UserDto user);
 
-	void checkCurrentPassword(User user);
+	void checkCurrentPassword(UserDto user);
 
-	List<User> getUsersAndRoles();
+	List<UserDto> getUsersAndRoles();
+
+	void changeRole(String role, Integer userId);
 }

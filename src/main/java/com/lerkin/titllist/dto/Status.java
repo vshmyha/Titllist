@@ -1,4 +1,4 @@
-package com.lerkin.titllist.dao.entity;
+package com.lerkin.titllist.dto;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

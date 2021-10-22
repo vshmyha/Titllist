@@ -1,41 +1,31 @@
 package com.lerkin.titllist.service.role;
 
-import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dao.entity_db.AvailableRoleEntity;
+import com.lerkin.titllist.dao.entity_db.RoleEntity;
+import com.lerkin.titllist.dto.Role;
 import com.lerkin.titllist.dao.entity.User;
 import com.lerkin.titllist.dao.role.RoleDao;
+import com.lerkin.titllist.repository.AvailableRoleRepository;
+import com.lerkin.titllist.repository.RoleRepository;
+import com.lerkin.titllist.service.mapper.DtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 
 public class RoleServiceImpl implements RoleService {
 
-	private final RoleDao roleDao;
+	private final RoleRepository roleRepository;
+	private final AvailableRoleRepository availableRoleRepository;
 
 	@Override
-	public List<Role> getRolesForAdmin() {
+	public List<Role> getAvailableRoles(String role) {
 
-		return roleDao.selectRolesForAdmin();
-	}
-
-	@Override
-	public List<Role> getRolesForSuperAdmin() {
-
-		return roleDao.selectRolesForSuperAdmin();
-	}
-
-	@Override
-	public void changeRole(User user) {
-
-		roleDao.updateRole(user);
-	}
-
-	@Override
-	public List<Role> getAvailableRoles(Role role) {
-
-		return roleDao.selectAvailableRoles(role);
+		RoleEntity entity = roleRepository.findByName(role);
+		return availableRoleRepository.findByRole(entity).stream().map(DtoMapper::toRole).collect(Collectors.toList());
 	}
 }

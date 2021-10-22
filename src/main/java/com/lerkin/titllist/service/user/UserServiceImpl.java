@@ -1,61 +1,68 @@
 package com.lerkin.titllist.service.user;
 
-import com.lerkin.titllist.dao.entity.Role;
-import com.lerkin.titllist.dao.entity.User;
-import com.lerkin.titllist.dao.user.UserDao;
+import com.lerkin.titllist.dto.Role;
+import com.lerkin.titllist.dao.entity_db.RoleEntity;
+import com.lerkin.titllist.dao.entity_db.UserEntity;
+import com.lerkin.titllist.dto.UserDto;
+import com.lerkin.titllist.exception.RequestedObjectNotFoundException;
 import com.lerkin.titllist.exception.UserFriendlyException;
+import com.lerkin.titllist.repository.RoleRepository;
 import com.lerkin.titllist.repository.UserRepository;
+import com.lerkin.titllist.service.mapper.DtoMapper;
 import com.lerkin.titllist.tool.EncryptionUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 
 public class UserServiceImpl implements UserService {
 
-	private final UserDao userDao;
+	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
 
 	@Override
-	public User getUserByNameAndPass(User user) {
+	public UserDto getUserByNameAndPass(UserDto user) {
 
 		String username = user.getUserName();
 		String encodedPassword = EncryptionUtil.encodePassword(user);
-		User resultUser = userDao.selectUser(username, encodedPassword);
+		UserEntity resultUser = userRepository.findByUserNameAndPassword(username, encodedPassword);
 		if (Objects.nonNull(resultUser)) {
 			resultUser.setPassword(null);
 		}
-		return resultUser;
+		return DtoMapper.toUserDto(resultUser);
 	}
 
 	@Override
-	public void registration(User user) {
+	public void registration(UserDto user) {
 
 		String username = user.getUserName();
 		String encodedPassword = EncryptionUtil.encodePassword(user);
-		user.setPassword(encodedPassword);
-		user.setRole(Role.SIMPLE);
-		boolean isUserExist = userDao.isUserExist(username);
-		if (!isUserExist) {
-			userDao.addUser(user);
+		UserDto fullUser = new UserDto(null, username, encodedPassword, Role.SIMPLE);
+		if (!userRepository.existsByUserName(username)) {
+			RoleEntity role = roleRepository.findByName(fullUser.getRole().getRoleName());
+			UserEntity entity = new UserEntity(fullUser.getUserName(), fullUser.getPassword(), role);
+			userRepository.save(entity);
 		} else {
 			throw new UserFriendlyException("User with this name already exist");
 		}
 	}
 
 	@Override
-	public void changePassword(User user) {
+	public void changePassword(UserDto user) {
 
 		String encodedPassword = EncryptionUtil.encodePassword(user);
-		user.setPassword(encodedPassword);
-		userDao.changePassword(user);
+		UserEntity userEntity = userRepository.findByUserName(user.getUserName());
+		userEntity.setPassword(encodedPassword);
+		userRepository.save(userEntity);
 	}
 
 	@Override
-	public void checkCurrentPassword(User user) {
+	public void checkCurrentPassword(UserDto user) {
 
 		user = getUserByNameAndPass(user);
 		if (user == null) {
@@ -64,9 +71,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUsersAndRoles() {
+	public List<UserDto> getUsersAndRoles() {
 
-		return userDao.selectUsersAndRoles();
+		return userRepository.findOrderByRole().stream().peek(userEntity -> userEntity.setPassword(null)).map(DtoMapper::toUserDto).collect(Collectors.toList());
+	}
+
+	@Override
+	public void changeRole(String role, Integer userId) {
+
+		UserEntity entity = userRepository.findById(userId).orElseThrow(() -> new RequestedObjectNotFoundException("user", userId));
+		RoleEntity roleEntity = roleRepository.findByName(role);
+		entity.setRole(roleEntity);
+		userRepository.save(entity);
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.lerkin.titllist.rest_controller;
 
-import com.lerkin.titllist.dao.entity_db.GenreEntity;
+import com.lerkin.titllist.dto.GenreDto;
 import com.lerkin.titllist.service.genre.GenreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,9 @@ public class GenreController {
 	private final GenreService genreService;
 
 	@GetMapping
-	public ResponseEntity<List<GenreEntity>> getGenres() {
+	public ResponseEntity<?> getGenres() {
 
-		List<GenreEntity> genres = genreService.getGenres();
+		List<GenreDto> genres = genreService.getGenres();
 		return ResponseEntity.ok(genres);
 	}
 

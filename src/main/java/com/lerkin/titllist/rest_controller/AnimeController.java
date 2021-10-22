@@ -1,15 +1,24 @@
 package com.lerkin.titllist.rest_controller;
 
-import com.lerkin.titllist.dao.entity.Anime;
-import com.lerkin.titllist.dao.entity_db.AnimeEntity;
+import com.lerkin.titllist.dto.AnimeDto;
+import com.lerkin.titllist.dto.PaginationDto;
+import com.lerkin.titllist.dto.TitllistNoteDto;
+import com.lerkin.titllist.dto.UserDto;
+import com.lerkin.titllist.dto.filter.AnimeFilter;
 import com.lerkin.titllist.service.anime.AnimeService;
-import com.lerkin.titllist.tool.NormalizationUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(Navigation.ANIME)
@@ -19,45 +28,61 @@ public class AnimeController {
 	private final AnimeService animeService;
 
 	@GetMapping
-	public ResponseEntity<List<AnimeEntity>> getAllAnime() {
+	public ResponseEntity<List<AnimeDto>> getAnimesPage(AnimeFilter filter, PaginationDto pagination) {
 
-		List<AnimeEntity> animes = animeService.getAllAnime();
+		List<AnimeDto> animes = animeService.getAnimesPage(filter, pagination);
 		return ResponseEntity.ok(animes);
 	}
 
 	@PostMapping(Navigation.ADD)
-	public ResponseEntity<?> addNewAnime(Anime anime, @RequestParam("genres") List<Integer> genreIds, @RequestParam("type") Integer typeId) {
+//	public ResponseEntity<?> addNewAnime(@RequestBody String data) {
+	public ResponseEntity<?> addNewAnime(@RequestBody AnimeDto anime) {
 
-		NormalizationUtils.normalize(anime, genreIds, typeId);
-		animeService.addNewAnime(anime);
-		return new ResponseEntity<>(HttpStatus.OK);
+//		NormalizationUtils.normalize(anime, genreIds, typeId);
+		String s = "dd";
+		//		animeService.addNewAnime(anime);
+		return ResponseEntity.ok().build();
 	}
 
 	@PostMapping(Navigation.SEARCH)
-	public ResponseEntity<List<Anime>> searchAnime(@RequestParam String animeName) {
+	public ResponseEntity<?> searchAnime(@RequestParam String animeName) {
 
-		List<Anime> animes = animeService.searchAnimesByName(animeName);
+		List<AnimeDto> animes = animeService.searchAnimesByName(animeName);
 		return ResponseEntity.ok(animes);
 	}
 
-	@GetMapping(Navigation.TYPE + Navigation.ID_PARAM)
-	public ResponseEntity<List<Anime>> getAnimeByType(@PathVariable Integer id) {
+	@GetMapping(Navigation.BY_ID)
+	public ResponseEntity<?> getAnimeById(HttpSession session, @PathVariable Integer id) {
 
-		List<Anime> animeByTypes = animeService.getAnimeByTypes(id);
-		return ResponseEntity.ok(animeByTypes);
+		AnimeDto anime = animeService.getAnimeById(id);
+		UserDto user = (UserDto) session.getAttribute("user");
+		Integer userId = user.getId();
+		TitllistNoteDto noteDto = animeService.getTitllistNote(id, userId);
+		if (Objects.isNull(noteDto)) {
+			TitllistNoteDto note = new TitllistNoteDto(anime, null, null);
+			return ResponseEntity.ok(note);
+		}
+		return ResponseEntity.ok(noteDto);
 	}
 
-	@GetMapping(Navigation.GENRE + Navigation.ID_PARAM)
-	public ResponseEntity<List<AnimeEntity>> getAnimeByGenre(@PathVariable Integer id) {
-
-		List<AnimeEntity> animeByGenres = animeService.getAnimeByGenres(id);
-		return ResponseEntity.ok(animeByGenres);
-	}
-
-	@GetMapping(Navigation.DATE + Navigation.VALUE)
-	public ResponseEntity<List<Anime>> getAnimeReleaseDate(@PathVariable("value") Integer dateValue) {
-
-		List<Anime> animeByReleaseDate = animeService.getAnimeByReleaseDate(dateValue);
-		return ResponseEntity.ok(animeByReleaseDate);
-	}
+	//	@GetMapping(Navigation.TYPE + Navigation.ID_PARAM)
+	//	public ResponseEntity<List<Anime>> getAnimeByType(@PathVariable Integer id) {
+	//
+	//		List<Anime> animeByTypes = animeService.getAnimeByTypes(id);
+	//		return ResponseEntity.ok(animeByTypes);
+	//	}
+	//
+	//	@GetMapping(Navigation.GENRE + Navigation.ID_PARAM)
+	//	public ResponseEntity<List<AnimeEntity>> getAnimeByGenre(@PathVariable Integer id) {
+	//
+	//		List<AnimeEntity> animeByGenres = animeService.getAnimeByGenres(id);
+	//		return ResponseEntity.ok(animeByGenres);
+	//	}
+	//
+	//	@GetMapping(Navigation.DATE + Navigation.VALUE)
+	//	public ResponseEntity<List<Anime>> getAnimeReleaseDate(@PathVariable("value") Integer dateValue) {
+	//
+	//		List<Anime> animeByReleaseDate = animeService.getAnimeByReleaseDate(dateValue);
+	//		return ResponseEntity.ok(animeByReleaseDate);
+	//	}
 }

@@ -21,7 +21,7 @@
         <ul>
             <div class="dropdown">
                 <li class="home">
-                    <button id="buttonHome" onclick="loadAllAnime('/anime', 'There is no anime here yet.')">Home
+                    <button id="buttonHome" onclick="nullifyForAnime()">Home
                     </button>
                     <i class="fas fa-home"></i>
                 </li>
@@ -45,7 +45,7 @@
                         <div class="dropdown-content_releaseDate dc" id="releaseDates">
                         </div>
                     </div>
-                    <a href="#">Rating</a>
+<%--                    <a href="#">Rating</a>--%>
                 </div>
             </div>
             <li>
@@ -167,12 +167,10 @@
                     </label>
 
                     <label>Genres:
-                        <select form="addNewAnime" size="6" required id="genreSelection" multiple="multiple"
+                        <select form="addNewAnime" size="6" required name="genres[]" id="genreSelection" multiple="multiple"
                                 name="genres">
                         </select>
                     </label>
-
-                    <input type="hidden" name="command" value="addNewAnime">
                     <input type="submit" value="Add"/>
                 </form>
             </div>
@@ -184,6 +182,7 @@
         <div id="statusPanel"></div>
         <div class="vertical-container" id="animeByTeg">
         </div>
+
     </div>
 </div>
 
@@ -193,6 +192,8 @@
 </body>
 <script defer src="http://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
     <%@include file="../js/main_page.js"%>
 </script>
@@ -201,6 +202,9 @@
 </script>
 <script>
     <%@include file="../js/modal_setting.js"%>
+</script>
+<script>
+    <%@include file="../js/pagination.js"%>
 </script>
 <style>
     <%@include file="../css/base.css"%>

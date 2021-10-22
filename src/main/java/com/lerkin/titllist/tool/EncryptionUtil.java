@@ -1,6 +1,7 @@
 package com.lerkin.titllist.tool;
 
 import com.lerkin.titllist.dao.entity.User;
+import com.lerkin.titllist.dto.UserDto;
 
 import java.util.Base64;
 
@@ -10,7 +11,7 @@ public class EncryptionUtil {
 
 	}
 
-	public static String encodePassword(User user) {
+	public static String encodePassword(UserDto user) {
 
 		String password = user.getPassword();
 		byte[] encode = Base64.getEncoder().encode(password.getBytes());

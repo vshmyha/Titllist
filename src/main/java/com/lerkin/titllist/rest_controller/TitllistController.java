@@ -1,13 +1,18 @@
 package com.lerkin.titllist.rest_controller;
 
-import com.lerkin.titllist.dao.entity.Anime;
-import com.lerkin.titllist.dao.entity.Status;
-import com.lerkin.titllist.dao.entity.User;
+import com.lerkin.titllist.dto.AnimeDto;
+import com.lerkin.titllist.dto.UserDto;
 import com.lerkin.titllist.service.anime.AnimeService;
+import com.lerkin.titllist.tool.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -22,29 +27,33 @@ public class TitllistController {
 	@PostMapping(Navigation.ADD)
 	public ResponseEntity<?> addAnimeToUserTitllist(HttpSession session, @RequestParam Integer animeId, @RequestParam String animeStatus) {
 
-		User user = (User) session.getAttribute("user");
-		Status status = Status.byText(animeStatus);
-		animeService.addAnimeToUserTitllist(user, animeId, status);
+		UserDto user = (UserDto) session.getAttribute("user");
+		Integer userId = user.getId();
+		animeService.addAnimeToUserTitllist(userId, animeId, animeStatus);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PutMapping(Navigation.CHANGE)
+	public ResponseEntity<?> changeAnimeStatus(HttpSession session, @RequestParam String animeStatus, @RequestParam Integer animeId) {
+
+		UserDto user = (UserDto) session.getAttribute("user");
+		Integer userId = user.getId();
+		animeService.checkCurrentAnimeStatus(animeId, userId, animeStatus);
+		animeService.changeAnimeStatusInTitllist(animeId, userId, animeStatus);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Anime>> showUserTitllist(HttpSession session) {
+	public ResponseEntity<?> showUserTitllist(HttpSession session,
+			@RequestParam(value = Navigation.STATUS_PARAM, required = false) String status) {
 
-		User user = (User) session.getAttribute("user");
-		List<Anime> animes = animeService.getAnimeFromUserTitllist(user);
-		return ResponseEntity.ok(animes);
-	}
-
-	@GetMapping(Navigation.STATUS_PARAM)
-	public ResponseEntity<List<Anime>> showUserTitllist(HttpSession session, @PathVariable String status) {
-
-		User user = (User) session.getAttribute("user");
-		if (status.startsWith("In")) {
-			status = "In process";
+		UserDto user = (UserDto) session.getAttribute("user");
+		Integer userId = user.getId();
+		if (StringUtils.isNotEmpty(status)) {
+			List<AnimeDto> notes = animeService.getAnimeFromUserTitllistByStatus(userId, status);
+			return ResponseEntity.ok(notes);
 		}
-		Status statusName = Status.byText(status);
-		List<Anime> animes = animeService.getAnimeFromUserTitllistByStatus(user, statusName);
-		return ResponseEntity.ok(animes);
+		List<AnimeDto> notes = animeService.getAnimeFromUserTitllist(userId);
+		return ResponseEntity.ok(notes);
 	}
 }

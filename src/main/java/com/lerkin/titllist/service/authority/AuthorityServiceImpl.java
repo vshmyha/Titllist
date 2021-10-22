@@ -1,7 +1,7 @@
 package com.lerkin.titllist.service.authority;
 
 import com.lerkin.titllist.dao.authority.AuthorityDao;
-import com.lerkin.titllist.dao.entity.Role;
+import com.lerkin.titllist.dto.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

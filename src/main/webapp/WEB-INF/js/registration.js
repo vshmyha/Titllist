@@ -24,10 +24,10 @@ registrationForm.submit(function (event) {
         $.ajax({
             type: 'POST',
             url: '/registration',
-            dataType: 'json',
             data: registrationForm.serialize(),
-        }).done(
+        }).done( function () {
             window.location = "/main_page"
+        }
         ).fail(function (data) {
                 $('#errorMessage').html(data.responseText);
             })

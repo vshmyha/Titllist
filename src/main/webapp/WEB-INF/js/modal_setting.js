@@ -3,26 +3,25 @@ function configPropertyOption(command, selectionContainer, parameter) {
         $.each(result, function (i, field) {
             let id = field.id;
             let property = parameter(field);
-            selectionContainer.append("<option class='option' data_id='" + id + "' value='" + id + "'>" + property + "</option>");
+            selectionContainer.append("<option class='option' data_id='" + id + "' value='" + property + "'>" + property + "</option>");
         });
     })
 };
 
 configPropertyOption(
-    '/type',
+    '/anime/component/type',
     $('#typeSelection'),
     function (field) {
-        return field.typeName;
+        return field;
     }
 );
 configPropertyOption(
     '/genre',
     $('#genreSelection'),
     function (field) {
-        return field.genreName;
+        return field.name;
     }
 );
-
 
 function showModalWindow(div) {
     div.style.display = "block";
@@ -54,6 +53,9 @@ let tableUsers = $('#userTable');
 function refreshUsersAndRoles() {
     tableUsers.html("");
     $.getJSON('/user_roles', function (users) {
+        if (users === null) {
+            window.location = "/start_page";
+        }
         let availableRoles = [];
         $.getJSON('/role', function (roles) {
             $.each(roles, function (i) {
@@ -61,10 +63,9 @@ function refreshUsersAndRoles() {
                 availableRoles.push(role);
             })
             tableUsers.append("<tr><td class='tdUser'>User</td>" +
-                "<td class='tdRole'>Role</td></tr>" +
-                "<tr id='supperAdmin'><td>Lerkin</td>" +
-                "<td>SUPER ADMIN</td></tr>");
+                "<td class='tdRole'>Role</td></tr>");
             $.each(users, function (i, field) {
+                console.log(field)
                 let id = field.id;
                 let role = field.role;
                 let userName = field.userName;
@@ -102,7 +103,6 @@ function showRoleSelectionForUser(roleContainerStr, userId, buttonId) {
             "<input form='changeRole' type='submit' value='Save'></form>")
         let selectionId = "selection" + userId;
         let selection = $('#' + selectionId);
-        console.log(selection);
         $.each(result, function (i) {
             let role = result[i];
             selection.append("<option class='option' value='" + role + "'>" + role + "</option>")
@@ -116,9 +116,8 @@ function addChangeRoleHandler() {
     changeRoleForm.submit(function (event) {
         event.preventDefault();
         $.ajax({
-            url: '/role/change',
+            url: '/user_roles/change',
             type: 'PUT',
-
             data: changeRoleForm.serialize(),
         }).done(function () {
             refreshUsersAndRoles();
@@ -147,16 +146,17 @@ function loadNewAnimeInformation(animeId) {
     animeContent.html('');
     heading.html('');
     addOrChange.html(' ');
+    $('#forErrorMessage').html(' ');
     $.getJSON('/anime/' + animeId, function (result) {
         let animeStatus = result.status;
-        let animeId = result.id;
-        let type = result.type.name;
-        let rusName = result.rusName;
-        let japName = result.japName;
-        let episodesCount = result.episodes;
-        let duration = result.duration;
-        let releaseDate = result.releaseDate;
-        let genresArray = result.genres;
+        let animeId = result.anime.id;
+        let type = result.anime.type;
+        let rusName = result.anime.rusName;
+        let japName = result.anime.japName;
+        let episodesCount = result.anime.episodes;
+        let duration = result.anime.duration;
+        let releaseDate = result.anime.releaseDate;
+        let genresArray = result.anime.genres;
         let genres = "Genres: ";
         let buttonText;
         $.each(genresArray, function (i, field) {
@@ -189,7 +189,7 @@ function loadNewAnimeInformation(animeId) {
             $('#changeAnimeStatus').submit(function (event) {
                 event.preventDefault();
                 $.ajax({
-                    url: '/status/change',
+                    url: '/titllist/change',
                     type: 'PUT',
                     data: $('#changeAnimeStatus').serialize(),
                 }).done(function () {
@@ -219,37 +219,45 @@ function showAnimeStatusChoice() {
     let inputStatus = document.getElementById('inputStatus');
     divInputStatus.html('');
     changeDivStyle(inputStatus);
-    $.getJSON('/status', function (result) {
+    $.getJSON('/anime/component/status', function (result) {
         $.each(result, function (i) {
             let status = result[i];
             if (i === result.length - 1) {
-                divInputStatus.append("<input checked className='status' type='radio' name='animeStatus' value='" + status + "'>" +
-                    "<label>" + status + "</label>");
+                divInputStatus.append("<label><input checked className='status' type='radio' name='animeStatus' value='" + status + "'>" + status + "</label>");
             } else {
-                divInputStatus.append("<input className='status' type='radio' name='animeStatus' value='" + status + "'>" +
-                    "<label>" + status + "</label>");
+                divInputStatus.append("<label><input className='status' type='radio' name='animeStatus' value='" + status + "'>" + status + "</label>");
             }
         });
-        divInputStatus.append("<input type='submit' value='Apply'>");
+        divInputStatus.append("<input id='inputSubmitButton' type='submit' value='Apply'>");
         let anime = $('#header').attr("animeId");
         $('#inputStatus').append('<input type="hidden" name="animeId" value="' + anime + '" /> ');
     });
 
 };
 
+$(document).ready(function () {
+    $('#genreSelection').select2();
+})
+
 let addAnimeForm = $('#addNewAnime');
+
 
 addAnimeForm.submit(function (event) {
     event.preventDefault();
+    const dataJson = formAsJSON(this);
     $.ajax({
         url: '/anime/add',
         type: 'POST',
-        data: addAnimeForm.serialize()
+        dataType: 'json',
+        data: dataJson,
+        contentType: 'application/json; charset=utf-8',
     }).done(function () {
+        console.log(dataJson)
         alert("A new anime has been successfully added.");
         document.getElementById('addNewAnime').reset();
-        loadAllAnime();
+        loadAllAnime('/anime?', errorMessage);
     }).fail(function (data) {
+        console.log(dataJson)
         $('#errorForSearch').html(data.responseText);
     })
 });
@@ -259,8 +267,7 @@ let statusPanel = $('#statusPanel');
 function showUserTitllist(status) {
     let commandName = '/titllist';
     if (status != null) {
-        status = status.replace(/\s/g, '');
-        commandName = '/titllist/' + status;
+        commandName = '/titllist?status=' + status;
     }
     loadAllAnime(commandName, "You haven't added anime to your list yet");
 
@@ -269,11 +276,10 @@ function showUserTitllist(status) {
 
 function getStatusPanel() {
     statusPanel.html('');
-    $.getJSON('/status', function (result) {
+    $.getJSON('anime/component/status', function (result) {
         statusPanel.append("<button onclick='showUserTitllist(" + null + ")'>All</button>");
         $.each(result, function (i, field) {
-            let id = field.id;
-            let animeStatus =field.name;
+            let animeStatus = field;
             statusPanel.append("<button class='titllistButton' status='" + animeStatus + "'>" + animeStatus + "</button>");
         });
     });
@@ -306,6 +312,7 @@ searchForm.submit(function (event) {
                 byTypeDiv.append("<h1>No anime was found for your search</h1>")
             } else {
                 $.each(data, function (i, field) {
+                    console.log(field)
                     let animeId = field.id;
                     let rusName = field.rusName;
                     let japName = field.japName;
@@ -327,7 +334,7 @@ refreshUserAndRoleButton.onclick = function () {
 }
 
 function changeDivStyle(div) {
-    if (getComputedStyle(div, null).display === "none") {
+    if (getComputedStyle(div, null).getPropertyValue("display") === "none") {
         div.style.display = "block";
     } else {
         div.style.display = "none";
@@ -335,6 +342,10 @@ function changeDivStyle(div) {
 };
 
 addAnime.onclick = function () {
+    let serialize = addAnimeForm.serialize();
+
+    // console.log(formAsJSON(addAnimeForm));
+    console.log(serialize);
     if (usersBody.style.display === "block") {
         changeDivStyle(usersBody);
     }
