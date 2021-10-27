@@ -1,4 +1,4 @@
-package com.lerkin.titllist.rest_controller;
+package com.lerkin.titllist.controller;
 
 public interface Navigation {
 

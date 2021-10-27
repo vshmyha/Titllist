@@ -1,4 +1,4 @@
-package com.lerkin.titllist.rest_controller;
+package com.lerkin.titllist.controller;
 
 import com.lerkin.titllist.dto.Status;
 import com.lerkin.titllist.dto.Type;

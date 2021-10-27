@@ -1,7 +1,6 @@
 package com.lerkin.titllist.service.anime;
 
-import com.lerkin.titllist.dao.anime.AnimeDao;
-import com.lerkin.titllist.dao.entity.Anime;
+
 import com.lerkin.titllist.dao.entity_db.AnimeEntity;
 import com.lerkin.titllist.dao.entity_db.GenreEntity;
 import com.lerkin.titllist.dao.entity_db.TitllistNoteEntity;
@@ -33,7 +32,6 @@ import java.util.stream.Collectors;
 public class AnimeServiceImpl implements AnimeService {
 
 	private final AnimeRepository animeRepository;
-	private final AnimeDao animeDao;
 	private final GenreRepository genreRepository;
 	private final TitllistNoteRepository titllistNoteRepository;
 	private final UserRepository userRepository;
@@ -66,11 +64,11 @@ public class AnimeServiceImpl implements AnimeService {
 		return all.getContent().stream().map(DtoMapper::toAnimeDto).collect(Collectors.toList());
 	}
 
-	@Override
-	public void addNewAnime(Anime anime) {
-
-		animeDao.insertNewAnime(anime);
-	}
+//	@Override
+//	public void addNewAnime(Anime anime) {
+//
+//		animeDao.insertNewAnime(anime);
+//	}
 
 	@Override
 	public AnimeDto getAnimeById(Integer animeId) {

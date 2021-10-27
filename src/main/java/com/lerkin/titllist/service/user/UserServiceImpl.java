@@ -85,4 +85,12 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(entity);
 	}
 
+	@Override
+	public UserDto getUserByUserName(String userName) {
+
+		UserEntity userEntity = userRepository.findByUserName(userName);
+		UserDto userDto = DtoMapper.toUserDto(userEntity);
+		return userDto;
+	}
+
 }

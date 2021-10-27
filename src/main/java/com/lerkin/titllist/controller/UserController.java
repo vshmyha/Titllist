@@ -1,7 +1,8 @@
-package com.lerkin.titllist.rest_controller;
+package com.lerkin.titllist.controller;
 
 import com.lerkin.titllist.dto.Role;
 import com.lerkin.titllist.dto.UserDto;
+import com.lerkin.titllist.security.common.Secured;
 import com.lerkin.titllist.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class UserController {
 		return ResponseEntity.ok(role);
 	}
 
+	@Secured
 	@GetMapping
 	public ResponseEntity<?> getUsersAndRoles(HttpSession session) {
 
@@ -40,6 +42,7 @@ public class UserController {
 		return ResponseEntity.ok(null);
 	}
 
+	@Secured
 	@PutMapping(Navigation.CHANGE)
 	public ResponseEntity<?> changeRole(@RequestParam String role, @RequestParam Integer userId) {
 

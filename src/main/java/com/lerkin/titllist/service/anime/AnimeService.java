@@ -1,7 +1,5 @@
 package com.lerkin.titllist.service.anime;
 
-import com.lerkin.titllist.dao.entity.Anime;
-import com.lerkin.titllist.dao.entity_db.AnimeEntity;
 import com.lerkin.titllist.dto.AnimeDto;
 import com.lerkin.titllist.dto.PaginationDto;
 import com.lerkin.titllist.dto.TitllistNoteDto;
@@ -15,7 +13,7 @@ public interface AnimeService {
 
 	List<AnimeDto> getAnimesPage(AnimeFilter filter, PaginationDto pagination);
 
-	void addNewAnime(Anime anime);
+//	void addNewAnime(Anime anime);
 
 	AnimeDto getAnimeById(Integer animeId);
 

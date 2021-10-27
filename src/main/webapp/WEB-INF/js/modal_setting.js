@@ -84,8 +84,6 @@ function refreshUsersAndRoles() {
                 });
             });
         });
-        // } else if (status === 'NEW_PAGE') {
-        //     alert("Your rights were changed by the administrator, now you will be redirected to the login page.");
     });
 };
 

@@ -1,10 +1,11 @@
-package com.lerkin.titllist.rest_controller;
+package com.lerkin.titllist.controller;
 
 import com.lerkin.titllist.dto.AnimeDto;
 import com.lerkin.titllist.dto.PaginationDto;
 import com.lerkin.titllist.dto.TitllistNoteDto;
 import com.lerkin.titllist.dto.UserDto;
 import com.lerkin.titllist.dto.filter.AnimeFilter;
+import com.lerkin.titllist.security.common.Secured;
 import com.lerkin.titllist.service.anime.AnimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,7 @@ public class AnimeController {
 		return ResponseEntity.ok(animes);
 	}
 
+	@Secured
 	@PostMapping(Navigation.ADD)
 //	public ResponseEntity<?> addNewAnime(@RequestBody String data) {
 	public ResponseEntity<?> addNewAnime(@RequestBody AnimeDto anime) {
@@ -64,25 +66,4 @@ public class AnimeController {
 		}
 		return ResponseEntity.ok(noteDto);
 	}
-
-	//	@GetMapping(Navigation.TYPE + Navigation.ID_PARAM)
-	//	public ResponseEntity<List<Anime>> getAnimeByType(@PathVariable Integer id) {
-	//
-	//		List<Anime> animeByTypes = animeService.getAnimeByTypes(id);
-	//		return ResponseEntity.ok(animeByTypes);
-	//	}
-	//
-	//	@GetMapping(Navigation.GENRE + Navigation.ID_PARAM)
-	//	public ResponseEntity<List<AnimeEntity>> getAnimeByGenre(@PathVariable Integer id) {
-	//
-	//		List<AnimeEntity> animeByGenres = animeService.getAnimeByGenres(id);
-	//		return ResponseEntity.ok(animeByGenres);
-	//	}
-	//
-	//	@GetMapping(Navigation.DATE + Navigation.VALUE)
-	//	public ResponseEntity<List<Anime>> getAnimeReleaseDate(@PathVariable("value") Integer dateValue) {
-	//
-	//		List<Anime> animeByReleaseDate = animeService.getAnimeByReleaseDate(dateValue);
-	//		return ResponseEntity.ok(animeByReleaseDate);
-	//	}
 }

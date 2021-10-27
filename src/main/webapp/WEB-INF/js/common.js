@@ -45,15 +45,18 @@ $(document).ajaxComplete(function (e, xhr, settings) {
             alert('Here is the redirect. Need to fix logic\n' + result)
             document.location.href = result.value;
             e.preventDefault();
+        } else if (status === 403) {
+            alert('Access denied');
+            e.preventDefault();
         }
     }
 });
 
-function formAsJSON(form){
+function formAsJSON(form) {
     const array = jQuery(form).serializeArray();
     const json = {};
 
-    jQuery.each(array, function() {
+    jQuery.each(array, function () {
         json[this.name] = this.value || '';
     });
 

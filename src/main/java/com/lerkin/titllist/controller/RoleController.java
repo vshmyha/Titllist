@@ -1,8 +1,9 @@
-package com.lerkin.titllist.rest_controller;
+package com.lerkin.titllist.controller;
 
 import com.lerkin.titllist.dto.Role;
-import com.lerkin.titllist.dao.entity.User;
+
 import com.lerkin.titllist.dto.UserDto;
+import com.lerkin.titllist.security.common.Secured;
 import com.lerkin.titllist.service.role.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class RoleController {
 
 	private final RoleService roleService;
 
+	@Secured
 	@GetMapping
 	public ResponseEntity<List<Role>> getAvailableRoles(HttpSession session) {
 
