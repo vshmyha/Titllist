@@ -21,6 +21,7 @@ public enum Type {
 
 	@JsonValue
 	public String getTypeName() {
+
 		return typeName;
 	}
 

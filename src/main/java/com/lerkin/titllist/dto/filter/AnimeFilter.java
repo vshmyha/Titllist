@@ -1,6 +1,5 @@
 package com.lerkin.titllist.dto.filter;
 
-import com.lerkin.titllist.dto.Type;
 import lombok.Value;
 
 @Value

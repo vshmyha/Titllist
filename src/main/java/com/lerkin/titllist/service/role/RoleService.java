@@ -7,4 +7,6 @@ import java.util.List;
 public interface RoleService {
 
 	List<Role> getAvailableRoles(String role);
+
+	void changeRole(String role, Integer userId);
 }

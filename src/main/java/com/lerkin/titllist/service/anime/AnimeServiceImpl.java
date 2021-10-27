@@ -1,8 +1,6 @@
 package com.lerkin.titllist.service.anime;
 
-
 import com.lerkin.titllist.dao.entity_db.AnimeEntity;
-import com.lerkin.titllist.dao.entity_db.GenreEntity;
 import com.lerkin.titllist.dao.entity_db.TitllistNoteEntity;
 import com.lerkin.titllist.dao.entity_db.UserEntity;
 import com.lerkin.titllist.dao.entity_db.entity_id.TitllistNoteId;
@@ -64,11 +62,11 @@ public class AnimeServiceImpl implements AnimeService {
 		return all.getContent().stream().map(DtoMapper::toAnimeDto).collect(Collectors.toList());
 	}
 
-//	@Override
-//	public void addNewAnime(Anime anime) {
-//
-//		animeDao.insertNewAnime(anime);
-//	}
+	//	@Override
+	//	public void addNewAnime(Anime anime) {
+	//
+	//		animeDao.insertNewAnime(anime);
+	//	}
 
 	@Override
 	public AnimeDto getAnimeById(Integer animeId) {

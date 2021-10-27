@@ -13,7 +13,7 @@ public interface AnimeService {
 
 	List<AnimeDto> getAnimesPage(AnimeFilter filter, PaginationDto pagination);
 
-//	void addNewAnime(Anime anime);
+	//	void addNewAnime(Anime anime);
 
 	AnimeDto getAnimeById(Integer animeId);
 

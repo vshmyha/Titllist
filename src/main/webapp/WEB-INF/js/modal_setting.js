@@ -52,7 +52,7 @@ let tableUsers = $('#userTable');
 
 function refreshUsersAndRoles() {
     tableUsers.html("");
-    $.getJSON('/user_roles', function (users) {
+    $.getJSON('/user', function (users) {
         if (users === null) {
             window.location = "/start_page";
         }
@@ -114,7 +114,7 @@ function addChangeRoleHandler() {
     changeRoleForm.submit(function (event) {
         event.preventDefault();
         $.ajax({
-            url: '/user_roles/change',
+            url: '/role/change',
             type: 'PUT',
             data: changeRoleForm.serialize(),
         }).done(function () {

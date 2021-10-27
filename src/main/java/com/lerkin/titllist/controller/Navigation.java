@@ -10,13 +10,9 @@ public interface Navigation {
 	String TYPE_PARAM = "type";
 
 	// Controllers
-	String LOGIN = "/login";
-	String LOGOUT = "/logout";
-	String REGISTRATION = "/registration";
 	String SEARCH = "/search";
 	String ROLE = "/role";
-	String CHANGE = "/change";
-	String USER_ROLES = "/user_roles";
+	String USER = "/user";
 	String ANIME = "/anime";
 	String COMPONENT = "/component";
 	String ANIME_COMPONENT = ANIME + COMPONENT;
@@ -24,11 +20,16 @@ public interface Navigation {
 	String TITLLIST = "/titllist";
 
 	// Endpoints
+	String CHANGE = "/change";
+	String REGISTRATION = "/registration";
+	String LOGIN = "/login";
+	String LOGOUT = "/logout";
 	String STATUS = "/status";
 	String ADD = "/add";
 	String DATE = "/date";
 	String TYPE = "/type";
 	String SLASH = "/";
+	String CHECK = "/check";
 	String START = "/start_page";
 	String REGISTRATION_PAGE = "/registration_page";
 	String MAIN = "/main_page";

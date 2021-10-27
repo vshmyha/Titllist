@@ -7,9 +7,7 @@ import com.lerkin.titllist.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -17,17 +15,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(Navigation.USER_ROLES)
+@RequestMapping(Navigation.USER)
 public class UserController {
 
 	private final UserService userService;
-
-	@GetMapping(Navigation.ROLE)
-	public ResponseEntity<?> getUserRole(HttpSession session) {
-		UserDto userDto = (UserDto) session.getAttribute("user");
-		Role role = userDto.getRole();
-		return ResponseEntity.ok(role);
-	}
 
 	@Secured
 	@GetMapping
@@ -40,13 +31,5 @@ public class UserController {
 			return ResponseEntity.ok(users);
 		}
 		return ResponseEntity.ok(null);
-	}
-
-	@Secured
-	@PutMapping(Navigation.CHANGE)
-	public ResponseEntity<?> changeRole(@RequestParam String role, @RequestParam Integer userId) {
-
-		userService.changeRole(role, userId);
-		return ResponseEntity.ok().build();
 	}
 }

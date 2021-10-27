@@ -1,6 +1,5 @@
 package com.lerkin.titllist.tool;
 
-
 import com.lerkin.titllist.dto.UserDto;
 
 import java.util.Base64;

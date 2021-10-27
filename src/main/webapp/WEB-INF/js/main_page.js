@@ -1,6 +1,6 @@
 let byTypeDiv = $('#animeByTeg');
 window.addEventListener('load', (event) => {
-    getAdminSettings('/user_roles/role');
+    getAdminSettings('/role/check');
     currentPage = 0;
     loadAllAnime('/anime?', errorMessage);
 });

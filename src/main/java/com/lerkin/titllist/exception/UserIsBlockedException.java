@@ -1,23 +1,15 @@
 package com.lerkin.titllist.exception;
 
-public class UserIsBlockedException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.FORBIDDEN)
+public class UserIsBlockedException extends UserFriendlyException {
+
+	private static final String YOU_ARE_BLOCKED = "You are blocked";
 
 	public UserIsBlockedException() {
 
-	}
-
-	public UserIsBlockedException(String message) {
-
-		super(message);
-	}
-
-	public UserIsBlockedException(String message, Throwable cause) {
-
-		super(message, cause);
-	}
-
-	public UserIsBlockedException(Throwable cause) {
-
-		super(cause);
+		super(YOU_ARE_BLOCKED);
 	}
 }

@@ -16,5 +16,4 @@ public class TitllistNoteId implements Serializable {
 	private Integer animeId;
 	private Integer userId;
 
-
 }

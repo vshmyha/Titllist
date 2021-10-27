@@ -3,11 +3,7 @@ package com.lerkin.titllist.security.filter;
 import com.lerkin.titllist.dto.UserDto;
 import com.lerkin.titllist.security.common.SecurityEnvironment;
 import com.lerkin.titllist.service.user.UserService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 

@@ -1,6 +1,5 @@
 package com.lerkin.titllist.service.user;
 
-
 import com.lerkin.titllist.dto.UserDto;
 
 import java.util.List;
@@ -16,8 +15,6 @@ public interface UserService {
 	void checkCurrentPassword(UserDto user);
 
 	List<UserDto> getUsersAndRoles();
-
-	void changeRole(String role, Integer userId);
 
 	UserDto getUserByUserName(String userName);
 }

@@ -1,10 +1,9 @@
 package com.lerkin.titllist.service.user;
 
-import com.lerkin.titllist.dto.Role;
 import com.lerkin.titllist.dao.entity_db.RoleEntity;
 import com.lerkin.titllist.dao.entity_db.UserEntity;
+import com.lerkin.titllist.dto.Role;
 import com.lerkin.titllist.dto.UserDto;
-import com.lerkin.titllist.exception.RequestedObjectNotFoundException;
 import com.lerkin.titllist.exception.UserFriendlyException;
 import com.lerkin.titllist.repository.RoleRepository;
 import com.lerkin.titllist.repository.UserRepository;
@@ -74,15 +73,6 @@ public class UserServiceImpl implements UserService {
 	public List<UserDto> getUsersAndRoles() {
 
 		return userRepository.findOrderByRole().stream().peek(userEntity -> userEntity.setPassword(null)).map(DtoMapper::toUserDto).collect(Collectors.toList());
-	}
-
-	@Override
-	public void changeRole(String role, Integer userId) {
-
-		UserEntity entity = userRepository.findById(userId).orElseThrow(() -> new RequestedObjectNotFoundException("user", userId));
-		RoleEntity roleEntity = roleRepository.findByName(role);
-		entity.setRole(roleEntity);
-		userRepository.save(entity);
 	}
 
 	@Override

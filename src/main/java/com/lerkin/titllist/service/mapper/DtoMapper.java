@@ -3,15 +3,14 @@ package com.lerkin.titllist.service.mapper;
 import com.lerkin.titllist.dao.entity_db.AnimeEntity;
 import com.lerkin.titllist.dao.entity_db.AvailableRoleEntity;
 import com.lerkin.titllist.dao.entity_db.GenreEntity;
-import com.lerkin.titllist.dao.entity_db.RoleEntity;
-import com.lerkin.titllist.dto.Role;
-import com.lerkin.titllist.dto.Status;
 import com.lerkin.titllist.dao.entity_db.TitllistNoteEntity;
-import com.lerkin.titllist.dto.Type;
 import com.lerkin.titllist.dao.entity_db.UserEntity;
 import com.lerkin.titllist.dto.AnimeDto;
 import com.lerkin.titllist.dto.GenreDto;
+import com.lerkin.titllist.dto.Role;
+import com.lerkin.titllist.dto.Status;
 import com.lerkin.titllist.dto.TitllistNoteDto;
+import com.lerkin.titllist.dto.Type;
 import com.lerkin.titllist.dto.UserDto;
 
 import java.util.List;
@@ -61,7 +60,7 @@ public interface DtoMapper {
 
 	static Role toRole(AvailableRoleEntity entity) {
 
-		if(Objects.nonNull(entity)) {
+		if (Objects.nonNull(entity)) {
 			String roleName = entity.getAvailableRole().getName();
 			Role role = Role.byText(roleName);
 			return role;

@@ -46,7 +46,12 @@ $(document).ajaxComplete(function (e, xhr, settings) {
             document.location.href = result.value;
             e.preventDefault();
         } else if (status === 403) {
-            alert('Access denied');
+            alert(xhr.responseJSON.message);
+            console.log(xhr);
+            e.preventDefault();
+        } else if (status === 401) {
+            alert('You session is expired. Login again');
+            window.location = "/logout";
             e.preventDefault();
         }
     }

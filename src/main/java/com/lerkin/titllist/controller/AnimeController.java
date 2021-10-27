@@ -37,10 +37,10 @@ public class AnimeController {
 
 	@Secured
 	@PostMapping(Navigation.ADD)
-//	public ResponseEntity<?> addNewAnime(@RequestBody String data) {
+	//	public ResponseEntity<?> addNewAnime(@RequestBody String data) {
 	public ResponseEntity<?> addNewAnime(@RequestBody AnimeDto anime) {
 
-//		NormalizationUtils.normalize(anime, genreIds, typeId);
+		//		NormalizationUtils.normalize(anime, genreIds, typeId);
 		String s = "dd";
 		//		animeService.addNewAnime(anime);
 		return ResponseEntity.ok().build();
