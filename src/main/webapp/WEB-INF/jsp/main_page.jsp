@@ -167,8 +167,7 @@
                     </label>
 
                     <label>Genres:
-                        <select form="addNewAnime" size="6" required name="genres[]" id="genreSelection" multiple="multiple"
-                                name="genres">
+                        <select form="addNewAnime" size="6" required name="genres" id="genreSelection" multiple="multiple">
                         </select>
                     </label>
                     <input type="submit" value="Add"/>

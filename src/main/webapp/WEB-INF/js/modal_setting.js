@@ -242,7 +242,7 @@ let addAnimeForm = $('#addNewAnime');
 
 addAnimeForm.submit(function (event) {
     event.preventDefault();
-    const dataJson = formAsJSON(this);
+    const dataJson = animeFormAsJSON(this);
     $.ajax({
         url: '/anime/add',
         type: 'POST',
@@ -250,12 +250,12 @@ addAnimeForm.submit(function (event) {
         data: dataJson,
         contentType: 'application/json; charset=utf-8',
     }).done(function () {
-        console.log(dataJson)
+        // console.log(dataJson)
         alert("A new anime has been successfully added.");
         document.getElementById('addNewAnime').reset();
         loadAllAnime('/anime?', errorMessage);
     }).fail(function (data) {
-        console.log(dataJson)
+        // console.log(dataJson);
         $('#errorForSearch').html(data.responseText);
     })
 });

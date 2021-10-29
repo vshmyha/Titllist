@@ -57,29 +57,20 @@ $(document).ajaxComplete(function (e, xhr, settings) {
     }
 });
 
-function formAsJSON(form) {
+function animeFormAsJSON(form) {
     const array = jQuery(form).serializeArray();
     const json = {};
+    json['genres'] = [];
 
-    jQuery.each(array, function () {
-        json[this.name] = this.value || '';
-    });
-
-    return json;
-}
-
-function formAsJson(form) {
-    const o = {};
-    const a = form.serializeArray();
-    $.each(a, function () {
-        if (o[this.name]) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
+    $.each(array, function () {
+        if (json[this.name]) {
+            const jsonNode = {};
+            jsonNode['name'] = this.value || '';
+            json[this.name].push(jsonNode);
         } else {
-            o[this.name] = this.value || '';
+            json[this.name] = this.value || '';
         }
     });
-    return o;
+
+    return JSON.stringify(json);
 }
