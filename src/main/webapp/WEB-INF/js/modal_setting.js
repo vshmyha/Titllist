@@ -250,12 +250,10 @@ addAnimeForm.submit(function (event) {
         data: dataJson,
         contentType: 'application/json; charset=utf-8',
     }).done(function () {
-        // console.log(dataJson)
         alert("A new anime has been successfully added.");
         document.getElementById('addNewAnime').reset();
         loadAllAnime('/anime?', errorMessage);
     }).fail(function (data) {
-        // console.log(dataJson);
         $('#errorForSearch').html(data.responseText);
     })
 });

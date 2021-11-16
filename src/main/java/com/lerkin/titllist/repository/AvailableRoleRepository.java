@@ -1,7 +1,7 @@
 package com.lerkin.titllist.repository;
 
-import com.lerkin.titllist.dao.entity_db.AvailableRoleEntity;
-import com.lerkin.titllist.dao.entity_db.RoleEntity;
+import com.lerkin.titllist.entity.AvailableRoleEntity;
+import com.lerkin.titllist.entity.RoleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

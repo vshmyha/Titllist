@@ -1,13 +1,14 @@
 package com.lerkin.titllist.service.anime;
 
-import com.lerkin.titllist.dao.entity_db.AnimeEntity;
-import com.lerkin.titllist.dao.entity_db.TitllistNoteEntity;
-import com.lerkin.titllist.dao.entity_db.UserEntity;
-import com.lerkin.titllist.dao.entity_db.entity_id.TitllistNoteId;
 import com.lerkin.titllist.dto.AnimeDto;
 import com.lerkin.titllist.dto.PaginationDto;
 import com.lerkin.titllist.dto.TitllistNoteDto;
 import com.lerkin.titllist.dto.filter.AnimeFilter;
+import com.lerkin.titllist.entity.AnimeEntity;
+import com.lerkin.titllist.entity.GenreEntity;
+import com.lerkin.titllist.entity.TitllistNoteEntity;
+import com.lerkin.titllist.entity.UserEntity;
+import com.lerkin.titllist.entity.entity_id.TitllistNoteId;
 import com.lerkin.titllist.exception.RequestedObjectNotFoundException;
 import com.lerkin.titllist.exception.UserFriendlyException;
 import com.lerkin.titllist.repository.AnimeRepository;
@@ -15,6 +16,7 @@ import com.lerkin.titllist.repository.GenreRepository;
 import com.lerkin.titllist.repository.TitllistNoteRepository;
 import com.lerkin.titllist.repository.UserRepository;
 import com.lerkin.titllist.service.mapper.DtoMapper;
+import com.lerkin.titllist.service.mapper.EntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,11 +64,14 @@ public class AnimeServiceImpl implements AnimeService {
 		return all.getContent().stream().map(DtoMapper::toAnimeDto).collect(Collectors.toList());
 	}
 
-	//	@Override
-	//	public void addNewAnime(Anime anime) {
-	//
-	//		animeDao.insertNewAnime(anime);
-	//	}
+	@Override
+	public void addNewAnime(AnimeDto anime) {
+
+		AnimeEntity entity = EntityMapper.toAnimeEntity(anime);
+		List<GenreEntity> genreEntities = entity.getGenres().stream().map(genre -> genreRepository.findByName(genre.getName())).collect(Collectors.toList());
+		entity.setGenres(genreEntities);
+		animeRepository.save(entity);
+	}
 
 	@Override
 	public AnimeDto getAnimeById(Integer animeId) {

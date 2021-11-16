@@ -1,4 +1,4 @@
-package com.lerkin.titllist.dao.entity_db;
+package com.lerkin.titllist.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,4 +51,15 @@ public class AnimeEntity {
 	@ToString.Exclude
 	private List<GenreEntity> genres;
 
+	public AnimeEntity(String rusName, String japName, String type, Integer episodes, Integer duration, Short releaseDate,
+			List<GenreEntity> genres) {
+
+		this.rusName = rusName;
+		this.japName = japName;
+		this.type = type;
+		this.episodes = episodes;
+		this.duration = duration;
+		this.releaseDate = releaseDate;
+		this.genres = genres;
+	}
 }

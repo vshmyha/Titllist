@@ -1,7 +1,6 @@
 package com.lerkin.titllist.controller;
 
 import com.lerkin.titllist.dto.AnimeDto;
-import com.lerkin.titllist.dto.GenreDto;
 import com.lerkin.titllist.dto.PaginationDto;
 import com.lerkin.titllist.dto.TitllistNoteDto;
 import com.lerkin.titllist.dto.UserDto;
@@ -38,12 +37,9 @@ public class AnimeController {
 
 	@Secured
 	@PostMapping(Navigation.ADD)
-//		public ResponseEntity<?> addNewAnime(@RequestBody String data) {
 	public ResponseEntity<?> addNewAnime(@RequestBody AnimeDto anime) {
 
-		//		NormalizationUtils.normalize(anime, genreIds, typeId);
-		String s = "dd";
-		//		animeService.addNewAnime(anime);
+		animeService.addNewAnime(anime);
 		return ResponseEntity.ok().build();
 	}
 

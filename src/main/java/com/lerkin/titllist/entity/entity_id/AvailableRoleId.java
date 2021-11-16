@@ -1,4 +1,4 @@
-package com.lerkin.titllist.dao.entity_db.entity_id;
+package com.lerkin.titllist.entity.entity_id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

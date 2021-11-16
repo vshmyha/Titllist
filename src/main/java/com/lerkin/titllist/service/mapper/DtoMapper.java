@@ -1,10 +1,5 @@
 package com.lerkin.titllist.service.mapper;
 
-import com.lerkin.titllist.dao.entity_db.AnimeEntity;
-import com.lerkin.titllist.dao.entity_db.AvailableRoleEntity;
-import com.lerkin.titllist.dao.entity_db.GenreEntity;
-import com.lerkin.titllist.dao.entity_db.TitllistNoteEntity;
-import com.lerkin.titllist.dao.entity_db.UserEntity;
 import com.lerkin.titllist.dto.AnimeDto;
 import com.lerkin.titllist.dto.GenreDto;
 import com.lerkin.titllist.dto.Role;
@@ -12,6 +7,11 @@ import com.lerkin.titllist.dto.Status;
 import com.lerkin.titllist.dto.TitllistNoteDto;
 import com.lerkin.titllist.dto.Type;
 import com.lerkin.titllist.dto.UserDto;
+import com.lerkin.titllist.entity.AnimeEntity;
+import com.lerkin.titllist.entity.AvailableRoleEntity;
+import com.lerkin.titllist.entity.GenreEntity;
+import com.lerkin.titllist.entity.TitllistNoteEntity;
+import com.lerkin.titllist.entity.UserEntity;
 
 import java.util.List;
 import java.util.Objects;

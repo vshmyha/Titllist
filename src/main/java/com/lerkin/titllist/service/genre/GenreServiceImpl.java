@@ -1,7 +1,7 @@
 package com.lerkin.titllist.service.genre;
 
-import com.lerkin.titllist.dao.entity_db.GenreEntity;
 import com.lerkin.titllist.dto.GenreDto;
+import com.lerkin.titllist.entity.GenreEntity;
 import com.lerkin.titllist.repository.GenreRepository;
 import com.lerkin.titllist.service.mapper.DtoMapper;
 import lombok.RequiredArgsConstructor;

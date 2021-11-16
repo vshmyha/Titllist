@@ -1,6 +1,6 @@
 package com.lerkin.titllist.repository;
 
-import com.lerkin.titllist.dao.entity_db.AnimeEntity;
+import com.lerkin.titllist.entity.AnimeEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

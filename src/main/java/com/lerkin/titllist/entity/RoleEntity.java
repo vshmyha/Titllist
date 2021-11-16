@@ -1,24 +1,24 @@
-package com.lerkin.titllist.dao.entity_db;
+package com.lerkin.titllist.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "genres")
+@Table(name = "roles")
 @Data
-public class GenreEntity {
+public class RoleEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +26,7 @@ public class GenreEntity {
 
 	private String name;
 
-	@ManyToMany(mappedBy = "genres")
-	@ToString.Exclude
-	private List<AnimeEntity> animes;
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+	private List<UserEntity> users;
 
 }

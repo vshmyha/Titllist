@@ -1,6 +1,6 @@
 package com.lerkin.titllist.repository;
 
-import com.lerkin.titllist.dao.entity_db.UserEntity;
+import com.lerkin.titllist.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

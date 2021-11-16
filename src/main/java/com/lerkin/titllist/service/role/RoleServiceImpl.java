@@ -1,8 +1,8 @@
 package com.lerkin.titllist.service.role;
 
-import com.lerkin.titllist.dao.entity_db.RoleEntity;
-import com.lerkin.titllist.dao.entity_db.UserEntity;
 import com.lerkin.titllist.dto.Role;
+import com.lerkin.titllist.entity.RoleEntity;
+import com.lerkin.titllist.entity.UserEntity;
 import com.lerkin.titllist.exception.RequestedObjectNotFoundException;
 import com.lerkin.titllist.repository.AvailableRoleRepository;
 import com.lerkin.titllist.repository.RoleRepository;

@@ -1,6 +1,6 @@
-package com.lerkin.titllist.dao.entity_db;
+package com.lerkin.titllist.entity;
 
-import com.lerkin.titllist.dao.entity_db.entity_id.TitllistNoteId;
+import com.lerkin.titllist.entity.entity_id.TitllistNoteId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,9 +1,9 @@
 package com.lerkin.titllist.service.user;
 
-import com.lerkin.titllist.dao.entity_db.RoleEntity;
-import com.lerkin.titllist.dao.entity_db.UserEntity;
 import com.lerkin.titllist.dto.Role;
 import com.lerkin.titllist.dto.UserDto;
+import com.lerkin.titllist.entity.RoleEntity;
+import com.lerkin.titllist.entity.UserEntity;
 import com.lerkin.titllist.exception.UserFriendlyException;
 import com.lerkin.titllist.repository.RoleRepository;
 import com.lerkin.titllist.repository.UserRepository;
