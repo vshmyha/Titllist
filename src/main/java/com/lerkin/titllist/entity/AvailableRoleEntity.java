@@ -17,7 +17,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @Data
-
 @Table(name = "available_roles")
 public class AvailableRoleEntity implements Serializable {
 
